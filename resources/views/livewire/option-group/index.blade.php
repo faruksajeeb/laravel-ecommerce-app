@@ -131,7 +131,7 @@
                         </table>
                     </div>
 
-                    <div class="card-footer " wire:key="$option_groups->id">
+                    <div class="card-footer" wire:key="$option_groups->id">
                         <div class="row">
                             <div class="col-md-6">
                                 {{ $option_groups->links() }}
@@ -150,8 +150,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 @include('livewire.option-group.create')

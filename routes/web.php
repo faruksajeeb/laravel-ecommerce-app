@@ -10,10 +10,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Livewire\OptionGroup;
 use App\Http\Livewire\Options;
+
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Shop;
 use App\Http\Livewire\Cart;
 use App\Http\Livewire\Checkout;
+use App\Http\Livewire\CustomerLogin;
+use App\Http\Livewire\CustomerRegister;
+use App\Http\Livewire\About;
+use App\Http\Livewire\Contact;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,9 +31,13 @@ use App\Http\Livewire\Checkout;
 */
 
 Route::get('/',Home::class)->name('/'); 
+Route::get('/about',About::class)->name('about'); 
+Route::get('/contact',Contact::class)->name('contact'); 
 Route::get('/shop',Shop::class)->name('shop'); 
 Route::get('/cart',Cart::class)->name('cart'); 
 Route::get('/checkout',Checkout::class)->name('checkout'); 
+Route::get('/customer-login',CustomerLogin::class)->name('customer-login'); 
+Route::get('/customer-register',CustomerRegister::class)->name('customer-register'); 
 
 Route::middleware('auth')->group(function () {
     Route::get('active-inactive', [Webspice::class, 'activeInactive'])->name('active.inactive');

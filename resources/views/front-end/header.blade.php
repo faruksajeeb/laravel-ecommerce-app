@@ -38,7 +38,7 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info header-info-right">
                         <ul>
-                            <li><i class="fi-rs-key"></i><a href="login.html">Log In </a> / <a href="register.html">Sign
+                            <li><i class="fi-rs-key"></i><a href="{{ route('customer-login') }}">Log In </a> / <a href="{{ route('customer-register') }}">Sign
                                     Up</a></li>
                         </ul>
                     </div>
@@ -383,8 +383,8 @@
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                         <nav>
                             <ul>
-                                <li><a class="active" href="index.html">Home </a></li>
-                                <li><a href="about.html">About</a></li>
+                                <li><a class="active" href="{{ route('/') }}">Home </a></li>
+                                <li><a href="{{ route('about') }}">About</a></li>
                                 <li><a href="{{ route('shop') }}">Shop</a></li>
                                 <li class="position-static"><a href="#">Our Collections <i
                                             class="fi-rs-angle-down"></i></a>
@@ -447,7 +447,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{{ route('contact') }}">Contact</a></li>
                                 <li><a href="#">My Account<i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="#">Dashboard</a></li>
