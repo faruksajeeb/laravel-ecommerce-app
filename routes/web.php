@@ -13,6 +13,7 @@ use App\Http\Livewire\Options;
 
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Shop;
+use App\Http\Livewire\ProductDetails;
 use App\Http\Livewire\Cart;
 use App\Http\Livewire\Checkout;
 use App\Http\Livewire\CustomerLogin;
@@ -34,6 +35,7 @@ Route::get('/',Home::class)->name('/');
 Route::get('/about',About::class)->name('about'); 
 Route::get('/contact',Contact::class)->name('contact'); 
 Route::get('/shop',Shop::class)->name('shop'); 
+Route::get('/product-details/{productId}',ProductDetails::class)->name('product-details'); 
 Route::get('/cart',Cart::class)->name('cart'); 
 Route::get('/checkout',Checkout::class)->name('checkout'); 
 Route::get('/customer-login',CustomerLogin::class)->name('customer-login'); 

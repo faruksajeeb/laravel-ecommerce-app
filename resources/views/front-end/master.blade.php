@@ -14,8 +14,20 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend-assets/imgs/theme/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('frontend-assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend-assets/css/custom.css') }}">
+    <style>
+        .pagination>li>a:focus,
+        .pagination>li>a:hover,
+        .pagination>li>span:focus,
+        .pagination>li>span:hover {
+            z-index: 3;
+            color: #23527c;
+            background-color: purple;
+            border-color: #ddd;
+        }
+    </style>
+    @livewireStyles
 </head>
-@livewireStyles
+
 
 <body>
     @include('front-end.header')
@@ -179,7 +191,8 @@
     <!-- Template  JS -->
     <script src="{{ asset('frontend-assets/js/main.js?v=3.3') }}"></script>
     <script src="{{ asset('frontend-assets/js/shop.js?v=3.3') }}"></script>
+    @livewireScripts
 </body>
-@livewireScripts
+
 
 </html>

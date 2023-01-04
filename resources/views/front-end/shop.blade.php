@@ -1,12 +1,5 @@
-@extends('front-end.master')
 
-@section('title')
-    Shop
-@endsection
-
-@section('content')
     <div>
-
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -21,7 +14,7 @@
                     <div class="col-lg-9">
                         <div class="shop-product-fillter">
                             <div class="totall-product">
-                                <p> We found <strong class="text-brand">688</strong> items for you!</p>
+                                <p> We found <strong class="text-brand">{{ $products->total() }}</strong> items for you!</p>
                             </div>
                             <div class="sort-by-product-area">
                                 <div class="sort-by-cover mr-10">
@@ -30,12 +23,20 @@
                                             <span><i class="fi-rs-apps"></i>Show:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
-                                            <span> 50 <i class="fi-rs-angle-small-down"></i></span>
+                                            <span> 12 <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
                                     <div class="sort-by-dropdown">
+                                        {{-- <select name="" id="" class="py-0" wire:model='pazeSize'>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="100">100</option>
+                                            <option value="500">500</option>
+                                        </select> --}}
                                         <ul>
-                                            <li><a class="active" href="#">50</a></li>
+                                            <li><a class="active" href="#">12</a></li>
+                                            <li><a href="#">50</a></li>
                                             <li><a href="#">100</a></li>
                                             <li><a href="#">150</a></li>
                                             <li><a href="#">200</a></li>
@@ -94,15 +95,15 @@
                                         <div class="product-category">
                                             <a href="shop.html">Music</a>
                                         </div>
-                                        <h2><a href="product-details.html">{{ $product->name }}</a></h2>
+                                        <h2><a href="{{ route('product-details',['productId'=>$product->id]) }}">{{ $product->name }}</a></h2>
                                         <div class="rating-result" title="90%">
                                             <span>
                                                 <span>90%</span>
                                             </span>
                                         </div>
                                         <div class="product-price">
-                                            <span>$ {{$product->sale_price}} </span>
-                                            <span class="old-price">$ {{$product->regular_price}}</span>
+                                            <span>৳ {{$product->sale_price}} </span>
+                                            <span class="old-price">৳ {{$product->regular_price}}</span>
                                         </div>
                                         <div class="product-action-1 show">
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.php"><i
@@ -111,11 +112,12 @@
                                     </div>
                                 </div>
                             </div>                                
-                            @endforeach                            
+                            @endforeach   
+                                                  
                         </div>
                         <!--pagination-->
                         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                            {{ $products->links() }}
+                            {{ $products->links() }}   
                             {{-- <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-start">
                                     <li class="page-item active"><a class="page-link" href="#">01</a></li>
@@ -259,6 +261,4 @@
                 </div>
             </div>
         </section>
-
     </div>
-@endsection
