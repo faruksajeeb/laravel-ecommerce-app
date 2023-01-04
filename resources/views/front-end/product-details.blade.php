@@ -21,36 +21,50 @@
                                     <!-- MAIN SLIDES -->
                                     <div class="product-image-slider">
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-2.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-2.jpg"
+                                                alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-1.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-1.jpg"
+                                                alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-3.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-3.jpg"
+                                                alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-4.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-4.jpg"
+                                                alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-5.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-5.jpg"
+                                                alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-6.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-6.jpg"
+                                                alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/shop/product-16-7.jpg') }}" alt="product image">
+                                            <img src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $product->id }}-7.jpg"
+                                                alt="product image">
                                         </figure>
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-3.jpg') }}" alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-4.jpg') }}" alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-5.jpg') }}" alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-6.jpg') }}" alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-7.jpg') }}" alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-8.jpg') }}" alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-9.jpg') }}" alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-3.jpg') }}"
+                                                alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-4.jpg') }}"
+                                                alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-5.jpg') }}"
+                                                alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-6.jpg') }}"
+                                                alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-7.jpg') }}"
+                                                alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-8.jpg') }}"
+                                                alt="product image"></div>
+                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-9.jpg') }}"
+                                                alt="product image"></div>
                                     </div>
                                 </div>
                                 <!-- End Gallery -->
@@ -58,23 +72,27 @@
                                     <ul class="text-grey-5 d-inline-block">
                                         <li><strong class="mr-10">Share this:</strong></li>
                                         <li class="social-facebook"><a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-facebook.svg') }}" alt=""></a>
+                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-facebook.svg') }}"
+                                                    alt=""></a>
                                         </li>
                                         <li class="social-twitter"> <a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-twitter.svg') }}" alt=""></a>
+                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-twitter.svg') }}"
+                                                    alt=""></a>
                                         </li>
                                         <li class="social-instagram"><a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-instagram.svg') }}" alt=""></a>
+                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-instagram.svg') }}"
+                                                    alt=""></a>
                                         </li>
                                         <li class="social-linkedin"><a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg') }}" alt=""></a>
+                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg') }}"
+                                                    alt=""></a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <div class="detail-info">
-                                    <h2 class="title-detail">Colorful Pattern Shirts HD450</h2>
+                                    <h2 class="title-detail">{{ $product->name }}</h2>
                                     <div class="product-detail-rating">
                                         <div class="pro-details-brand">
                                             <span> Brands: <a href="shop.html">Bootstrap</a></span>
@@ -89,21 +107,19 @@
                                     </div>
                                     <div class="clearfix product-price-cover">
                                         <div class="product-price primary-color float-left">
-                                            <ins><span class="text-brand">$120.00</span></ins>
-                                            <ins><span class="old-price font-md ml-15">$200.00</span></ins>
+                                            <ins><span class="text-brand">৳ {{ $product->sale_price }}</span></ins>
+                                            <ins><span class="old-price font-md ml-15">৳
+                                                    {{ $product->regular_price }}</span></ins>
                                             <span class="save-price  font-md color3 ml-15">25% Off</span>
                                         </div>
                                     </div>
                                     <div class="bt-1 border-color-1 mt-15 mb-15"></div>
                                     <div class="short-desc mb-30">
-                                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem
-                                            officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore
-                                            impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum,
-                                            accusantium!</p>
+                                        <p>{{ $product->short_description }}</p>
                                     </div>
                                     <div class="product_sort_info font-xs mb-30">
                                         <ul>
-                                            <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 1 Year AL Jazeera Brand
+                                            <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 1 Year Brand
                                                 Warranty</li>
                                             <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 30 Day Return Policy
                                             </li>
@@ -157,11 +173,12 @@
                                         </div>
                                     </div>
                                     <ul class="product-meta font-xs color-grey mt-50">
-                                        <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
+                                        <li class="mb-5">SKU: <a href="#">{{ $product->SKU }}</a></li>
                                         <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a
                                                 href="#" rel="tag">Women</a>, <a href="#"
                                                 rel="tag">Dress</a> </li>
-                                        <li>Availability:<span class="in-stock text-success ml-5">8 Items In
+                                        <li>Availability:<span
+                                                class="in-stock text-success ml-5">{{ $product->quantity }} Items In
                                                 Stock</span></li>
                                     </ul>
                                 </div>
@@ -186,16 +203,7 @@
                             <div class="tab-content shop_info_tab entry-main-content">
                                 <div class="tab-pane fade show active" id="Description">
                                     <div class="">
-                                        <p>Uninhibited carnally hired played in whimpered dear gorilla koala depending
-                                            and much yikes off far quetzal goodness and from for grimaced goodness
-                                            unaccountably and meadowlark near unblushingly crucial scallop
-                                            tightly neurotic hungrily some and dear furiously this apart.</p>
-                                        <p>Spluttered narrowly yikes left moth in yikes bowed this that grizzly much
-                                            hello on spoon-fed that alas rethought much decently richly and wow against
-                                            the frequent fluidly at formidable acceptably flapped
-                                            besides and much circa far over the bucolically hey precarious goldfinch
-                                            mastodon goodness gnashed a jellyfish and one however because.
-                                        </p>
+                                        <p>{{ $product->description }}</p>
                                         <ul class="product-more-infor mt-30">
                                             <li><span>Type Of Packing</span> Bottle</li>
                                             <li><span>Color</span> Green, Pink, Powder Blue, Purple</li>
@@ -503,175 +511,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-60">
-                            <div class="col-12">
-                                <h3 class="section-title style-1 mb-30">Related products</h3>
-                            </div>
-                            <div class="col-12">
-                                <div class="row related-products">
-                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                        <div class="product-cart-wrap small hover-up">
-                                            <div class="product-img-action-wrap">
-                                                <div class="product-img product-img-zoom">
-                                                    <a href="product-details.html" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="{{ asset('frontend-assets/imgs/shop/product-2-1.jpg') }}" alt="">
-                                                        <img class="hover-img" src="{{ asset('frontend-assets/imgs/shop/product-2-2.jpg') }}"
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn small hover-up"
-                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                            class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                        href="wishlist.php" tabindex="0"><i
-                                                            class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="compare.php" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
-                                                </div>
-                                                <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Hot</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-content-wrap">
-                                                <h2><a href="product-details.html" tabindex="0">Ulstra Bass
-                                                        Headphone</a></h2>
-                                                <div class="rating-result" title="90%">
-                                                    <span>
-                                                    </span>
-                                                </div>
-                                                <div class="product-price">
-                                                    <span>$238.85 </span>
-                                                    <span class="old-price">$245.8</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                        <div class="product-cart-wrap small hover-up">
-                                            <div class="product-img-action-wrap">
-                                                <div class="product-img product-img-zoom">
-                                                    <a href="product-details.html" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="{{ asset('frontend-assets/imgs/shop/product-3-1.jpg') }}" alt="">
-                                                        <img class="hover-img" src="{{ asset('frontend-assets/imgs/shop/product-4-2.jpg') }}"
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn small hover-up"
-                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                            class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                        href="wishlist.php" tabindex="0"><i
-                                                            class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="compare.php" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
-                                                </div>
-                                                <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="sale">-12%</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-content-wrap">
-                                                <h2><a href="product-details.html" tabindex="0">Smart Bluetooth
-                                                        Speaker</a></h2>
-                                                <div class="rating-result" title="90%">
-                                                    <span>
-                                                    </span>
-                                                </div>
-                                                <div class="product-price">
-                                                    <span>$138.85 </span>
-                                                    <span class="old-price">$145.8</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                        <div class="product-cart-wrap small hover-up">
-                                            <div class="product-img-action-wrap">
-                                                <div class="product-img product-img-zoom">
-                                                    <a href="product-details.html" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="{{ asset('frontend-assets/imgs/shop/product-4-1.jpg') }}" alt="">
-                                                        <img class="hover-img" src="{{ asset('frontend-assets/imgs/shop/product-4-2.jpg') }}"
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn small hover-up"
-                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                            class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                        href="wishlist.php" tabindex="0"><i
-                                                            class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="compare.php" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
-                                                </div>
-                                                <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="new">New</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-content-wrap">
-                                                <h2><a href="product-details.html" tabindex="0">HomeSpeak 12UEA
-                                                        Goole</a></h2>
-                                                <div class="rating-result" title="90%">
-                                                    <span>
-                                                    </span>
-                                                </div>
-                                                <div class="product-price">
-                                                    <span>$738.85 </span>
-                                                    <span class="old-price">$1245.8</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                        <div class="product-cart-wrap small hover-up mb-0">
-                                            <div class="product-img-action-wrap">
-                                                <div class="product-img product-img-zoom">
-                                                    <a href="product-details.html" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="{{ asset('frontend-assets/imgs/shop/product-5-1.jpg') }}" alt="">
-                                                        <img class="hover-img" src="{{ asset('frontend-assets/imgs/shop/product-3-2.jpg') }}"
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn small hover-up"
-                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                            class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                        href="wishlist.php" tabindex="0"><i
-                                                            class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="compare.php" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
-                                                </div>
-                                                <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Hot</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-content-wrap">
-                                                <h2><a href="product-details.html" tabindex="0">Dadua Camera 4K
-                                                        2022EF</a></h2>
-                                                <div class="rating-result" title="90%">
-                                                    <span>
-                                                    </span>
-                                                </div>
-                                                <div class="product-price">
-                                                    <span>$89.8 </span>
-                                                    <span class="old-price">$98.8</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('front-end.related-products')
                     </div>
                 </div>
                 <div class="col-lg-3 primary-sidebar sticky-sidebar">
@@ -746,48 +586,7 @@
                             Fillter</a>
                     </div>
                     <!-- Product sidebar Widget -->
-                    <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
-                        <div class="widget-header position-relative mb-20 pb-10">
-                            <h5 class="widget-title mb-10">New products</h5>
-                            <div class="bt-1 border-color-1"></div>
-                        </div>
-                        <div class="single-post clearfix">
-                            <div class="image">
-                                <img src="{{ asset('frontend-assets/imgs/shop/thumbnail-3.jpg') }}" alt="#">
-                            </div>
-                            <div class="content pt-10">
-                                <h5><a href="product-details.html">Chen Cardigan</a></h5>
-                                <p class="price mb-0 mt-5">$99.50</p>
-                                <div class="product-rate">
-                                    <div class="product-rating" style="width:90%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-post clearfix">
-                            <div class="image">
-                                <img src="{{ asset('frontend-assets/imgs/shop/thumbnail-4.jpg') }}" alt="#">
-                            </div>
-                            <div class="content pt-10">
-                                <h6><a href="product-details.html">Chen Sweater</a></h6>
-                                <p class="price mb-0 mt-5">$89.50</p>
-                                <div class="product-rate">
-                                    <div class="product-rating" style="width:80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-post clearfix">
-                            <div class="image">
-                                <img src="{{ asset('frontend-assets/imgs/shop/thumbnail-5.jpg') }}" alt="#">
-                            </div>
-                            <div class="content pt-10">
-                                <h6><a href="product-details.html">Colorful Jacket</a></h6>
-                                <p class="price mb-0 mt-5">$25</p>
-                                <div class="product-rate">
-                                    <div class="product-rating" style="width:60%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('front-end.new-products')
                 </div>
             </div>
         </div>
