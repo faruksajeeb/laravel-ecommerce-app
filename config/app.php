@@ -187,6 +187,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -213,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ])->toArray(),
 
 ];

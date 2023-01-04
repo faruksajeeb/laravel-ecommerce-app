@@ -1,10 +1,3 @@
-@extends('front-end.master')
-
-@section('title')
-    Cart
-@endsection
-
-@section('content')
     <div>
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -26,85 +19,61 @@
                                         <th scope="col">Image</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Price</th>
+                                        <th scope="col">Size</th>
                                         <th scope="col">Quantity</th>
+                                        <th scope="col">Tax</th>
                                         <th scope="col">Subtotal</th>
                                         <th scope="col">Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if (Session::has('success-message'))
+                                    <div class="alert alert-success">
+                                        <strong>Success, </strong>{{ Session::get('success-message') }}
+                                    </div>
+                                        
+                                    @endif
+                                    @if(Cart::count()>0):
+                                    @foreach(Cart::content() as $item)
                                     <tr>
-                                        <td class="image product-thumbnail"><img src="{{ asset('frontend-assets/imgs/shop/product-1-2.jpg') }}"
+                                        <td class="image product-thumbnail"><img
+                                                src="{{ asset('frontend-assets/imgs/shop/product-')}}{{$item->id}}-2.jpg"
                                                 alt="#"></td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="product-details.html">J.Crew Mercantile
-                                                    Women's Short-Sleeve</a></h5>
-                                            <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
+                                            <h5 class="product-name"><a href="product-details.html">{{$item->name}}</a></h5>
+                                            <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy
+                                                magndapibus.
                                             </p>
                                         </td>
-                                        <td class="price" data-title="Price"><span>$65.00 </span></td>
+                                        <td class="price" data-title="Price"><span>{{$item->price}} </span></td>
+                                        <td class="size" data-title="size"><span><?php echo ($item->options->has('size') ? $item->options->size : ''); ?> </span></td>
+                                        
                                         <td class="text-center" data-title="Stock">
                                             <div class="detail-qty border radius  m-auto">
-                                                <a href="#" class="qty-down"><i
+                                                <a href="#" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')" class="qty-down"><i
                                                         class="fi-rs-angle-small-down"></i></a>
-                                                <span class="qty-val">1</span>
-                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                                <span class="qty-val">{{$item->qty}}</span>
+                                                <a href="#" wire:click.prevent="increaseQuantity('{{$item->rowId}}')" class="qty-up"><i
+                                                        class="fi-rs-angle-small-up"></i></a>
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
-                                            <span>$65.00 </span>
+                                            <span>{{ $item->tax}} </span>
+                                        </td>
+                                        <td class="text-right" data-title="Cart">
+                                            <span>{{ $item->total}} </span>
                                         </td>
                                         <td class="action" data-title="Remove"><a href="#" class="text-muted"><i
                                                     class="fi-rs-trash"></i></a></td>
                                     </tr>
+                                    @endforeach
+                                    @else
+                                        <p>No item in cart.</p>
+                                    @endif
                                     <tr>
-                                        <td class="image"><img src="{{ asset('frontend-assets/imgs/shop/product-11-2.jpg') }}" alt="#"></td>
-                                        <td class="product-des">
-                                            <h5 class="product-name"><a href="product-details.html">Amazon Essentials
-                                                    Women's Tank</a></h5>
-                                            <p class="font-xs">Sit at ipsum amet clita no est,<br> sed amet sadipscing et
-                                                gubergren</p>
-                                        </td>
-                                        <td class="price" data-title="Price"><span>$75.00 </span></td>
-                                        <td class="text-center" data-title="Stock">
-                                            <div class="detail-qty border radius  m-auto">
-                                                <a href="#" class="qty-down"><i
-                                                        class="fi-rs-angle-small-down"></i></a>
-                                                <span class="qty-val">2</span>
-                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-                                            </div>
-                                        </td>
-                                        <td class="text-right" data-title="Cart">
-                                            <span>$150.00 </span>
-                                        </td>
-                                        <td class="action" data-title="Remove"><a href="#" class="text-muted"><i
-                                                    class="fi-rs-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="image"><img src="{{ asset('frontend-assets/imgs/shop/product-6-1.jpg') }}" alt="#"></td>
-                                        <td class="product-des">
-                                            <h5 class="product-name"><a href="product-details.html">Amazon Brand - Daily
-                                                    Ritual Women's Jersey </a></h5>
-                                            <p class="font-xs">Erat amet et et amet diam et et.<br> Justo amet at dolore
-                                            </p>
-                                        </td>
-                                        <td class="price" data-title="Price"><span>$62.00 </span></td>
-                                        <td class="text-center" data-title="Stock">
-                                            <div class="detail-qty border radius  m-auto">
-                                                <a href="#" class="qty-down"><i
-                                                        class="fi-rs-angle-small-down"></i></a>
-                                                <span class="qty-val">1</span>
-                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-                                            </div>
-                                        </td>
-                                        <td class="text-right" data-title="Cart">
-                                            <span>$62.00 </span>
-                                        </td>
-                                        <td class="action" data-title="Remove"><a href="#" class="text-muted"><i
-                                                    class="fi-rs-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="text-end">
-                                            <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear
+                                        <td colspan="8" class="text-end">
+                                            <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i>
+                                                Clear
                                                 Cart</a>
                                         </td>
                                     </tr>
@@ -113,7 +82,7 @@
                         </div>
                         <div class="cart-action text-end">
                             <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
-                            <a class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                            <a class="btn " href="{{route('shop')}}"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
                         <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
@@ -121,7 +90,8 @@
                                 <div class="heading_s1 mb-3">
                                     <h4>Calculate Shipping</h4>
                                 </div>
-                                <p class="mt-15 mb-30">Flat rate: <span class="font-xl text-brand fw-900">5%</span></p>
+                                <p class="mt-15 mb-30">Flat rate: <span class="font-xl text-brand fw-900">5%</span>
+                                </p>
                                 <form class="field_form shipping_calculator">
                                     <div class="form-row">
                                         <div class="form-group col-lg-12">
@@ -388,7 +358,8 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-lg-12">
-                                            <button class="btn  btn-sm"><i class="fi-rs-shuffle mr-10"></i>Update</button>
+                                            <button class="btn  btn-sm"><i
+                                                    class="fi-rs-shuffle mr-10"></i>Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -427,7 +398,11 @@
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
                                                     <td class="cart_total_amount"><span
-                                                            class="font-lg fw-900 text-brand">$240.00</span></td>
+                                                            class="font-lg fw-900 text-brand">{{Cart::subtotal()}}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Tax</td>
+                                                    <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>{{Cart::tax()}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Shipping</td>
@@ -437,13 +412,14 @@
                                                 <tr>
                                                     <td class="cart_total_label">Total</td>
                                                     <td class="cart_total_amount"><strong><span
-                                                                class="font-xl fw-900 text-brand">$240.00</span></strong>
+                                                                class="font-xl fw-900 text-brand">{{Cart::total()}}</span></strong>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="{{ route('checkout') }}" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed
+                                    <a href="{{ route('checkout') }}" class="btn "> <i
+                                            class="fi-rs-box-alt mr-10"></i> Proceed
                                         To CheckOut</a>
                                 </div>
                             </div>
@@ -453,4 +429,3 @@
             </div>
         </section>
     </div>
-@endsection
