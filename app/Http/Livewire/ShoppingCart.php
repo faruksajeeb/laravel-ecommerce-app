@@ -10,11 +10,25 @@ class ShoppingCart extends Component
         $product = Cart::get($rowId);
         $qty = $product->qty + 1;
         Cart::update($rowId,$qty);
+        $this->emitTo('shopping-cart-icon','refreshComponent');
     }
     public function decreaseQuantity($rowId){
         $product = Cart::get($rowId);
         $qty = $product->qty - 1;
         Cart::update($rowId,$qty);
+        $this->emitTo('shopping-cart-icon','refreshComponent');
+    }
+
+    public function delete($id){
+        Cart::remove($id);
+        $this->emitTo('shopping-cart-icon','refreshComponent');
+        session()->flash("success-message","Item Removed.");
+    }
+
+    public function destroy(){
+        Cart::destroy();
+        $this->emitTo('shopping-cart-icon','refreshComponent');
+        session()->flash("success-message","All Cleared.");
     }
     public function render()
     {

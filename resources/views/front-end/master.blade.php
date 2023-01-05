@@ -14,6 +14,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend-assets/imgs/theme/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('frontend-assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend-assets/css/custom.css') }}">
+    <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('sweetalert2/sweetalert2.min.css') }}">
     <style>
         .pagination>li>a:focus,
         .pagination>li>a:hover,
@@ -192,6 +194,17 @@
     <script src="{{ asset('frontend-assets/js/main.js?v=3.3') }}"></script>
     <script src="{{ asset('frontend-assets/js/shop.js?v=3.3') }}"></script>
     @livewireScripts
+    <script>
+        Livewire.on('added', message => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: ''+message+ '',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+    </script>
 </body>
 
 
