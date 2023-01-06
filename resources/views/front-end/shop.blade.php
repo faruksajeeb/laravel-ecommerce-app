@@ -23,24 +23,15 @@
                                             <span><i class="fi-rs-apps"></i>Show:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
-                                            <span> 12 <i class="fi-rs-angle-small-down"></i></span>
+                                            <span> {{$pageSize}} <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
-                                    <div class="sort-by-dropdown">
-                                        {{-- <select name="" id="" class="py-0" wire:model='pazeSize'>
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="100">100</option>
-                                            <option value="500">500</option>
-                                        </select> --}}
+                                    <div class="sort-by-dropdown">                                       
                                         <ul>
-                                            <li><a class="active" href="#">12</a></li>
-                                            <li><a href="#">50</a></li>
-                                            <li><a href="#">100</a></li>
-                                            <li><a href="#">150</a></li>
-                                            <li><a href="#">200</a></li>
-                                            <li><a href="#">All</a></li>
+                                            <li><a class="{{$pageSize==12?'active':''}}" href="#" wire:click.prevent='changePageSize(12)'>12</a></li>
+                                            <li><a class="{{$pageSize==24?'active':''}}" href="#" wire:click.prevent='changePageSize(24)'>24</a></li>
+                                            <li><a class="{{$pageSize==32?'active':''}}" href="#" wire:click.prevent='changePageSize(32)'>32</a></li>
+                                            <li><a class="{{$pageSize==48?'active':''}}" href="#" wire:click.prevent='changePageSize(48)'>48</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -50,16 +41,17 @@
                                             <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
-                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                            {{-- <span> Featured <i class="fi-rs-angle-small-down"></i></span> --}}
+                                            <span> {{$orderBy}} <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="active" href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to High</a></li>
-                                            <li><a href="#">Price: High to Low</a></li>
-                                            <li><a href="#">Release Date</a></li>
-                                            <li><a href="#">Avg. Rating</a></li>
+                                            <li><a class="{{$orderBy=='Default Sorting'?'active':''}}" href="#" wire:click.prevent='changeOrderBy("Default Sorting")'>Default Sorting</a></li>
+                                            <li><a class="{{$orderBy=='Price: Low to High'?'active':''}}" href="#" wire:click.prevent='changeOrderBy("Price: Low to High")'>Price: Low to High</a></li>
+                                            <li><a class="{{$orderBy=='Price: High to Low'?'active':''}}" href="#" wire:click.prevent='changeOrderBy("Price: High to Low")'>Price: High to Low</a></li>
+                                            <li><a class="{{$orderBy=='Release Date'?'active':''}}" href="#" wire:click.prevent='changeOrderBy("Release Date")'>Release Date</a></li>
+                                            {{-- <li><a href="#">Avg. Rating</a></li> --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -139,13 +131,9 @@
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
-                                <li><a href="shop.html">Shoes & Bags</a></li>
-                                <li><a href="shop.html">Blouses & Shirts</a></li>
-                                <li><a href="shop.html">Dresses</a></li>
-                                <li><a href="shop.html">Swimwear</a></li>
-                                <li><a href="shop.html">Beauty</a></li>
-                                <li><a href="shop.html">Jewelry & Watch</a></li>
-                                <li><a href="shop.html">Accessories</a></li>
+                                @foreach ($categories as $category)
+                                    <li><a href="shop.html">{{$category->name}}</a></li>
+                                @endforeach                                
                             </ul>
                         </div>
                         <!-- Fillter By Price -->
