@@ -8,18 +8,23 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
-use App\Http\Livewire\OptionGroup;
-use App\Http\Livewire\Options;
 
-use App\Http\Livewire\Home;
-use App\Http\Livewire\Shop;
-use App\Http\Livewire\ProductDetails;
-use App\Http\Livewire\ShoppingCart;
-use App\Http\Livewire\Checkout;
-use App\Http\Livewire\CustomerLogin;
-use App\Http\Livewire\CustomerRegister;
-use App\Http\Livewire\About;
-use App\Http\Livewire\Contact;
+use App\Http\Livewire\Backend\OptionGroup;
+use App\Http\Livewire\Backend\Options;
+use App\Http\Livewire\Backend\CategoryComponent;
+use App\Http\Livewire\Backend\SubcategoryComponent;
+
+use App\Http\Livewire\Frontend\Home;
+use App\Http\Livewire\Frontend\Shop;
+use App\Http\Livewire\Frontend\ProductDetails;
+use App\Http\Livewire\Frontend\ShoppingCart;
+use App\Http\Livewire\Frontend\Checkout;
+use App\Http\Livewire\Frontend\CustomerLogin;
+use App\Http\Livewire\Frontend\CustomerRegister;
+use App\Http\Livewire\Frontend\About;
+use App\Http\Livewire\Frontend\Contact;
+use App\Http\Livewire\Frontend\SearchComponent;
+use App\Http\Livewire\Frontend\WishlistComponent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,9 +42,11 @@ Route::get('/contact',Contact::class)->name('contact');
 Route::get('/shop',Shop::class)->name('shop'); 
 Route::get('/product-details/{productId}',ProductDetails::class)->name('product-details'); 
 Route::get('/cart',ShoppingCart::class)->name('cart'); 
+Route::get('/wishlist',WishlistComponent::class)->name('wishlist'); 
 Route::get('/checkout',Checkout::class)->name('checkout'); 
 Route::get('/customer-login',CustomerLogin::class)->name('customer-login'); 
 Route::get('/customer-register',CustomerRegister::class)->name('customer-register'); 
+Route::get('/search',SearchComponent::class)->name('product-search'); 
 
 Route::middleware('auth')->group(function () {
     Route::get('active-inactive', [Webspice::class, 'activeInactive'])->name('active.inactive');
@@ -68,6 +75,8 @@ Route::middleware('auth')->group(function () {
     
     Route::get('option-groups',OptionGroup::class)->name('option-groups'); 
     Route::get('options',Options::class)->name('options'); 
+    Route::get('categories',CategoryComponent::class)->name('categories'); 
+    Route::get('subcategories',SubcategoryComponent::class)->name('subcategories'); 
     
     Route::get('clear-permission-cache',[RoleController::class,'clearPermissionCache'])->name('clear-permission-cache');
 });

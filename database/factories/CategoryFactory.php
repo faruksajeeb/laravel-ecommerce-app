@@ -21,7 +21,8 @@ class CategoryFactory extends Factory
         $slug = Str::slug($categoryName,'-');
         return [
             'name' => $categoryName,
-            'slug' => $slug
+            'slug' => $slug,
+            'status' => 1
         ];
     }
 }
