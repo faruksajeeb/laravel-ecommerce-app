@@ -47,7 +47,7 @@
                                                         magndapibus.
                                                     </p>
                                                 </td>
-                                                <td class="price" data-title="Price"><span>{{ $item->price }} </span>
+                                                <td class="price" data-title="Price"><span>৳ {{ $item->price }} </span>
                                                 </td>
                                                 <td class="size" data-title="size"><span><?php echo $item->options->has('size') ? $item->options->size : ''; ?> </span>
                                                 </td>
@@ -64,10 +64,10 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-right" data-title="Cart">
-                                                    <span>{{ $item->tax }} </span>
+                                                    <span>৳ {{ $item->tax }} </span>
                                                 </td>
                                                 <td class="text-right" data-title="Cart">
-                                                    <span>{{ $item->total }} </span>
+                                                    <span>৳ {{ $item->total }} </span>
                                                 </td>
                                                 <td class="action" data-title="Remove"><a href="#"
                                                         wire:click.prevent="delete('{{ $item->rowId }}')"
@@ -408,13 +408,13 @@
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
                                                     <td class="cart_total_amount"><span
-                                                            class="font-lg fw-900 text-brand">{{ Cart::instance('cart')->subtotal() }}</span>
+                                                            class="font-lg fw-900 text-brand">৳ {{ Cart::instance('cart')->subtotal() }}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Tax</td>
                                                     <td class="cart_total_amount"> <i
-                                                            class="ti-gift mr-5"></i>{{ Cart::instance('cart')->tax() }}</td>
+                                                            class="ti-gift mr-5"></i>৳ {{ Cart::instance('cart')->tax() }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Shipping</td>
@@ -424,7 +424,7 @@
                                                 <tr>
                                                     <td class="cart_total_label">Total</td>
                                                     <td class="cart_total_amount"><strong><span
-                                                                class="font-xl fw-900 text-brand">{{ Cart::instance('cart')->total() }}</span></strong>
+                                                                class="font-xl fw-900 text-brand">৳ {{ Cart::instance('cart')->total() }}</span></strong>
                                                     </td>
                                                 </tr>
                                             </tbody>

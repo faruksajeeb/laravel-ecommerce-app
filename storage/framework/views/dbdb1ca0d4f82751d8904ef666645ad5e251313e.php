@@ -1,5 +1,5 @@
  <?php $__env->slot('title', null, []); ?> 
-    Categories
+    Products
  <?php $__env->endSlot(); ?>
 
 <div>
@@ -12,7 +12,7 @@
                     <div class="card-header bg-white my-0 pt-2 pb-0">
                         <div class="row ">
                             <div class="col-md-8">
-                                <h4 class="card-title py-1"><i class="fa fa-list"></i> Categories</h4>
+                                <h4 class="card-title py-1"><i class="fa fa-list"></i> Products</h4>
                                 
                             </div>
                             <div class="col-md-4 col-sm-12 text-end">
@@ -50,6 +50,19 @@
                                     <option value="-1">Inactive</option>
                                 </select>
                             </div>
+                            <div class="col-md-3">
+                                <div wire:ignore>
+                                    <select name="search_category_id" id="search_category_id"
+                                        wire:model='search_category_id' class="form-control select2">
+                                        <option value="">--Category--</option>
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($val->id); ?>"><?php echo e($val->name); ?>
+
+                                            </option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-2">
                                 <select name="" id="" wire:model='orderBy' class="form-control">
                                     <option value="">--Order By--</option>
@@ -77,7 +90,7 @@
                                     <option value="100">100</option>
                                     <option value="500">500</option>
                                 </select>
-                                Current Page <?php echo e($categories->currentPage()); ?>
+                                Current Page <?php echo e($products->currentPage()); ?>
 
                             </div>
                         </div>
@@ -86,8 +99,11 @@
                             <thead>
                                 <tr>
                                     <th>Sl.</th>
-                                    <th>Category Name</th>
+                                    <th>Image</th>
+                                    <th>product Name</th>
                                     <th>Slug</th>
+                                    <th>Category Name</th>
+                                    <th>Subcategory Name</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
@@ -95,17 +111,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td><?php echo e($key + $categories->firstItem()); ?></td>
+                                        <td><?php echo e($key + $products->firstItem()); ?></td>
+                                        <td><?php echo e(str_replace('_', ' ', $val->image)); ?></td>
                                         <td><?php echo e(str_replace('_', ' ', $val->name)); ?></td>
                                         <td><?php echo e(str_replace('_', ' ', $val->slug)); ?></td>
+                                        <td><?php echo e(str_replace('_', ' ', $val->category->name)); ?></td>
+                                        <td><?php echo e(str_replace('_', ' ', $val->subcategory_name)); ?></td>
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input active_inactive_btn "
                                                     status="<?php echo e($val->status); ?>" <?php echo e($val->status == -1 ? '' : ''); ?>
 
-                                                    table="categories" type="checkbox" id="row_<?php echo e($val->id); ?>"
+                                                    table="products" type="checkbox" id="row_<?php echo e($val->id); ?>"
                                                     value="<?php echo e(Crypt::encryptString($val->id)); ?>"
                                                     <?php echo e($val->status == 1 ? 'checked' : ''); ?> style="cursor:pointer">
                                             </div>
@@ -131,10 +150,10 @@
                         </table>
                     </div>
 
-                    <div class="card-footer " wire:key="$categories->id">
+                    <div class="card-footer " wire:key="$products->id">
                         <div class="row">
                             <div class="col-md-6">
-                                <?php echo e($categories->links()); ?>
+                                <?php echo e($products->links()); ?>
 
                             </div>
                             <div class="col-md-6 text-end">
@@ -142,13 +161,13 @@
                                     <p class="text-sm text-gray-700 leading-5">
                                         <?php echo __('Showing'); ?>
 
-                                        <span class="font-medium"><?php echo e($categories->firstItem()); ?></span>
+                                        <span class="font-medium"><?php echo e($products->firstItem()); ?></span>
                                         <?php echo __('to'); ?>
 
-                                        <span class="font-medium"><?php echo e($categories->lastItem()); ?></span>
+                                        <span class="font-medium"><?php echo e($products->lastItem()); ?></span>
                                         <?php echo __('of'); ?>
 
-                                        <span class="font-medium"><?php echo e($categories->total()); ?></span>
+                                        <span class="font-medium"><?php echo e($products->total()); ?></span>
                                         <?php echo __('results'); ?>
 
                                     </p>
@@ -159,8 +178,8 @@
 
                     </div>
                 </div>
-                <?php echo $__env->make('livewire.backend.category.create', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                <?php echo $__env->make('livewire.backend.category.edit', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php echo $__env->make('livewire.backend.product.create', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php echo $__env->make('livewire.backend.product.edit', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
         </div>
     </section>
@@ -168,11 +187,11 @@
 <?php $__env->startPush('scripts'); ?>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#name').select2();
-            $('#name').on('change', function(e) {
-                var data = $('#name').select2("val");
+            $('#search_category_id').select2();
+            $('#search_category_id').on('change', function(e) {
+                var data = $('#search_category_id').select2("val");
                 Livewire.emit('listenerReferenceHere',data);               
-                window.livewire.find('<?php echo e($_instance->id); ?>').set('name', data);
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('search_category_id', data);
             });
         });
         document.addEventListener('DOMContentLoaded', function() {
@@ -205,4 +224,4 @@
         })
     </script>
 <?php $__env->stopPush(); ?>
-<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/category/index.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/product/index.blade.php ENDPATH**/ ?>

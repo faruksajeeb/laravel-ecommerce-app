@@ -13,6 +13,10 @@ use App\Http\Livewire\Backend\OptionGroup;
 use App\Http\Livewire\Backend\Options;
 use App\Http\Livewire\Backend\CategoryComponent;
 use App\Http\Livewire\Backend\SubcategoryComponent;
+use App\Http\Livewire\Backend\CustomerComponent;
+use App\Http\Livewire\Backend\CouponComponent;
+use App\Http\Livewire\Backend\ProductComponent;
+use App\Http\Livewire\Backend\OrderComponent;
 
 use App\Http\Livewire\Frontend\Home;
 use App\Http\Livewire\Frontend\Shop;
@@ -25,6 +29,8 @@ use App\Http\Livewire\Frontend\About;
 use App\Http\Livewire\Frontend\Contact;
 use App\Http\Livewire\Frontend\SearchComponent;
 use App\Http\Livewire\Frontend\WishlistComponent;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,6 +83,10 @@ Route::middleware('auth')->group(function () {
     Route::get('options',Options::class)->name('options'); 
     Route::get('categories',CategoryComponent::class)->name('categories'); 
     Route::get('subcategories',SubcategoryComponent::class)->name('subcategories'); 
+    Route::get('customers',CustomerComponent::class)->name('customers'); 
+    Route::get('coupons',CouponComponent::class)->name('coupons'); 
+    Route::get('products',ProductComponent::class)->name('products'); 
+    Route::get('orders',OrderComponent::class)->name('orders'); 
     
     Route::get('clear-permission-cache',[RoleController::class,'clearPermissionCache'])->name('clear-permission-cache');
 });

@@ -10,7 +10,9 @@
         </label>
 
     </div>
+    <a href="<?php echo e(url('clear')); ?>" class="float-end">clear all</a>
     <div class="dropdown user ">
+       
         <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="<?php echo e(asset('images/user.png')); ?>" alt="hugenerd" width="30" height="30"
@@ -18,7 +20,7 @@
 
             <span class="d-none d-sm-inline mx-1"><?php echo e(Auth::user()->name); ?></span>
         </a>
-        <a href="<?php echo e(url('clear')); ?>">clear all</a>
+       
         <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('change.password')): ?>
             <li><a class="dropdown-item" href="<?php echo e(route('change-password')); ?>">Change Password</a></li>

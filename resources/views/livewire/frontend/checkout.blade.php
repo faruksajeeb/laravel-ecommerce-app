@@ -701,7 +701,7 @@
                                             <h5><a href="product-details.html">Yidarton Women Summer Blue</a></h5>
                                             <span class="product-qty">x 2</span>
                                         </td>
-                                        <td>$180.00</td>
+                                        <td>৳ 180.00</td>
                                     </tr>
                                     <tr>
                                         <td class="image product-thumbnail"><img
@@ -711,7 +711,7 @@
                                             <h5><a href="product-details.html">LDB MOON Women Summe</a></h5> <span
                                                 class="product-qty">x 1</span>
                                         </td>
-                                        <td>$65.00</td>
+                                        <td>৳ 65.00</td>
                                     </tr>
                                     <tr>
                                         <td class="image product-thumbnail"><img
@@ -721,11 +721,11 @@
                                             <h5><a href="product-details.html">Women's Short Sleeve Loose</a></h5>
                                             <span class="product-qty">x 1</span>
                                         </td>
-                                        <td>$35.00</td>
+                                        <td>৳ 35.00</td>
                                     </tr>
                                     <tr>
                                         <th>SubTotal</th>
-                                        <td class="product-subtotal" colspan="2">$280.00</td>
+                                        <td class="product-subtotal" colspan="2">৳ 280.00</td>
                                     </tr>
                                     <tr>
                                         <th>Shipping</th>
@@ -734,7 +734,7 @@
                                     <tr>
                                         <th>Total</th>
                                         <td colspan="2" class="product-subtotal"><span
-                                                class="font-xl text-brand fw-900">$280.00</span></td>
+                                                class="font-xl text-brand fw-900">৳ 280.00</span></td>
                                     </tr>
                                 </tbody>
                             </table>

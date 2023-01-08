@@ -1,6 +1,6 @@
- <?php $__env->slot('title', null, []); ?> 
-    Options
- <?php $__env->endSlot(); ?>
+<x-slot name="title">
+    Products
+</x-slot>
 
 <div>
     <section>
@@ -12,24 +12,33 @@
                     <div class="card-header bg-white my-0 pt-2 pb-0">
                         <div class="row ">
                             <div class="col-md-8">
-                                <h4 class="card-title py-1"><i class="fa fa-list"></i> Options</h4>
-                                
+                                <h4 class="card-title py-1"><i class="fa fa-list"></i> Products</h4>
+                                {{-- <nav aria-label="breadcrumb" class="float-start m-0 p-0">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Master Data</a></li>
+                                        <li class="breadcrumb-item " aria-current="page">Categories</li>
+                                    </ol>
+                                </nav> --}}
                             </div>
                             <div class="col-md-4 col-sm-12 text-end">
-                                
+                                {{-- @if ($loggedUser && $loggedUser->can('option_group.export')) --}}
                                 <a class="btn btn-sm btn-success float-end" wire:click.prevent="render('excelExport')"><i
                                         class="fa-solid fa-download"></i> Export</a>
-                                
-                                
-                                
+                                {{-- <a class="btn btn-sm btn-danger float-end mx-1" wire:click.prevent="render('pdfExport')"><i
+                                        class="fa-solid fa-download"></i> PDF</a> --}}
+                                {{-- @endif --}}
+                                {{-- @if ($loggedUser && $loggedUser->can('option_group.create')) --}}
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-outline-primary float-end me-1"
                                     data-bs-toggle="modal" data-bs-target="#addModal"
                                     wire:click="resetInputFields()">
                                     <i class="fa-solid fa-plus"></i> Create New
                                 </button>
-                                
-                                
+                                {{-- <a href="{{ route('users.create') }}" class="btn btn-xs btn-outline-primary float-end"
+                                    name="create_new" type="button">
+                                    <i class="fa-solid fa-plus"></i> Create New
+                                </a> --}}
+                                {{-- @endif --}}
                             </div>
 
                         </div>
@@ -41,7 +50,7 @@
                                     <input class="form-control border-end-0 border rounded-pill" type="text"
                                         placeholder="Search..." wire:model="searchTerm">
                                 </div>
-                                
+                                {{-- <span>{{ $searchTerm }}</span> --}}
                             </div>
                             <div class="col-md-2">
                                 <select name="" id="" wire:model='status' class="form-control">
@@ -52,26 +61,22 @@
                             </div>
                             <div class="col-md-3">
                                 <div wire:ignore>
-                                    <select name="option_group_name" id="option_group_name"
-                                        wire:model='option_group_name' class="form-control select2">
-                                        <option value="">--Option Group--</option>
-                                        <?php $__currentLoopData = $option_groups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($val->option_group_name); ?>"><?php echo e($val->option_group_name); ?>
-
+                                    <select name="search_category_id" id="search_category_id"
+                                        wire:model='search_category_id' class="form-control select2">
+                                        <option value="">--Category--</option>
+                                        @foreach ($categories as $val)
+                                            <option value="{{ $val->id }}">{{ $val->name }}
                                             </option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @endforeach
                                     </select>
-                                </div>
-                                <div>
-                                    You have selected: <strong><?php echo e($option_group_name); ?></strong>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <select name="" id="" wire:model='orderBy' class="form-control">
                                     <option value="">--Order By--</option>
-                                    <?php $__currentLoopData = $columns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $col): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($col); ?>"><?php echo e($col); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    @foreach ($columns as $col)
+                                        <option value="{{ $col }}">{{ $col }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -93,8 +98,7 @@
                                     <option value="100">100</option>
                                     <option value="500">500</option>
                                 </select>
-                                Current Page <?php echo e($options->currentPage()); ?>
-
+                                Current Page {{ $products->currentPage() }}
                             </div>
                         </div>
 
@@ -102,10 +106,11 @@
                             <thead>
                                 <tr>
                                     <th>Sl.</th>
-                                    <th>Option Group Name</th>
-                                    <th>Option Value</th>
-                                    <th>Option Value2</th>
-                                    <th>Option Value3</th>
+                                    <th>Image</th>
+                                    <th>product Name</th>
+                                    <th>Slug</th>
+                                    <th>Category Name</th>
+                                    <th>Subcategory Name</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
@@ -113,64 +118,59 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $__currentLoopData = $options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                @foreach ($products as $key => $val)
                                     <tr>
-                                        <td><?php echo e($key + $options->firstItem()); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->option_group_name)); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->option_value)); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->option_value2)); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->option_value3)); ?></td>
+                                        <td>{{ $key + $products->firstItem() }}</td>
+                                        <td>{{ str_replace('_', ' ', $val->image) }}</td>
+                                        <td>{{ str_replace('_', ' ', $val->name) }}</td>
+                                        <td>{{ str_replace('_', ' ', $val->slug) }}</td>
+                                        <td>{{ str_replace('_', ' ', $val->category->name) }}</td>
+                                        <td>{{ str_replace('_', ' ', $val->subcategory_name) }}</td>
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input active_inactive_btn "
-                                                    status="<?php echo e($val->status); ?>" <?php echo e($val->status == -1 ? '' : ''); ?>
-
-                                                    table="options" type="checkbox" id="row_<?php echo e($val->id); ?>"
-                                                    value="<?php echo e(Crypt::encryptString($val->id)); ?>"
-                                                    <?php echo e($val->status == 1 ? 'checked' : ''); ?> style="cursor:pointer">
+                                                    status="{{ $val->status }}" {{ $val->status == -1 ? '' : '' }}
+                                                    table="products" type="checkbox" id="row_{{ $val->id }}"
+                                                    value="{{ Crypt::encryptString($val->id) }}"
+                                                    {{ $val->status == 1 ? 'checked' : '' }} style="cursor:pointer">
                                             </div>
                                         </td>
-                                        <td><?php echo e($val->created_at); ?></td>
-                                        <td><?php echo e($val->updated_at); ?></td>
+                                        <td>{{ $val->created_at }}</td>
+                                        <td>{{ $val->updated_at }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-success me-1 py-1 mt-1 "
-                                                wire:click.prevent="edit('<?php echo e(Crypt::encryptString($val->id)); ?>')"
-                                                data-bs-toggle="modal"  
+                                                wire:click.prevent="edit('{{ Crypt::encryptString($val->id) }}')"
+                                                data-bs-toggle="modal" {{-- wire:click.prevent="edit({{ '553453453453454535SDD' }})" data-bs-toggle="modal" --}} {{-- wire:click.prevent="edit({{$val->id}})" data-bs-toggle="modal" --}}
                                                 data-bs-target="#editModal" title="Edit"><i
                                                     class="fa-solid fa-file-pen"></i></button>
 
                                             <button class="btn btn-sm btn-danger py-1 mt-1 del_btn"
-                                                
-                                                wire:click.prevent="$emit('triggerDelete','<?php echo e(Crypt::encryptString($val->id)); ?>')"
-                                                 title="Delete"><i
+                                                {{-- wire:click.prevent="$emit('triggerDelete',{{ $val->id }})" --}}
+                                                wire:click.prevent="$emit('triggerDelete','{{ Crypt::encryptString($val->id) }}')"
+                                                {{-- wire:click.prevent="destroy('{{ Crypt::encryptString($val->id) }}')" --}} title="Delete"><i
                                                     class="fa-solid fa-trash-can"></i></button>
                                         </td>
                                     </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="card-footer " wire:key="$options->id">
+                    <div class="card-footer " wire:key="$products->id">
                         <div class="row">
                             <div class="col-md-6">
-                                <?php echo e($options->links()); ?>
-
+                                {{ $products->links() }}
                             </div>
                             <div class="col-md-6 text-end">
                                 <div>
                                     <p class="text-sm text-gray-700 leading-5">
-                                        <?php echo __('Showing'); ?>
-
-                                        <span class="font-medium"><?php echo e($options->firstItem()); ?></span>
-                                        <?php echo __('to'); ?>
-
-                                        <span class="font-medium"><?php echo e($options->lastItem()); ?></span>
-                                        <?php echo __('of'); ?>
-
-                                        <span class="font-medium"><?php echo e($options->total()); ?></span>
-                                        <?php echo __('results'); ?>
-
+                                        {!! __('Showing') !!}
+                                        <span class="font-medium">{{ $products->firstItem() }}</span>
+                                        {!! __('to') !!}
+                                        <span class="font-medium">{{ $products->lastItem() }}</span>
+                                        {!! __('of') !!}
+                                        <span class="font-medium">{{ $products->total() }}</span>
+                                        {!! __('results') !!}
                                     </p>
                                 </div>
                             </div>
@@ -179,25 +179,25 @@
 
                     </div>
                 </div>
-                <?php echo $__env->make('livewire.backend.option.create', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                <?php echo $__env->make('livewire.backend.option.edit', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                @include('livewire.backend.product.create')
+                @include('livewire.backend.product.edit')
             </div>
         </div>
     </section>
 </div>
-<?php $__env->startPush('scripts'); ?>
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#option_group_name').select2();
-            $('#option_group_name').on('change', function(e) {
-                var data = $('#option_group_name').select2("val");
+            $('#search_category_id').select2();
+            $('#search_category_id').on('change', function(e) {
+                var data = $('#search_category_id').select2("val");
                 Livewire.emit('listenerReferenceHere',data);               
-                window.livewire.find('<?php echo e($_instance->id); ?>').set('option_group_name', data);
+                @this.set('search_category_id', data);
             });
         });
         document.addEventListener('DOMContentLoaded', function() {
 
-            window.livewire.find('<?php echo e($_instance->id); ?>').on('triggerDelete', deleteId => {
+            @this.on('triggerDelete', deleteId => {
                 Swal.fire({
                     title: 'Are You Sure?',
                     text: 'This record will be deleted!',
@@ -210,7 +210,7 @@
                     //if user clicks on delete
                     if (result.value) {
                         // calling destroy method to delete
-                        window.livewire.find('<?php echo e($_instance->id); ?>').call('destroy', deleteId)
+                        @this.call('destroy', deleteId)
                         // success response
                         //responseAlert({title: session('message'), type: 'success'});
 
@@ -224,5 +224,4 @@
             });
         })
     </script>
-<?php $__env->stopPush(); ?>
-<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/option/index.blade.php ENDPATH**/ ?>
+@endpush

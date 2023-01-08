@@ -10,7 +10,9 @@
         </label>
 
     </div>
+    <a href="{{ url('clear')}}" class="float-end">clear all</a>
     <div class="dropdown user ">
+       
         <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{ asset('images/user.png') }}" alt="hugenerd" width="30" height="30"
@@ -18,7 +20,7 @@
 
             <span class="d-none d-sm-inline mx-1">{{ Auth::user()->name }}</span>
         </a>
-        <a href="{{ url('clear')}}">clear all</a>
+       
         <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
             @can('change.password')
             <li><a class="dropdown-item" href="{{ route('change-password') }}">Change Password</a></li>

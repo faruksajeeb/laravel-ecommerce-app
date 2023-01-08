@@ -1,31 +1,26 @@
-<?php $__env->startPush('styles'); ?>
-    <style>
-
-    </style>
-<?php $__env->stopPush(); ?>
 <!-- Modal -->
-<div wire:ignore.self class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <form wire:submit.prevent="store">
+            <form wire:submit.prevent="update" class="needs-validation" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Create Subcategory
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Subcategory
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body"  style="overflow:hidden;">
+                <div class="modal-body">
 
                     <?php if(session()->has('message')): ?>
                         <div class="alert alert-danger"><?php echo e(session('message')); ?></div>
                     <?php endif; ?>
-                    
+            
                     <div class="form-group row">
                         <label for="" class="form-label">Category:</label>
                         <div class="col-12">                  
                                 <select name="category_id" wire:model='category_id'
-                                    class="form-select select2 category_id">
+                                    class="form-select select2">
                                     <option value="">--Category Name--</option>
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($val->id); ?>"><?php echo e($val->name); ?>
@@ -73,7 +68,7 @@ unset($__errorArgs, $__bag); ?>
                     <button type="button" class="btn btn-warning" wire:click="resetInputFields()"><i
                             class="fa fa-refresh"></i> Reset</button>
                     <button type="submit" class="btn btn-primary" <?php echo e($flag == 1 ? 'disabled' : ''); ?>><i
-                            class="fa fa-save"></i> Save New</button>
+                            class="fa fa-save"></i> Save Changes</button>
                 </div>
             </form>
         </div>
@@ -81,21 +76,11 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script>
-         $(document).ready(function() {
-          //  $("#option_group").select2({ dropdownParent: "#addModal" });
-          $('#addModal').on('shown.bs.modal', function (e) {
-            $('.category_id').select2({
-            placeholder: 'Select a category',
-            dropdownParent:$('.category_id').parent(),
-            });
-            $('.category_id').on('change', function(e) {
-                var data = $(this).val();
-                Livewire.emit('listenerReferenceHere',data);               
-                window.livewire.find('<?php echo e($_instance->id); ?>').set('category_id', data);
-                // $('#option_group').select2();
-            });
+$(document).ready(function() {
+          $('#editModal').on('shown.bs.modal', function (e) {
+            
         });
 });
-</script>
+    </script>
 <?php $__env->stopPush(); ?>
-<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/subcategory/create.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/product/edit.blade.php ENDPATH**/ ?>

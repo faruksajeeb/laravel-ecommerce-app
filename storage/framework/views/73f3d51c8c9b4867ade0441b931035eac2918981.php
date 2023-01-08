@@ -5,7 +5,7 @@
                 <ul class="p-0 brand-name">
                     <li class="">
                         <a href="<?php echo e(route('dashboard')); ?>" class="bg-white ">
-                            <span class="icon"><i class="fa-brands fa-xl fa-apple"></i></span>
+                            <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
                             <span class="title">
                                 <h5 class=" py-4"><?php echo e($company_settings->company_name); ?></h5>
                             </span>
@@ -43,9 +43,34 @@
                                 <a href="<?php echo e(route('subcategories')); ?>" class="nav-link px-2"> <span class="d-sm-inline"><i
                                             class="fa-solid fa-table"></i> Subcategories</span></a>
                             </li>
+                            <li class="<?php echo e(Route::is('coupons') ? 'active' : ''); ?>">
+                                <a href="<?php echo e(route('coupons')); ?>" class="nav-link px-2"> <span class="d-sm-inline"><i
+                                            class="fa-solid fa-table"></i> Coupons</span></a>
+                            </li>
                         </ul>
                     </li>
                 <?php endif; ?>
+                <li class="<?php echo e(Route::is('customers') ? 'active' : ''); ?>">
+                    <a href="<?php echo e(route('customers')); ?>" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-users"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Customers</span>
+                        
+                    </a>
+                </li>
+                <li class="<?php echo e(Route::is('products') ? 'active' : ''); ?>">
+                    <a  href="<?php echo e(route('products')); ?>" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-brands fa-product-hunt"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Products</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a href="#user_submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Orders</span>
+                        
+                    </a>
+                </li>
                 <?php if(Auth::guard('web')->user()->can('user.view') ||
                     Auth::guard('web')->user()->can('user.create') ||
                     Auth::guard('web')->user()->can('role.view') ||
@@ -92,6 +117,7 @@
                         </ul>
                     </li>
                 <?php endif; ?>
+              
                 <li>
                     <a href="#submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-solid fa-gear"></i></span>

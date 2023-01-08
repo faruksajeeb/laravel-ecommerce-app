@@ -510,7 +510,7 @@
                                 </div>
                             </div>
                         </div>
-                        @include('front-end.related-products')
+                        @livewire('frontend.related-products-component',['categoryId'=>$product->category_id,'productId'=>$product->id])
                     </div>
                 </div>
                 <div class="col-lg-3 primary-sidebar sticky-sidebar">
@@ -585,7 +585,7 @@
                             Fillter</a>
                     </div>
                     <!-- Product sidebar Widget -->
-                    @include('front-end.new-products')
+                    @livewire('frontend.new-products-component')
                 </div>
             </div>
         </div>

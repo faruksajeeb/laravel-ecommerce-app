@@ -250,7 +250,7 @@
                             </div>
                             <div class="content pt-10">
                                 <h5><a href="product-details.html">Chen Cardigan</a></h5>
-                                <p class="price mb-0 mt-5">$99.50</p>
+                                <p class="price mb-0 mt-5">৳ 99.50</p>
                                 <div class="product-rate">
                                     <div class="product-rating" style="width:90%"></div>
                                 </div>
@@ -262,7 +262,7 @@
                             </div>
                             <div class="content pt-10">
                                 <h6><a href="product-details.html">Chen Sweater</a></h6>
-                                <p class="price mb-0 mt-5">$89.50</p>
+                                <p class="price mb-0 mt-5">৳ 89.50</p>
                                 <div class="product-rate">
                                     <div class="product-rating" style="width:80%"></div>
                                 </div>
@@ -274,7 +274,7 @@
                             </div>
                             <div class="content pt-10">
                                 <h6><a href="product-details.html">Colorful Jacket</a></h6>
-                                <p class="price mb-0 mt-5">$25</p>
+                                <p class="price mb-0 mt-5">৳ 25</p>
                                 <div class="product-rate">
                                     <div class="product-rating" style="width:60%"></div>
                                 </div>

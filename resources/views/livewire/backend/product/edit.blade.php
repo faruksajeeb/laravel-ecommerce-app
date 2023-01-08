@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <form wire:submit.prevent="update" class="needs-validation" method="POST">
-                <?php echo csrf_field(); ?>
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Subcategory
                     </h5>
@@ -12,9 +12,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <?php if(session()->has('message')): ?>
-                        <div class="alert alert-danger"><?php echo e(session('message')); ?></div>
-                    <?php endif; ?>
+                    @if (session()->has('message'))
+                        <div class="alert alert-danger">{{ session('message') }}</div>
+                    @endif
             
                     <div class="form-group row">
                         <label for="" class="form-label">Category:</label>
@@ -22,23 +22,15 @@
                                 <select name="category_id" wire:model='category_id'
                                     class="form-select select2">
                                     <option value="">--Category Name--</option>
-                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($val->id); ?>"><?php echo e($val->name); ?>
-
+                                    @foreach ($categories as $val)
+                                        <option value="{{ $val->id }}">{{ $val->name }}
                                         </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    @endforeach
                                 </select>
                            
-                            <?php $__errorArgs = ['category_id'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <span class="error text-danger"><?php echo e($message); ?></span>
-                            <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                            @error('category_id')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="form-group row">
@@ -46,16 +38,9 @@ unset($__errorArgs, $__bag); ?>
                         <div class="col-12">
                             <input type="text" name="subcategory_name" id="subcategory_name" wire:model="subcategory_name"
                                 class="form-control form-control-lg name" placeholder="Enter Subcategory Name">
-                            <?php $__errorArgs = ['subcategory_name'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <span class="error text-danger"><?php echo e($message); ?></span>
-                            <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                            @error('subcategory_name')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     
@@ -67,14 +52,14 @@ unset($__errorArgs, $__bag); ?>
 
                     <button type="button" class="btn btn-warning" wire:click="resetInputFields()"><i
                             class="fa fa-refresh"></i> Reset</button>
-                    <button type="submit" class="btn btn-primary" <?php echo e($flag == 1 ? 'disabled' : ''); ?>><i
+                    <button type="submit" class="btn btn-primary" {{ $flag == 1 ? 'disabled' : '' }}><i
                             class="fa fa-save"></i> Save Changes</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<?php $__env->startPush('scripts'); ?>
+@push('scripts')
     <script>
 $(document).ready(function() {
           $('#editModal').on('shown.bs.modal', function (e) {
@@ -82,5 +67,4 @@ $(document).ready(function() {
         });
 });
     </script>
-<?php $__env->stopPush(); ?>
-<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/subcategory/edit.blade.php ENDPATH**/ ?>
+@endpush

@@ -26,7 +26,7 @@
             </div>
         </div>
     </section>
-    <section class="section-padding footer-mid">
+    {{-- <section class="section-padding footer-mid">
         <div class="container pt-15 pb-20">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <div class="container pb-20 wow fadeIn animated mob-center">
         <div class="row">
             <div class="col-12 mb-20">

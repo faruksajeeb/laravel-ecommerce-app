@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('images')->nullable();
             $table->bigInteger('category_id')->unsigned()->nullable();
+            $table->tinyInteger('status')->default(1);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
