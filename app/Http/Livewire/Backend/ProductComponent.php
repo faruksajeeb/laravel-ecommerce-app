@@ -18,10 +18,17 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
+use App\Models\Category;
+use App\Models\Subcategory;
+
 class ProductComponent extends Component
 {
     public $tableName = 'products';
     public $flag = 0;
+
+    public $categories;
+    public $subcategories;
+    public $SelectedCategory = NULL;
 
     public $searchTerm;
     public $status;
@@ -30,15 +37,40 @@ class ProductComponent extends Component
     public $sortBy;
     /*field name*/
     public $ids;
-    public $subcategory_name;
+    public $name;
+    public $slug;
+    public $short_description;
+    public $description;
+    public $regular_price;
+    public $sale_price;
+    public $SKU;
+    public $stock_status;
+    public $featured;
+    public $quantity;
+    public $image;
+
     // public $slug;
-    public $category_id;
     public $search_category_id;
     public $subcategory_id;
     // public $selected = '';
     public $export;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    public function mount()
+    {
+        $this->categories = Category::where('status', 1)->get();
+        $this->subcategories = collect();
+    }
+    public function updatedSelectedCategory($SelectedCategory)
+    {       
+        if (!is_null($SelectedCategory)) {
+            $this->subcategories = Subcategory::where('category_id', $SelectedCategory)->get();
+        }
+    }
+
+    public function generateSlug(){
+        $this->slug = Str::slug($this->name,'-');
+    }
     public function updatedSearchTerm()
     {
         $this->resetPage();
@@ -56,6 +88,7 @@ class ProductComponent extends Component
     {
         $this->resetPage();
     }
+    
     public function render($export = null)
     {
 
@@ -114,7 +147,6 @@ class ProductComponent extends Component
         $products = $query->paginate($paze_size);
         return view('livewire.backend.product.index', [
             'columns' => Schema::getColumnListing($this->tableName),
-            'categories' => DB::table('categories')->select('*')->where('status', 1)->get(),
             'products' => $products
         ]);
     }
@@ -123,7 +155,10 @@ class ProductComponent extends Component
 
         # Validate form data
         $validator = $this->validate([
+            'name' => 'required|min:3|max:50',
+            'slug' => 'required',
             'category_id' => 'required',
+            'subcategory_id' => 'required',
             'subcategory_name' =>  [
                 'required',
                 Rule::unique($this->tableName)->ignore($this->ids, 'id')->where(function ($query) {

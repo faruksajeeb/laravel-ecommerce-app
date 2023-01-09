@@ -64,8 +64,8 @@
                                     <select name="search_category_id" id="search_category_id"
                                         wire:model='search_category_id' class="form-control select2">
                                         <option value="">--Category--</option>
-                                        @foreach ($categories as $val)
-                                            <option value="{{ $val->id }}">{{ $val->name }}
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}
                                             </option>
                                         @endforeach
                                     </select>
