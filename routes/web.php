@@ -95,8 +95,8 @@ Route::get('/clear', function() {
     Artisan::call('route:cache');
     Artisan::call('view:clear');
     Artisan::call('config:cache');
-    return  "all cleared ...";
-
+   
+    return back()->with("success", 'Cleared all.');
 });
 
 

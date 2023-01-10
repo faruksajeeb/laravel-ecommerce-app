@@ -17,12 +17,15 @@ use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 use App\Models\Category;
 use App\Models\Subcategory;
+use Carbon\Carbon;
 
 class ProductComponent extends Component
 {
+
     public $tableName = 'products';
     public $flag = 0;
 
@@ -48,6 +51,7 @@ class ProductComponent extends Component
     public $featured;
     public $quantity;
     public $image;
+    public $images;
 
     // public $slug;
     public $search_category_id;
@@ -55,6 +59,7 @@ class ProductComponent extends Component
     // public $selected = '';
     public $export;
     use WithPagination;
+    use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     public function mount()
     {
@@ -154,29 +159,63 @@ class ProductComponent extends Component
     {
 
         # Validate form data
-        $validator = $this->validate([
+        $this->validate([
             'name' => 'required|min:3|max:50',
             'slug' => 'required',
+            'SKU' => 'required',
+            'quantity' => 'required',
+            'regular_price' => 'required',
+            'sale_price' => 'required',
+            'image' => 'required',
+            'stock_status' => 'required',
+            'featured' => 'required',            
             'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'subcategory_name' =>  [
+            'subcategory_id' =>  [
                 'required',
-                Rule::unique($this->tableName)->ignore($this->ids, 'id')->where(function ($query) {
+                Rule::unique($this->tableName)->where(function ($query) {
                     return $query->where('category_id', $this->category_id)
-                    ->where('subcategory_name', $this->subcategory_name);
+                    ->where('subcategory_id', $this->subcategory_id)
+                    ->where('name', $this->name);
                 })
             ],
         ]);
         try {
             # Save form data
             $this->flag = 1;
-            $subcategory = new Product();
-            $subcategory->category_id = $this->category_id;
-            $subcategory->subcategory_name = $this->subcategory_name;
-            $subcategory->created_by = Auth::user()->id;
-            $subcategory->save();
+            $product = new Product();
+            $product->name = $this->name;
+            $product->slug = $this->slug;
+            $product->short_description = $this->short_description;
+            $product->description = $this->description;
+            $product->regular_price = $this->regular_price;
+            $product->sale_price = $this->sale_price;
+            $product->SKU = $this->SKU;
+            $product->stock_status = $this->stock_status;
+            $product->featured = $this->featured;
+            $product->quantity = $this->quantity; 
+            $imageName = '';
+            if ($this->image != NULL) {
+                #custom file name        
+                $imageName = Carbon::now()->timestamp . "-product." . $this->image->extension();
+            }
+            # Upload Image
+            // $destinationPath = 'frontend-assets/imgs/products';
+            // if (File::exists(public_path($destinationPath . '/' . $existingRecord->website_favicon))) {
+            //     File::delete(public_path($destinationPath . '/' . $existingRecord->website_favicon));
+            // }            
+            // $this->image->storeAs('products',$imageName);
+            $product->image = $imageName;
+            $product->images = NULL;
+            $product->category_id = $this->category_id;
+            $product->subcategory_id = $this->subcategory_id;
+            $product->created_by = Auth::user()->id;
+            // if($this->image->move($destinationPath, $imageName)){
+            if($this->image->storeAs('products',$imageName)){
+                $product->save();
+            }
+            
 
-            if ($subcategory->id) {
+            if ($product->id) {
                 # Reset form
                 $this->resetInputFields();
                 # Write Log
@@ -263,7 +302,19 @@ class ProductComponent extends Component
     {
         $this->resetErrorBag();
         $this->ids = '';
-        $this->category_id = '';
-        $this->subcategory_name = '';
+        $this->SelectedCategory = '';
+        $this->subcategory_id = '';
+        $this->name = '';
+        $this->slug = '';
+        $this->short_description = '';
+        $this->description = '';
+        $this->regular_price = '';
+        $this->sale_price = '';
+        $this->SKU = '';
+        $this->stock_status = '';
+        $this->featured = '';
+        $this->quantity = '';
+        $this->image = '';
+        $this->images = '';
     }
 }
