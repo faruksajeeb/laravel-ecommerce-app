@@ -51,6 +51,8 @@ class ProductComponent extends Component
     public $featured;
     public $quantity;
     public $image;
+    public $newImage;
+    public $oldImage;
     public $images;
 
     // public $slug;
@@ -67,14 +69,15 @@ class ProductComponent extends Component
         $this->subcategories = collect();
     }
     public function updatedSelectedCategory($SelectedCategory)
-    {       
+    {
         if (!is_null($SelectedCategory)) {
             $this->subcategories = Subcategory::where('category_id', $SelectedCategory)->get();
         }
     }
 
-    public function generateSlug(){
-        $this->slug = Str::slug($this->name,'-');
+    public function generateSlug()
+    {
+        $this->slug = Str::slug($this->name, '-');
     }
     public function updatedSearchTerm()
     {
@@ -93,7 +96,7 @@ class ProductComponent extends Component
     {
         $this->resetPage();
     }
-    
+
     public function render($export = null)
     {
 
@@ -168,14 +171,14 @@ class ProductComponent extends Component
             'sale_price' => 'required',
             'image' => 'required',
             'stock_status' => 'required',
-            'featured' => 'required',            
-            'category_id' => 'required',
+            'featured' => 'required',
+            'SelectedCategory' => 'required',
             'subcategory_id' =>  [
                 'required',
                 Rule::unique($this->tableName)->where(function ($query) {
-                    return $query->where('category_id', $this->category_id)
-                    ->where('subcategory_id', $this->subcategory_id)
-                    ->where('name', $this->name);
+                    return $query->where('category_id', $this->SelectedCategory)
+                        ->where('subcategory_id', $this->subcategory_id)
+                        ->where('name', $this->name);
                 })
             ],
         ]);
@@ -192,7 +195,7 @@ class ProductComponent extends Component
             $product->SKU = $this->SKU;
             $product->stock_status = $this->stock_status;
             $product->featured = $this->featured;
-            $product->quantity = $this->quantity; 
+            $product->quantity = $this->quantity;
             $imageName = '';
             if ($this->image != NULL) {
                 #custom file name        
@@ -206,14 +209,14 @@ class ProductComponent extends Component
             // $this->image->storeAs('products',$imageName);
             $product->image = $imageName;
             $product->images = NULL;
-            $product->category_id = $this->category_id;
+            $product->category_id = $this->SelectedCategory;
             $product->subcategory_id = $this->subcategory_id;
             $product->created_by = Auth::user()->id;
             // if($this->image->move($destinationPath, $imageName)){
-            if($this->image->storeAs('products',$imageName)){
+            if ($this->image->storeAs('products', $imageName)) {
                 $product->save();
             }
-            
+
 
             if ($product->id) {
                 # Reset form
@@ -232,42 +235,77 @@ class ProductComponent extends Component
     }
     public function edit($id)
     {
-       
+
         $this->resetInputFields();
         $id = Crypt::decryptString($id);
         $data = Product::find($id);
-     
+
         $this->ids = $data->id;
-        $this->category_id = $data->category_id;
-        $this->subcategory_name = $data->subcategory_name;
-        // $this->slug = $data->slug;
+        $this->SelectedCategory = $data->category_id;
+        $this->subcategory_id = $data->subcategory_id;
+        $this->name = $data->name;
+        $this->slug = $data->slug;
+        $this->short_description = $data->short_description;
+        $this->description = $data->description;
+        $this->regular_price = $data->regular_price;
+        $this->sale_price = $data->sale_price;
+        $this->SKU = $data->SKU;
+        $this->stock_status = $data->stock_status;
+        $this->featured = $data->featured;
+        $this->quantity = $data->quantity;
+        $this->oldImage = $data->image;
     }
     public function update()
     {
-      
+
         # Validate form data
         $this->validate([
-            'category_id' => 'required',
-            'subcategory_name' =>  [
+            'name' => 'required|min:3|max:50',
+            'slug' => 'required',
+            'SKU' => 'required',
+            'quantity' => 'required',
+            'regular_price' => 'required',
+            'sale_price' => 'required',
+            // 'image' => 'required',
+            'stock_status' => 'required',
+            'featured' => 'required',
+            'SelectedCategory' => 'required',
+            'subcategory_id' =>  [
                 'required',
-                Rule::unique($this->tableName)->ignore($this->ids,'id')->where(function ($query) {
-                    return $query->where('category_id', $this->category_id)
-                    ->where('subcategory_name', $this->subcategory_name);
+                Rule::unique($this->tableName)->ignore($this->ids, 'id')->where(function ($query) {
+                    return $query->where('category_id', $this->SelectedCategory)
+                        ->where('subcategory_id', $this->subcategory_id)
+                        ->where('name', $this->name);
                 })
             ],
         ]);
-        
+
         try {
-           
+
             $this->flag = 1;
-            $data = Product::find($this->ids);
-           
-            $data->update([
-                'category_id' => $this->category_id,
-                'subcategory_name' => $this->subcategory_name,
-                'updated_by' => Auth::user()->id
-            ]);
-           
+            $product = Product::find($this->ids);
+            $product->name = $this->name;
+            $product->slug = $this->slug;
+            $product->short_description = $this->short_description;
+            $product->description = $this->description;
+            $product->regular_price = $this->regular_price;
+            $product->sale_price = $this->sale_price;
+            $product->SKU = $this->SKU;
+            $product->stock_status = $this->stock_status;
+            $product->featured = $this->featured;
+            $product->quantity = $this->quantity;
+            $product->category_id = $this->SelectedCategory;
+            $product->subcategory_id = $this->subcategory_id;
+            if ($this->newImage) {
+                $imageName = '';
+                #custom file name        
+                $imageName = Carbon::now()->timestamp . "-product." . $this->newImage->extension();
+                $product->image = $imageName;
+                $this->newImage->storeAs('products', $imageName);
+            }           
+            $product->updated_by = Auth::user()->id;
+            $product->save();
+
             # Write Log
             Webspice::log($this->tableName, $this->ids, 'UPDATE');
             # Cache Update

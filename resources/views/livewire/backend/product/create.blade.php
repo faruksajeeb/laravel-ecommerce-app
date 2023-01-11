@@ -49,15 +49,15 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Category <span class="text-danger">*</span></label>
-                                <select name="category_id" wire:model='SelectedCategory'
-                                    class="form-select  category_id  @error('category_id') is-invalid @enderror">
+                                <select name="SelectedCategory" wire:model='SelectedCategory'
+                                    class="form-select  SelectedCategory  @error('SelectedCategory') is-invalid @enderror">
                                     <option value="">--Choose a category--</option>
                                     @foreach ($categories as $val)
                                         <option value="{{ $val->id }}">{{ $val->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('category_id')
+                                @error('SelectedCategory')
                                     <div class="invalid-feedback error_msg">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -137,7 +137,7 @@
                             <div class="form-group">
                                 <label>Product Image <span class="text-danger">*</span></label>
                                 <input name="image" wire:model="image"
-                                    class="form-control image @error('image') is-invalid @enderror" type="file"
+                                    class="form-control add-image image @error('image') is-invalid @enderror" type="file"
                                     required>
                                 @if ($image)
                                     <img src="{{ $image->temporaryUrl()}}" width="100" alt="product image" />
@@ -226,6 +226,12 @@
                     // $('#option_group').select2();
                 });
             });
+            product_image.onchange = evt => {
+            const [file] = product_image.files
+            if (file) {
+                product_image_preview.src = URL.createObjectURL(file)
+            }
+        }
         });
     </script>
 @endpush

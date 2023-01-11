@@ -64,9 +64,9 @@
                             <span class="form-text text-muted">Recommended image size is 16px x 16px</span>
                         </div>
                         <div class="col-lg-2">
-                            <div class="settings-image img-thumbnail float-end"><img id="website_favicon_preview"
-                                    src="uploads/{{ $themeSettings ? $themeSettings->website_favicon : old('website_favicon') }}"
-                                    class="img-fluid" width="16" height="16" alt=""></div>
+                            <div class="settings-image img-thumbnail float-end">
+                                <img id="website_favicon_preview" src="uploads/{{ $themeSettings ? $themeSettings->website_favicon : old('website_favicon') }}" class="img-fluid" width="16" height="16" alt="">
+                                </div>
                         </div>
                     </div>
                     <br>
