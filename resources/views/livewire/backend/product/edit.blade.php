@@ -6,7 +6,7 @@
             <form wire:submit.prevent="update" class="needs-validation" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Prouct
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Product
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            {{-- @if (!is_null($SelectedCategory)) --}}
+                            @if (!is_null($SelectedCategory))
                                 <div class="form-group">
                                     <label>Subcategory <span class="text-danger">*</span></label>
                                     <select name="subcategory_id" wire:model='subcategory_id'
@@ -75,7 +75,7 @@
                                         <div class="invalid-feedback error_msg">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            {{-- @endif --}}
+                            @endif
                         </div>
                     </div>
                     <div class="row my-1">
@@ -131,10 +131,10 @@
                     <div class="row my-1">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Product Image <span class="text-danger">*</span></label>
+                                <label>Product Image <span class="text-danger"></span></label>
                                 <input name="image" id="product_image" wire:model="newImage"
                                     class="form-control image @error('image') is-invalid @enderror" type="file"
-                                    required>
+                                    >
                                 @if ($newImage)
                                     <img src="{{ $newImage->temporaryUrl() }}" width="100" alt="product image" />
                                 @else 
@@ -182,14 +182,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Short Description:</label>
-                                <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Description:</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="description"  id="description" wire:model='description' cols="30" rows="5" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>

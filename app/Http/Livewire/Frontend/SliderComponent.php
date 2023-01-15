@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Frontend;
 
+use App\Models\Slider;
 use Livewire\Component;
 
 class SliderComponent extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.slider-component');
+        $sliders = Slider::where('status',1)->get();
+        return view('livewire.frontend.slider-component',['sliders'=>$sliders]);
     }
 }

@@ -196,6 +196,10 @@ class ProductComponent extends Component
             $product->stock_status = $this->stock_status;
             $product->featured = $this->featured;
             $product->quantity = $this->quantity;
+            
+            $product->category_id = $this->SelectedCategory;
+            $product->subcategory_id = $this->subcategory_id;
+            $product->created_by = Auth::user()->id;
             $imageName = '';
             if ($this->image != NULL) {
                 #custom file name        
@@ -209,9 +213,6 @@ class ProductComponent extends Component
             // $this->image->storeAs('products',$imageName);
             $product->image = $imageName;
             $product->images = NULL;
-            $product->category_id = $this->SelectedCategory;
-            $product->subcategory_id = $this->subcategory_id;
-            $product->created_by = Auth::user()->id;
             // if($this->image->move($destinationPath, $imageName)){
             if ($this->image->storeAs('products', $imageName)) {
                 $product->save();
@@ -242,6 +243,7 @@ class ProductComponent extends Component
 
         $this->ids = $data->id;
         $this->SelectedCategory = $data->category_id;
+        $this->updatedSelectedCategory($data->category_id);
         $this->subcategory_id = $data->subcategory_id;
         $this->name = $data->name;
         $this->slug = $data->slug;
@@ -325,7 +327,9 @@ class ProductComponent extends Component
     {
         try {
             $id = Crypt::decryptString($id);
-            Product::where('id', $id)->delete();
+            $product = Product::find($id); 
+            unlink('frontend-assets/imgs/products/'.$product->image);
+            $product->delete();
             # Write Log
             Webspice::log($this->tableName, $id, 'DELETE');
             # Cache Update
@@ -353,6 +357,8 @@ class ProductComponent extends Component
         $this->featured = '';
         $this->quantity = '';
         $this->image = '';
+        $this->newImage = '';
+        $this->oldImage = '';
         $this->images = '';
     }
 }

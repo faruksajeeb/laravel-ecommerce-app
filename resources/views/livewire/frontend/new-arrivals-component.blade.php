@@ -12,11 +12,11 @@
                                 <div class="product-img product-img-zoom">
                                     <a href="{{ route('product-details', ['productId' => $latest_product->id]) }}">
                                         <img class="default-img"
-                                            src="{{ asset('frontend-assets/imgs/shop/product-')}}{{$latest_product->id}}-1.jpg"
-                                            alt="">
+                                            src="{{ asset('frontend-assets/imgs/products')}}/{{$latest_product->image}}"
+                                            alt="{{$latest_product->name}}">
                                         <img class="hover-img"
-                                            src="{{ asset('frontend-assets/imgs/shop/product-')}}{{$latest_product->id}}-2.jpg"
-                                            alt="">
+                                            src="{{ asset('frontend-assets/imgs/products')}}/{{$latest_product->image}}"
+                                            alt="{{$latest_product->name}}">
                                     </a>
                                 </div>
                                 <div class="product-action-1">

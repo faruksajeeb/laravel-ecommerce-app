@@ -50,13 +50,14 @@
                         </ul>
                     </li>
                 <?php endif; ?>
-                <li class="<?php echo e(Route::is('customers') ? 'active' : ''); ?>">
-                    <a href="<?php echo e(route('customers')); ?>" class="nav-link ps-1 align-middle">
-                        <span class="icon"><i class="fa-solid fa-users"></i></span>
-                        <span class="ms-1 d-sm-inline title ">Customers</span>
+                <li class="<?php echo e(Route::is('sliders') ? 'active' : ''); ?>">
+                    <a  href="<?php echo e(route('sliders')); ?>" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-images"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Sliders</span>
                         
                     </a>
                 </li>
+               
                 <li class="<?php echo e(Route::is('products') ? 'active' : ''); ?>">
                     <a  href="<?php echo e(route('products')); ?>" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-brands fa-product-hunt"></i></span>
@@ -64,10 +65,18 @@
                         
                     </a>
                 </li>
+               
                 <li>
                     <a href="#user_submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
                         <span class="ms-1 d-sm-inline title ">Orders</span>
+                        
+                    </a>
+                </li>
+                <li class="<?php echo e(Route::is('customers') ? 'active' : ''); ?>">
+                    <a href="<?php echo e(route('customers')); ?>" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-users"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Customers</span>
                         
                     </a>
                 </li>

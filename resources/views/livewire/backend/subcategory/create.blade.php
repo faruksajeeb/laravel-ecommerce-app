@@ -4,7 +4,7 @@
     </style>
 @endpush
 <!-- Modal -->
-<div wire:ignore.self class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div wire:ignore.self class="modal fade" id="addModal" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -33,7 +33,7 @@
                         <label for="" class="form-label">Category:</label>
                         <div class="col-12">                  
                                 <select name="category_id" wire:model='category_id'
-                                    class="form-select select2 category_id">
+                                    class="form-select category_id">
                                     <option value="">--Category Name--</option>
                                     @foreach ($categories as $val)
                                         <option value="{{ $val->id }}">{{ $val->name }}
@@ -77,10 +77,10 @@
          $(document).ready(function() {
           //  $("#option_group").select2({ dropdownParent: "#addModal" });
           $('#addModal').on('shown.bs.modal', function (e) {
-            $('.category_id').select2({
-            placeholder: 'Select a category',
-            dropdownParent:$('.category_id').parent(),
-            });
+            // $('.category_id').select2({
+            // placeholder: 'Select a category',
+            // dropdownParent:$('.category_id').parent(),
+            // });
             $('.category_id').on('change', function(e) {
                 var data = $(this).val();
                 Livewire.emit('listenerReferenceHere',data);               

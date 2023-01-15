@@ -21,8 +21,9 @@
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/style.css')); ?>">
     <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        href="<?php echo e(asset('font-awesome/css/all.min.css')); ?>">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
     <style>
         .themed-grid-col {
             padding-top: 1rem;
@@ -47,11 +48,16 @@
             background-color: purple;
             border-color: #ddd;
         }
+    
     </style>
 
     <?php echo $__env->yieldPushContent('styles'); ?>
 
     <?php echo \Livewire\Livewire::styles(); ?>
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+    
 
 </head>
 
@@ -79,7 +85,8 @@
     <script src="<?php echo e(asset('js/bootstrap.bundle.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/popper.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/jquery-3.6.1.min.js')); ?>"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="<?php echo e(asset('js/select2.min.js')); ?>"></script>
+    
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields

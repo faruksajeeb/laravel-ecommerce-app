@@ -9,12 +9,14 @@ use App\Lib\Webspice;
 use Livewire\Component;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Category;
+use Carbon\Carbon;
 // use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
@@ -31,11 +33,17 @@ class CategoryComponent extends Component
     /*field name*/
     public $ids;
     public $name;
+    public $slug;
+    public $image;
+    public $new_image;
+    public $old_image;
+    public $is_popular;
     // public $slug;
     public $edit_name;
     // public $selected = '';
     public $export;
     use WithPagination;
+    use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     public function updatedSearchTerm()
     {
@@ -113,7 +121,9 @@ class CategoryComponent extends Component
     {
 
         # Validate form data
-        $validator = $this->validate([
+        $this->validate([
+            'image' => 'required',
+            'is_popular' => 'required',
             'name' =>  [
                 'required',
                 Rule::unique('categories')->ignore($this->ids, 'id')->where(function ($query) {
@@ -126,9 +136,25 @@ class CategoryComponent extends Component
             $this->flag = 1;
             $category = new Category();
             $category->name = $this->name;
+            $category->is_popular = $this->is_popular;
             $category->slug = Str::slug($this->name,'-');
             $category->created_by = Auth::user()->id;
-            $category->save();
+            $imageName = '';
+            if ($this->image != NULL) {
+                #custom file name        
+                $imageName = Carbon::now()->timestamp . "-product." . $this->image->extension();
+            }
+            # Upload Image
+            // $destinationPath = 'frontend-assets/imgs/products';
+            // if (File::exists(public_path($destinationPath . '/' . $existingRecord->website_favicon))) {
+            //     File::delete(public_path($destinationPath . '/' . $existingRecord->website_favicon));
+            // }            
+            // $this->image->storeAs('products',$imageName);
+            $category->image = $imageName;
+            // if($this->image->move($destinationPath, $imageName)){
+            if ($this->image->storeAs('categories', $imageName)) {
+                $category->save();
+            }
 
             if ($category->id) {
                 # Reset form
@@ -153,14 +179,17 @@ class CategoryComponent extends Component
         $data = Category::find($id);
      
         $this->ids = $data->id;
-        $this->name = $data->name;
-        // $this->slug = $data->slug;
+        $this->name = $data->name;        
+        $this->slug = $data->slug;
+        $this->is_popular = $data->is_popular;
+        $this->old_image = $data->image;
     }
     public function update()
     {
       
         # Validate form data
         $this->validate([
+            'is_popular' => 'required',
             'name' =>  [
                 'required',
                 Rule::unique($this->tableName)->ignore($this->ids,'id')->where(function ($query) {
@@ -173,12 +202,18 @@ class CategoryComponent extends Component
            
             $this->flag = 1;
             $data = Category::find($this->ids);
-           
-            $data->update([
-                'name' => $this->name,
-                'slug' => Str::slug($this->name,'-'),
-                'updated_by' => Auth::user()->id
-            ]);
+            $data->name = $this->name;
+            $data->is_popular = $this->is_popular;
+            $data->slug = Str::slug($this->name,'-');
+            $data->updated_by = Auth::user()->id;
+            if ($this->new_image) {
+                $imageName = '';
+                #custom file name        
+                $imageName = Carbon::now()->timestamp . "-product." . $this->new_image->extension();
+                $data->image = $imageName;
+                $this->new_image->storeAs('categories', $imageName);
+            }
+            $data->save();
            
             # Write Log
             Webspice::log($this->tableName, $this->ids, 'UPDATE');
@@ -199,7 +234,9 @@ class CategoryComponent extends Component
     {
         try {
             $id = Crypt::decryptString($id);
-            Category::where('id', $id)->delete();
+            $category = Category::find($id); 
+            unlink('frontend-assets/imgs/categories/'.$category->image);
+            $category->delete();
             # Write Log
             Webspice::log($this->tableName, $id, 'DELETE');
             # Cache Update
@@ -215,6 +252,9 @@ class CategoryComponent extends Component
         $this->resetErrorBag();
         $this->ids = '';
         $this->name = '';
-        // $this->slug = '';
+        $this->slug = '';
+        $this->image = '';
+        $this->new_image = '';
+        $this->old_image = '';
     }
 }

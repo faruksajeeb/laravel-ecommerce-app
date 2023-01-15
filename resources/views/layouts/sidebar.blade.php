@@ -50,13 +50,14 @@
                         </ul>
                     </li>
                 @endif
-                <li class="{{ Route::is('customers') ? 'active' : '' }}">
-                    <a href="{{ route('customers') }}" class="nav-link ps-1 align-middle">
-                        <span class="icon"><i class="fa-solid fa-users"></i></span>
-                        <span class="ms-1 d-sm-inline title ">Customers</span>
+                <li class="{{ Route::is('sliders') ? 'active' : '' }}">
+                    <a  href="{{ route('sliders') }}" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-images"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Sliders</span>
                         {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
                     </a>
                 </li>
+               
                 <li class="{{ Route::is('products') ? 'active' : '' }}">
                     <a  href="{{ route('products') }}" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-brands fa-product-hunt"></i></span>
@@ -64,10 +65,18 @@
                         {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
                     </a>
                 </li>
+               
                 <li>
                     <a href="#user_submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
                         <span class="ms-1 d-sm-inline title ">Orders</span>
+                        {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
+                    </a>
+                </li>
+                <li class="{{ Route::is('customers') ? 'active' : '' }}">
+                    <a href="{{ route('customers') }}" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-users"></i></span>
+                        <span class="ms-1 d-sm-inline title ">Customers</span>
                         {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
                     </a>
                 </li>

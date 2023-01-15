@@ -1,6 +1,13 @@
 <?php $__env->startPush('styles'); ?>
     <style>
-
+/*
+ * Configure the z-index of the editor UI, so when inside a Bootstrap
+ * modal, it will be rendered over the modal.
+ */
+ body {
+    --ck-z-default: 100;
+    --ck-z-modal: calc( var(--ck-z-default) + 999 );
+}
     </style>
 <?php $__env->stopPush(); ?>
 <!-- Modal -->
@@ -337,7 +344,7 @@ unset($__errorArgs, $__bag); ?>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Short Description:</label>
-                                <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="" id="short_description" cols="30" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -359,14 +366,18 @@ unset($__errorArgs, $__bag); ?>
                             class="fa fa-save"></i> Save New</button>
                 </div>
             </form>
+           
         </div>
     </div>
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script>
         $(document).ready(function() {
+      
             //  $("#option_group").select2({ dropdownParent: "#addModal" });
             $('#addModal').on('shown.bs.modal', function(e) {
+                // $(document).off('focusin.modal');
+                focus: false
                 // $('.category_id').select2({
                 //     placeholder: 'Select a category',
                 //     dropdownParent: $('.category_id').parent(),
@@ -389,6 +400,12 @@ unset($__errorArgs, $__bag); ?>
             }
         }
         });
+        ClassicEditor
+            .create( document.querySelector( '#short_description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+            
     </script>
 <?php $__env->stopPush(); ?>
 <?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/product/create.blade.php ENDPATH**/ ?>

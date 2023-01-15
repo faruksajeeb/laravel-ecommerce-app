@@ -47,7 +47,8 @@
                                                         magndapibus.
                                                     </p>
                                                 </td>
-                                                <td class="price" data-title="Price"><span>৳ {{ $item->price }} </span>
+                                                <td class="price" data-title="Price"><span>৳ {{ $item->price }}
+                                                    </span>
                                                 </td>
                                                 <td class="size" data-title="size"><span><?php echo $item->options->has('size') ? $item->options->size : ''; ?> </span>
                                                 </td>
@@ -374,27 +375,36 @@
                                     </div>
                                 </form>
                                 <div class="mb-30 mt-50">
-                                    <div class="heading_s1 mb-3">
-                                        <h4>Apply Coupon</h4>
-                                    </div>
-                                    <div class="total-amount">
-                                        <div class="left">
-                                            <div class="coupon">
-                                                <form action="#" target="_blank">
-                                                    <div class="form-row row justify-content-center">
-                                                        <div class="form-group col-lg-6">
-                                                            <input class="font-medium" name="Coupon"
-                                                                placeholder="Enter Your Coupon">
+                                    @php
+                                        // dd(session()->get('coupon'));
+                                    @endphp
+                                    @if (!Session::has('coupon'))
+                                        <div class="heading_s1 mb-3">
+                                            <h4>Apply Coupon</h4>
+                                        </div>
+                                        <div class="total-amount">
+                                            <div class="left">
+
+                                                <div class="coupon">
+                                                    <form action="#" wire:submit.prevent='applyCouponCode'>
+                                                        <div class="form-row row justify-content-center">
+                                                            <div class="form-group col-lg-6">
+                                                                <input class="font-medium" name="couponCode"
+                                                                    wire:model='couponCode'
+                                                                    placeholder="Enter Your couponCode">
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <button type="submit" class="btn  btn-sm"><i
+                                                                        class="fi-rs-label mr-10"></i>Apply</button>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group col-lg-6">
-                                                            <button class="btn  btn-sm"><i
-                                                                    class="fi-rs-label mr-10"></i>Apply</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
+
+
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
@@ -408,25 +418,55 @@
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
                                                     <td class="cart_total_amount"><span
-                                                            class="font-lg fw-900 text-brand">৳ {{ Cart::instance('cart')->subtotal() }}</span>
+                                                            class="font-lg fw-900 text-brand">৳
+                                                            {{ Cart::instance('cart')->subtotal() }}</span>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="cart_total_label">Tax</td>
-                                                    <td class="cart_total_amount"> <i
-                                                            class="ti-gift mr-5"></i>৳ {{ Cart::instance('cart')->tax() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="cart_total_label">Shipping</td>
-                                                    <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free
-                                                        Shipping</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="cart_total_label">Total</td>
-                                                    <td class="cart_total_amount"><strong><span
-                                                                class="font-xl fw-900 text-brand">৳ {{ Cart::instance('cart')->total() }}</span></strong>
-                                                    </td>
-                                                </tr>
+                                                @if (Session::has('coupon'))
+                                                    <tr>
+                                                        <td class="cart_total_label">Discount
+                                                            ({{ Session::get('coupon')['code'] }})</td>
+                                                        <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>৳
+                                                            {{ $discount }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cart_total_label">Tax ({{ config('cart.tax') }}%)
+                                                        </td>
+                                                        <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>৳
+                                                            {{ $taxAfterDiscount }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cart_total_label">Subtotal With Discount</td>
+                                                        <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>৳
+                                                            {{ $subtotalAfterDiscount }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cart_total_label">Total</td>
+                                                        <td class="cart_total_amount"><strong><span
+                                                                    class="font-xl fw-900 text-brand">৳
+                                                                    {{ $totalAfterDiscount }}</span></strong>
+                                                        </td>
+                                                    </tr>
+                                                @else
+                                                    <tr>
+                                                        <td class="cart_total_label">Tax</td>
+                                                        <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>৳
+                                                            {{ Cart::instance('cart')->tax() }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cart_total_label">Shipping</td>
+                                                        <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>
+                                                            Free
+                                                            Shipping</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cart_total_label">Total</td>
+                                                        <td class="cart_total_amount"><strong><span
+                                                                    class="font-xl fw-900 text-brand">৳
+                                                                    {{ Cart::instance('cart')->total() }}</span></strong>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

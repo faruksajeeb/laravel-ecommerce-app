@@ -24,8 +24,7 @@
                                 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-outline-primary float-end me-1"
-                                    data-bs-toggle="modal" data-bs-target="#addModal"
-                                    wire:click="resetInputFields()">
+                                    data-bs-toggle="modal" data-bs-target="#addModal" wire:click="resetInputFields()">
                                     <i class="fa-solid fa-plus"></i> Create New
                                 </button>
                                 
@@ -100,7 +99,7 @@
                                 <tr>
                                     <th>Sl.</th>
                                     <th>Image</th>
-                                    <th>product Name</th>
+                                    <th>Product Name</th>
                                     <th>Slug</th>
                                     <th>Category Name</th>
                                     <th>Subcategory Name</th>
@@ -115,18 +114,19 @@
                                     <tr>
                                         <td><?php echo e($key + $products->firstItem()); ?></td>
                                         <?php
-                                        $file = '';
-                                            if(file_exists( public_path().'/frontend-assets/imgs/products/'.$val->image.'')) :      
+                                            $file = '';
+                                            if (file_exists(public_path() . '/frontend-assets/imgs/products/' . $val->image . '')):
                                                 $file = $val->image;
                                             else:
-                                                $file = "product-image-avatar.png";
+                                                $file = 'product-image-avatar.png';
                                             endif;
                                         ?>
-                                        <td><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($file); ?>" width="80" height="80" alt="<?php echo e($val->name); ?>"></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->name)); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->slug)); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->category->name)); ?></td>
-                                        <td><?php echo e(str_replace('_', ' ', $val->subcategory_name)); ?></td>
+                                        <td><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($file); ?>"
+                                                width="80" height="80" alt="<?php echo e($val->name); ?>"></td>
+                                        <td><?php echo e($val->name); ?></td>
+                                        <td><?php echo e($val->slug); ?></td>
+                                        <td><?php echo e($val->category ? $val->category->name : ''); ?></td>
+                                        <td><?php echo e($val->subcategory ? $val->subcategory->subcategory_name : ''); ?></td>
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input active_inactive_btn "
@@ -182,7 +182,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
 
                     </div>
                 </div>
@@ -194,11 +194,12 @@
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script type="text/javascript">
+  
         $(document).ready(function() {
             $('#search_category_id').select2();
             $('#search_category_id').on('change', function(e) {
                 var data = $('#search_category_id').select2("val");
-                Livewire.emit('listenerReferenceHere',data);               
+                Livewire.emit('listenerReferenceHere', data);
                 window.livewire.find('<?php echo e($_instance->id); ?>').set('search_category_id', data);
             });
         });

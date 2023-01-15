@@ -7,6 +7,7 @@ use Livewire\Component;
 class ShoppingCartIcon extends Component
 {
     protected $listeners = [
+        
         'refreshComponent' => '$refresh'
     ];
     // public function delete($id){

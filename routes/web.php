@@ -16,6 +16,7 @@ use App\Http\Livewire\Backend\SubcategoryComponent;
 use App\Http\Livewire\Backend\CustomerComponent;
 use App\Http\Livewire\Backend\CouponComponent;
 use App\Http\Livewire\Backend\ProductComponent;
+use App\Http\Livewire\Backend\AdminSliderComponent;
 use App\Http\Livewire\Backend\OrderComponent;
 
 use App\Http\Livewire\Frontend\Home;
@@ -46,6 +47,7 @@ Route::get('/',Home::class)->name('/');
 Route::get('/about',About::class)->name('about'); 
 Route::get('/contact',Contact::class)->name('contact'); 
 Route::get('/shop',Shop::class)->name('shop'); 
+// Route::get('/shop/{categoryId}',Shop::class)->name('shop'); 
 Route::get('/product-details/{productId}',ProductDetails::class)->name('product-details'); 
 Route::get('/cart',ShoppingCart::class)->name('cart'); 
 Route::get('/wishlist',WishlistComponent::class)->name('wishlist'); 
@@ -77,7 +79,7 @@ Route::middleware('auth')->group(function () {
         Route::match(['get', 'put'],'notification-setting',[SettingController::class,'notificationSetting'])->name('notification-setting');
         Route::match(['get', 'put'],'toxbox-setting',[SettingController::class,'toxboxSetting'])->name('toxbox-setting');
         Route::match(['get', 'put'],'cron-setting',[SettingController::class,'cronSetting'])->name('cron-setting');
-    });   
+    }); 
     
     Route::get('option-groups',OptionGroup::class)->name('option-groups'); 
     Route::get('options',Options::class)->name('options'); 
@@ -86,6 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::get('customers',CustomerComponent::class)->name('customers'); 
     Route::get('coupons',CouponComponent::class)->name('coupons'); 
     Route::get('products',ProductComponent::class)->name('products'); 
+    Route::get('sliders',AdminSliderComponent::class)->name('sliders'); 
+    Route::get('coupons',CouponComponent::class)->name('coupons'); 
     Route::get('orders',OrderComponent::class)->name('orders'); 
     
     Route::get('clear-permission-cache',[RoleController::class,'clearPermissionCache'])->name('clear-permission-cache');

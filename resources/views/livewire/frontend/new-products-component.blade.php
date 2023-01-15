@@ -5,11 +5,10 @@
             <div class="bt-1 border-color-1"></div>
         </div>
         @foreach ($new_products as $new_product)
-            :
             <div class="single-post clearfix">
                 <div class="image">
-                    <img src="{{ asset('frontend-assets/imgs/shop/thumbnail-') }}{{ $new_product->id }}.jpg"
-                        alt="#">
+                    <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $new_product->image }}"
+                        alt="{{ $new_product->name }}">
                 </div>
                 <div class="content pt-10">
                     <h5><a href="product-details.html">{{ $new_product->name }}</a></h5>

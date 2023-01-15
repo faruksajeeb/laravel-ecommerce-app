@@ -4,7 +4,7 @@
     </style>
 @endpush
 <!-- Modal -->
-<div wire:ignore.self class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div wire:ignore.self class="modal fade" id="addModal" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -40,6 +40,36 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="row my-1">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Category Image <span class="text-danger">*</span></label>
+                                <input name="image" wire:model="image"
+                                    class="form-control add-image image @error('image') is-invalid @enderror" type="file"
+                                    required>
+                                @if ($image)
+                                    <img src="{{ $image->temporaryUrl()}}" width="100" alt="product image" />
+                                @endif
+                                @error('image')
+                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-md-12">
+                            <label for="">Popular: <span class="text-danger">*</span></label>
+                            <select name="is_popular" wire:model='is_popular' placeholder='Select a is_popular'
+                                class="form-select   is_popular  @error('is_popular') is-invalid @enderror" required>
+                                <option value=""> Select Popular </option>
+                                <option value="1"> Yes</option>
+                                <option value="0"> No</option>
+                            </select>
+                            @error('is_popular')
+                            <div class="invalid-feedback error_msg">{{ $message }}</div>
+                        @enderror
+                        </div>
+                    </div>
                     
                 </div>
                 <div class="modal-footer">
@@ -61,10 +91,10 @@
          $(document).ready(function() {
           //  $("#option_group").select2({ dropdownParent: "#addModal" });
           $('#addModal').on('shown.bs.modal', function (e) {
-            $('#option_group').select2({
-            placeholder: 'Select an option group',
-            dropdownParent:$('#option_group').parent(),
-            });
+            // $('#option_group').select2({
+            //     placeholder: 'Select an option group',
+            //     dropdownParent:$('#option_group').parent(),
+            // });
             $('#option_group').on('change', function(e) {
                 var data = $(this).val();
                 Livewire.emit('listenerReferenceHere',data);               

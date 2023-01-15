@@ -93,11 +93,11 @@
                                         <div class="product-img product-img-zoom">
                                             <a href="<?php echo e(route('product-details', ['productId' => $product->id])); ?>">
                                                 <img class="default-img"
-                                                    src="<?php echo e(asset('frontend-assets/imgs/shop/product-')); ?><?php echo e($product->id); ?>-1.jpg"
-                                                    alt="">
+                                                    src="<?php echo e(asset('frontend-assets/imgs//products')); ?>/<?php echo e($product->image); ?>"
+                                                    alt="<?php echo e($product->name); ?>-product-front" >
                                                 <img class="hover-img"
-                                                    src="<?php echo e(asset('frontend-assets/imgs/shop/product-')); ?><?php echo e($product->id); ?>-2.jpg"
-                                                    alt="">
+                                                    src="<?php echo e(asset('frontend-assets/imgs//products')); ?>/<?php echo e($product->image); ?>"
+                                                    alt="<?php echo e($product->name); ?>-product-back" >
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -159,119 +159,54 @@
                         <div class="col-lg-12 col-mg-6"></div>
                         <div class="col-lg-12 col-mg-6"></div>
                     </div>
-                    <div class="widget-category mb-30">
-                        <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                        <ul class="categories">
-                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <li><a href="#" class="<?php echo e($categoryId == $category->id ? 'active' : ''); ?>"
-                                        wire:click.prevent='filterByCategory(<?php echo e($category->id); ?>)'><?php echo e($category->name); ?></a>
-                                </li>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </ul>
-                    </div>
-                    <!-- Fillter By Price -->
-                    <div class="sidebar-widget price_range range mb-30">
-                        <div class="widget-header position-relative mb-20 pb-10">
-                            <h5 class="widget-title mb-10">Filtered by price</h5>
-                            <div class="bt-1 border-color-1"></div>
-                        </div>
-                        <div class="price-filter">
-                            <div class="price-filter-inner">
-                                <div id="slider-range" wire:ignore></div>
-                                <div class="price_slider_amount">
-                                    <div class="label-input">
-                                        <span>Range:</span>
-                                        <span class="text-info">$<?php echo e($minPrice); ?></span> - <span
-                                            class="text-info">$<?php echo e($maxPrice); ?></span>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group">
-                            <div class="list-group-item mb-10 mt-10">
-                                <label class="fw-900">Color</label>
-                                <div class="custome-checkbox">
-                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                        id="exampleCheckbox1" value="">
-                                    <label class="form-check-label" for="exampleCheckbox1"><span>Red
-                                            (56)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                        id="exampleCheckbox2" value="">
-                                    <label class="form-check-label" for="exampleCheckbox2"><span>Green
-                                            (78)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                        id="exampleCheckbox3" value="">
-                                    <label class="form-check-label" for="exampleCheckbox3"><span>Blue
-                                            (54)</span></label>
-                                </div>
-                                <label class="fw-900 mt-15">Item Condition</label>
-                                <div class="custome-checkbox">
-                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                        id="exampleCheckbox11" value="">
-                                    <label class="form-check-label" for="exampleCheckbox11"><span>New
-                                            (1506)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                        id="exampleCheckbox21" value="">
-                                    <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished
-                                            (27)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                        id="exampleCheckbox31" value="">
-                                    <label class="form-check-label" for="exampleCheckbox31"><span>Used
-                                            (45)</span></label>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="shop.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i>
-                            Fillter</a>
-                    </div>
+                    
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.filter-by-category',['route'=>Route::currentRouteName()])->html();
+} elseif ($_instance->childHasBeenRendered('l2676699194-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l2676699194-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-0');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l2676699194-0');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.filter-by-category',['route'=>Route::currentRouteName()]);
+    $html = $response->html();
+    $_instance->logRenderedChild('l2676699194-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+                    <!-- Fillter By Price -->                    
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.filter-by-price')->html();
+} elseif ($_instance->childHasBeenRendered('l2676699194-1')) {
+    $componentId = $_instance->getRenderedChildComponentId('l2676699194-1');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-1');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l2676699194-1');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.filter-by-price');
+    $html = $response->html();
+    $_instance->logRenderedChild('l2676699194-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                     <!-- Product sidebar Widget -->
-                    <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
-                        <div class="widget-header position-relative mb-20 pb-10">
-                            <h5 class="widget-title mb-10">New products</h5>
-                            <div class="bt-1 border-color-1"></div>
-                        </div>
-                        <div class="single-post clearfix">
-                            <div class="image">
-                                <img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-3.jpg')); ?>" alt="#">
-                            </div>
-                            <div class="content pt-10">
-                                <h5><a href="product-details.html">Chen Cardigan</a></h5>
-                                <p class="price mb-0 mt-5">৳ 99.50</p>
-                                <div class="product-rate">
-                                    <div class="product-rating" style="width:90%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-post clearfix">
-                            <div class="image">
-                                <img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-4.jpg')); ?>" alt="#">
-                            </div>
-                            <div class="content pt-10">
-                                <h6><a href="product-details.html">Chen Sweater</a></h6>
-                                <p class="price mb-0 mt-5">৳ 89.50</p>
-                                <div class="product-rate">
-                                    <div class="product-rating" style="width:80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-post clearfix">
-                            <div class="image">
-                                <img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-5.jpg')); ?>" alt="#">
-                            </div>
-                            <div class="content pt-10">
-                                <h6><a href="product-details.html">Colorful Jacket</a></h6>
-                                <p class="price mb-0 mt-5">৳ 25</p>
-                                <div class="product-rate">
-                                    <div class="product-rating" style="width:60%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.new-products-component')->html();
+} elseif ($_instance->childHasBeenRendered('l2676699194-2')) {
+    $componentId = $_instance->getRenderedChildComponentId('l2676699194-2');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-2');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l2676699194-2');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.new-products-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l2676699194-2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                     <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                         <img src="<?php echo e(asset('frontend-assets/imgs/banner/banner-11.jpg')); ?>" alt="">
                         <div class="banner-text">
@@ -285,25 +220,5 @@
         </div>
     </section>
 </div>
-<?php $__env->startPush('scripts'); ?>
-    <script>
-        var sliderrange = $('#slider-range');
-        var amountprice = $('#amount');
-        $(function() {
-            sliderrange.slider({
-                range: true,
-                min: 0,
-                max: 1000,
-                values: [0, 1000],
-                slide: function(event, ui) {
-                    // amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
-                    window.livewire.find('<?php echo e($_instance->id); ?>').set('minPrice',ui.values[0]);
-                    window.livewire.find('<?php echo e($_instance->id); ?>').set('maxPrice',ui.values[1]);
-                }
-            });
-            amountprice.val("$" + sliderrange.slider("values", 0) +
-                " - $" + sliderrange.slider("values", 1));
-        });
-    </script>
-<?php $__env->stopPush(); ?>
+
 <?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/shop.blade.php ENDPATH**/ ?>

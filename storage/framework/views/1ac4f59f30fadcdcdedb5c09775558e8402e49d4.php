@@ -12,11 +12,11 @@
                                 <div class="product-img product-img-zoom">
                                     <a href="<?php echo e(route('product-details', ['productId' => $latest_product->id])); ?>">
                                         <img class="default-img"
-                                            src="<?php echo e(asset('frontend-assets/imgs/shop/product-')); ?><?php echo e($latest_product->id); ?>-1.jpg"
-                                            alt="">
+                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($latest_product->image); ?>"
+                                            alt="<?php echo e($latest_product->name); ?>">
                                         <img class="hover-img"
-                                            src="<?php echo e(asset('frontend-assets/imgs/shop/product-')); ?><?php echo e($latest_product->id); ?>-2.jpg"
-                                            alt="">
+                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($latest_product->image); ?>"
+                                            alt="<?php echo e($latest_product->name); ?>">
                                     </a>
                                 </div>
                                 <div class="product-action-1">

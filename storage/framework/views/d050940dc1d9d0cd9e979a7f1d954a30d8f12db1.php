@@ -6,7 +6,7 @@
             <form wire:submit.prevent="update" class="needs-validation" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Prouct
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Product
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -102,7 +102,7 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            
+                            <?php if(!is_null($SelectedCategory)): ?>
                                 <div class="form-group">
                                     <label>Subcategory <span class="text-danger">*</span></label>
                                     <select name="subcategory_id" wire:model='subcategory_id'
@@ -133,7 +133,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
-                            
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="row my-1">
@@ -245,7 +245,7 @@ unset($__errorArgs, $__bag); ?>
                     <div class="row my-1">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Product Image <span class="text-danger">*</span></label>
+                                <label>Product Image <span class="text-danger"></span></label>
                                 <input name="image" id="product_image" wire:model="newImage"
                                     class="form-control image <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -255,7 +255,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" type="file"
-                                    required>
+                                    >
                                 <?php if($newImage): ?>
                                     <img src="<?php echo e($newImage->temporaryUrl()); ?>" width="100" alt="product image" />
                                 <?php else: ?> 

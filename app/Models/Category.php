@@ -12,6 +12,8 @@ class Category extends Model
         'id',
         'name',
         'slug',
+        'image',
+        'is_popular',
         'status',
         'created_by',
         'updated_by',

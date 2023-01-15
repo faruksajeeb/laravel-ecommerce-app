@@ -1,6 +1,13 @@
 @push('styles')
     <style>
-
+/*
+ * Configure the z-index of the editor UI, so when inside a Bootstrap
+ * modal, it will be rendered over the modal.
+ */
+ body {
+    --ck-z-default: 100;
+    --ck-z-modal: calc( var(--ck-z-default) + 999 );
+}
     </style>
 @endpush
 <!-- Modal -->
@@ -181,14 +188,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Short Description:</label>
-                                <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Description:</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="description" id="description" wire:model='description' cols="30" rows="5" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -203,14 +210,18 @@
                             class="fa fa-save"></i> Save New</button>
                 </div>
             </form>
+           
         </div>
     </div>
 </div>
 @push('scripts')
     <script>
         $(document).ready(function() {
+      
             //  $("#option_group").select2({ dropdownParent: "#addModal" });
             $('#addModal').on('shown.bs.modal', function(e) {
+                // $(document).off('focusin.modal');
+                focus: false
                 // $('.category_id').select2({
                 //     placeholder: 'Select a category',
                 //     dropdownParent: $('.category_id').parent(),
@@ -233,5 +244,11 @@
             }
         }
         });
+        ClassicEditor
+            .create( document.querySelector( '#short_description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+            
     </script>
 @endpush

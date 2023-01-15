@@ -206,6 +206,16 @@
                 timer: 1500
             })
         })
+        Livewire.on('error', message => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'SORRY',
+                text: ''+message+ '',
+                showConfirmButton: true,
+                timer: 5000
+            })
+        })
     </script>
 </body>
 
