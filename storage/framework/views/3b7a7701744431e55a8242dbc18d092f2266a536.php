@@ -13,17 +13,30 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-    <script src="<?php echo e(asset('sweetalert2/sweetalert2.min.js')); ?>"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('sweetalert2/sweetalert2.min.css')); ?>">
+    <script src="<?php echo e(asset('plugins/sweetalert2/sweetalert2.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('plugins/sweetalert2/sweetalert2.min.css')); ?>">
     <!-- Scripts -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 
+    <link rel="stylesheet" href="<?php echo e(asset('plugins/jquery-ui/jquery-ui.css')); ?>" />
+   
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/style.css')); ?>">
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo e(asset('font-awesome/css/all.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('plugins/font-awesome/css/all.min.css')); ?>">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+    
+
+    <link rel="stylesheet" href="<?php echo e(asset('plugins/datetimepicker/jquery.datetimepicker.css')); ?>" />
+    <!-- year Picker -->
+    <link rel="stylesheet" href="<?php echo e(asset('plugins/yearpicker/yearpicker.css')); ?>" />
+    <!-- date range picker -->
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('plugins/daterangepicker/daterangepicker.css')); ?>" />
+    <!-- Month Picker -->
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('plugins/monthpicker/MonthPicker.min.css')); ?>" />
     <style>
         .themed-grid-col {
             padding-top: 1rem;
@@ -48,16 +61,12 @@
             background-color: purple;
             border-color: #ddd;
         }
-    
     </style>
 
     <?php echo $__env->yieldPushContent('styles'); ?>
 
     <?php echo \Livewire\Livewire::styles(); ?>
 
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
-    
 
 </head>
 
@@ -85,8 +94,18 @@
     <script src="<?php echo e(asset('js/bootstrap.bundle.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/popper.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/jquery-3.6.1.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('plugins/jquery-ui/jquery-ui.js')); ?>"></script>
     <script src="<?php echo e(asset('js/select2.min.js')); ?>"></script>
     
+
+    <script src="<?php echo e(asset('plugins/datetimepicker/jquery.datetimepicker.full.min.js')); ?>"></script>
+    <!-- Yearpicker -->
+    <script src="<?php echo e(asset('plugins/yearpicker/yearpicker.js')); ?>"></script>
+    <!-- daterange picker -->
+    <script type="text/javascript" src="<?php echo e(asset('plugins/daterangepicker/moment.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('plugins/daterangepicker/daterangepicker.js')); ?>"></script>
+    <!-- Month Picker -->
+    <script type="text/javascript" src="<?php echo e(asset('plugins/monthpicker/MonthPicker.min.js')); ?>"></script>
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -106,6 +125,19 @@
                     }, false)
                 })
         })();
+
+        $(".yearpicker").yearpicker();
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+        $(".datetimepicker").datetimepicker({
+            format: 'Y-m-d H:i:00',
+            "step": 30 //Will Change Minute Interval as 00, 05, 10 ... 55
+        });
+        $(".monthpicker").MonthPicker({
+            ShowIcon: false
+            // Button: '<button>...</button>'
+        });
 
         $(document).ready(function() {
             $('.select2').select2();
@@ -186,7 +218,6 @@
     <?php echo \Livewire\Livewire::scripts(); ?>
 
     <script>
-       
         Livewire.on('success', message => {
             $(".modal").modal('hide');
             Swal.fire(

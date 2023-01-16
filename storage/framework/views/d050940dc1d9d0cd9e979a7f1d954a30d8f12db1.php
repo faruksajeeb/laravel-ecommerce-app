@@ -337,14 +337,14 @@ unset($__errorArgs, $__bag); ?>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Short Description:</label>
-                                <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Description:</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="description"  id="description" wire:model='description' cols="30" rows="5" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>

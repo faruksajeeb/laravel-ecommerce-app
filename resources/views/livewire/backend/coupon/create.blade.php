@@ -74,6 +74,17 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="" class="form-label">Expiry Date:</label>
+                        
+                        <div class="col-12">
+                            <input type="text" name="expiry_date" id="expiry_date" wire:model="expiry_date"
+                                class="form-control form-control-lg datepicker"  data-date-format="yyyy-mm-dd" placeholder="Enter expiry date">
+                            @error('expiry_date')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
                     
                 </div>
                 <div class="modal-footer">
@@ -92,7 +103,13 @@
 </div>
 @push('scripts')
     <script>
-         $(document).ready(function() {
+       $('#expiry_date').on('change', function(e) {
+                var expiry_date = $('#expiry_date').val();     
+                 alert(expiry_date);       
+                @this.set('expiry_date', expiry_date);
+            });
+     
+            // $('.datepicker').datepicker();
           //  $("#option_group").select2({ dropdownParent: "#addModal" });
           $('#addModal').on('shown.bs.modal', function (e) {
             // $('.category_id').select2({

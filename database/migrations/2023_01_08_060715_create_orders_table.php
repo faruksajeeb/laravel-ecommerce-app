@@ -15,7 +15,28 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('customer_id')->unsigned();
+            $table->decimal('subtotal');
+            $table->decimal('discount')->default(0);
+            $table->decimal('tax');
+            $table->decimal('total');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->nullable();
+            $table->string('mobile');
+            $table->string('line1')->nullable();
+            $table->string('line2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('province')->nullable();
+            $table->string('country')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->enum('status',['ordered','delivired','canceled'])->default('ordered');
+            $table->boolean('is_shiffing_different')->default(false);
+            $table->boolean('status')->default(1);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

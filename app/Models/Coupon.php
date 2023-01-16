@@ -14,6 +14,7 @@ class Coupon extends Model
         'type',
         'value',
         'cart_value',
+        'expiry_date',
         'status',
         'created_by',
         'updated_by',

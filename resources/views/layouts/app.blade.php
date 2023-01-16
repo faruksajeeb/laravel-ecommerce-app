@@ -13,17 +13,30 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-    <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('sweetalert2/sweetalert2.min.css') }}">
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.css') }}" />
+   
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('font-awesome/css/all.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/font-awesome/css/all.min.css') }}">
     {{-- <link  rel="stylesheet" type="text/css" href="{{ asset('css/select2.min.css" rel="stylesheet')}}" /> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/decoupled-document/ckeditor.js"></script> --}}
+
+    <link rel="stylesheet" href="{{ asset('plugins/datetimepicker/jquery.datetimepicker.css') }}" />
+    <!-- year Picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/yearpicker/yearpicker.css') }}" />
+    <!-- date range picker -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}" />
+    <!-- Month Picker -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/monthpicker/MonthPicker.min.css') }}" />
     <style>
         .themed-grid-col {
             padding-top: 1rem;
@@ -48,15 +61,11 @@
             background-color: purple;
             border-color: #ddd;
         }
-    
     </style>
 
     @stack('styles')
 
     @livewireStyles
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/decoupled-document/ckeditor.js"></script> --}}
 
 </head>
 
@@ -91,8 +100,18 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script> --}}
+
+    <script src="{{ asset('plugins/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
+    <!-- Yearpicker -->
+    <script src="{{ asset('plugins/yearpicker/yearpicker.js') }}"></script>
+    <!-- daterange picker -->
+    <script type="text/javascript" src="{{ asset('plugins/daterangepicker/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Month Picker -->
+    <script type="text/javascript" src="{{ asset('plugins/monthpicker/MonthPicker.min.js') }}"></script>
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -112,6 +131,19 @@
                     }, false)
                 })
         })();
+
+        $(".yearpicker").yearpicker();
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+        $(".datetimepicker").datetimepicker({
+            format: 'Y-m-d H:i:00',
+            "step": 30 //Will Change Minute Interval as 00, 05, 10 ... 55
+        });
+        $(".monthpicker").MonthPicker({
+            ShowIcon: false
+            // Button: '<button>...</button>'
+        });
 
         $(document).ready(function() {
             $('.select2').select2();
@@ -191,7 +223,6 @@
 
     @livewireScripts
     <script>
-       
         Livewire.on('success', message => {
             $(".modal").modal('hide');
             Swal.fire(

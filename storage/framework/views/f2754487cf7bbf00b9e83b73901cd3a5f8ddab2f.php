@@ -14,8 +14,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('frontend-assets/imgs/theme/favicon.ico')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('frontend-assets/css/main.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('frontend-assets/css/custom.css')); ?>">
-    <script src="<?php echo e(asset('sweetalert2/sweetalert2.min.js')); ?>"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('sweetalert2/sweetalert2.min.css')); ?>">
+    <script src="<?php echo e(asset('plugins/sweetalert2/sweetalert2.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('plugins/sweetalert2/sweetalert2.min.css')); ?>">
     <style>
         .pagination>li>a:focus,
         .pagination>li>a:hover,

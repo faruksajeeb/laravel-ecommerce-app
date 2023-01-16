@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Frontend;
 
 use App\Models\Coupon;
+use Carbon\Carbon;
 use Livewire\Component;
 use Cart;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ShoppingCart extends Component
     {
       //  dd(session()->get('coupon'));
         $cartSubTotal = str_replace(',', '', Cart::instance('cart')->subtotal());
-        $coupon = Coupon::where('code', $this->couponCode)->where('cart_value', '<=', $cartSubTotal)->first();
+        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date','>=',Carbon::today())->where('cart_value', '<=', $cartSubTotal)->first();
         if (!$coupon || (empty($coupon))) {
            
             $this->emit('error', "Your coupon code is invalid.");
@@ -42,7 +43,7 @@ class ShoppingCart extends Component
     {
 
         $couponValue = session()->get('coupon')['value'];
-        $cartSubtotal = Cart::instance('cart')->subtotal();
+        $cartSubtotal = str_replace(",", "", Cart::instance('cart')->subtotal());
         if (session()->get('coupon')['type'] == 'fixed') {
             $this->discount = $couponValue;
         } else {
@@ -54,16 +55,21 @@ class ShoppingCart extends Component
     }
     public function render()
     {
+       # session()->forget('coupon');
         if (session()->has('coupon')) {
+            
             $couponCartValue = session()->get('coupon')['cart_value'];
-            $cartSubtotal = Cart::instance('cart')->subtotal();
+            $cartSubtotal = str_replace(",", "", Cart::instance('cart')->subtotal());
+            // dd($cartSubtotal);
             if ($cartSubtotal < $couponCartValue) {
+               
                 session()->forget('coupon');
             }
-        } else {
-            if (!empty(session()->get('coupon'))) :
-                $this->calculateDiscount();
-            endif;
+            else {
+                if (!empty(session()->get('coupon'))) :
+                    $this->calculateDiscount();
+                endif;
+            }
         }
         return view('livewire.frontend.shopping-cart')->extends('livewire.frontend.master');
     }

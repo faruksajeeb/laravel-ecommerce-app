@@ -35,6 +35,8 @@ class CouponComponent extends Component
     public $type;
     public $value;
     public $cart_value;
+    public $expiry_date;
+    public $edit_expiry_date;
     public $created_by;
     public $updated_by;
     public $created_at;
@@ -123,7 +125,8 @@ class CouponComponent extends Component
             'type' => 'required',
             'code' => 'required',
             'value' => 'required',
-            'cart_value' => 'required'
+            'cart_value' => 'required',
+            'expiry_date' => 'required'
         ]);
         try {
             # Save form data
@@ -133,6 +136,7 @@ class CouponComponent extends Component
             $coupon->code = $this->code;
             $coupon->value = $this->value;
             $coupon->cart_value = $this->cart_value;
+            $coupon->expiry_date = $this->expiry_date;
             $coupon->created_by = Auth::user()->id;
             $coupon->save();
 
@@ -163,6 +167,7 @@ class CouponComponent extends Component
         $this->code         = $data->code;
         $this->value        = $data->value;
         $this->cart_value   = $data->cart_value;
+        $this->expiry_date   = $data->expiry_date;
     }
     public function update()
     {
@@ -172,7 +177,8 @@ class CouponComponent extends Component
             'type' => 'required',
             'code' => 'required',
             'value' => 'required',
-            'cart_value' => 'required'
+            'cart_value' => 'required',
+            'edit_expiry_date' => 'required',
         ]);
         
         try {
@@ -183,6 +189,7 @@ class CouponComponent extends Component
             $coupon->code = $this->code;
             $coupon->value = $this->value;
             $coupon->cart_value = $this->cart_value;
+            $coupon->expiry_date = $this->edit_expiry_date;
             $coupon->updated_by = Auth::user()->id;
             $coupon->save();
            
@@ -225,5 +232,7 @@ class CouponComponent extends Component
         $this->code         = '';
         $this->value        = '';
         $this->cart_value   = '';
+        $this->expiry_date   = '';
+        $this->edit_expiry_date   = '';
     }
 }

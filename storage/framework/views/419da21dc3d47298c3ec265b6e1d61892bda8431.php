@@ -24,8 +24,7 @@
                                 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-outline-primary float-end me-1"
-                                    data-bs-toggle="modal" data-bs-target="#addModal"
-                                    wire:click="resetInputFields()">
+                                    data-bs-toggle="modal" data-bs-target="#addModal" wire:click="resetInputFields()">
                                     <i class="fa-solid fa-plus"></i> Create New
                                 </button>
                                 
@@ -44,7 +43,8 @@
                                 
                             </div>
                             <div class="col-md-2">
-                                <select name="search_type" id="search_type" wire:model='search_type' class="form-control">
+                                <select name="search_type" id="search_type" wire:model='search_type'
+                                    class="form-control">
                                     <option value="">--Type--</option>
                                     <option value="percent">Percent</option>
                                     <option value="fixed">Fixed</option>
@@ -57,7 +57,7 @@
                                     <option value="-1">Inactive</option>
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-2">
                                 <select name="" id="" wire:model='orderBy' class="form-control">
                                     <option value="">--Order By--</option>
@@ -95,9 +95,10 @@
                                 <tr>
                                     <th>Sl.</th>
                                     <th>Code</th>
-                                    <th>Type</th>
-                                    <th>Value</th>
+                                    <th>Discount Type</th>
+                                    <th>Coupon Value</th>
                                     <th>Cart Value</th>
+                                    <th>Expiry Date</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
@@ -112,6 +113,7 @@
                                         <td><?php echo e($val->type); ?></td>
                                         <td><?php echo e($val->value); ?></td>
                                         <td><?php echo e($val->cart_value); ?></td>
+                                        <td><?php echo e($val->expiry_date); ?></td>
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input active_inactive_btn "
@@ -179,9 +181,7 @@
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script type="text/javascript">
-        $(document).ready(function() {
-           
-        });
+          
         document.addEventListener('DOMContentLoaded', function() {
 
             window.livewire.find('<?php echo e($_instance->id); ?>').on('triggerDelete', deleteId => {

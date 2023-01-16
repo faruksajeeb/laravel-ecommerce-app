@@ -1,6 +1,5 @@
 <!-- Modal -->
-<div wire:ignore.self class="modal fade" id="editModal" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="editModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <form wire:submit.prevent="update" class="needs-validation" method="POST">
@@ -15,17 +14,16 @@
                     @if (session()->has('message'))
                         <div class="alert alert-danger">{{ session('message') }}</div>
                     @endif
-            
+
                     <div class="form-group row">
                         <label for="" class="form-label">Type:</label>
-                        <div class="col-12">                  
-                                <select name="type" wire:model='type'
-                                    class="form-select type">
-                                    <option value="">--select type--</option>
-                                    <option value="percent">Percent</option>
-                                    <option value="fixed">Fixed</option>
-                                </select>
-                           
+                        <div class="col-12">
+                            <select name="type" wire:model='type' class="form-select type">
+                                <option value="">--select type--</option>
+                                <option value="percent">Percent</option>
+                                <option value="fixed">Fixed</option>
+                            </select>
+
                             @error('type')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
@@ -61,7 +59,19 @@
                             @enderror
                         </div>
                     </div>
-                    
+                    <div class="form-group row">
+                        <label for="" class="form-label">Expiry Date:</label>
+
+                        <div class="col-12">
+                            <input type="text" name="edit_expiry_date" id="edit_expiry_date" wire:model="edit_expiry_date"
+                                class="form-control form-control-lg datepicker" data-date-format="yyyy-mm-dd"
+                                placeholder="Enter expiry date">
+                            @error('edit_expiry_date')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -79,10 +89,18 @@
 </div>
 @push('scripts')
     <script>
-$(document).ready(function() {
-          $('#editModal').on('shown.bs.modal', function (e) {
-            
+      $('#edit_expiry_date').on('change', function(e) {
+                var expiry_date = $('#edit_expiry_date').val();     
+                 alert(expiry_date);       
+                @this.set('edit_expiry_date', expiry_date);
+            });
+
+        $(document).ready(function() {
+            $('#editModal').on('shown.bs.modal', function(e) {
+                $(".datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            });
         });
-});
     </script>
 @endpush

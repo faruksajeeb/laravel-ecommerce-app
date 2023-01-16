@@ -1,6 +1,5 @@
 <!-- Modal -->
-<div wire:ignore.self class="modal fade" id="editModal" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="editModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <form wire:submit.prevent="update" class="needs-validation" method="POST">
@@ -15,17 +14,16 @@
                     <?php if(session()->has('message')): ?>
                         <div class="alert alert-danger"><?php echo e(session('message')); ?></div>
                     <?php endif; ?>
-            
+
                     <div class="form-group row">
                         <label for="" class="form-label">Type:</label>
-                        <div class="col-12">                  
-                                <select name="type" wire:model='type'
-                                    class="form-select type">
-                                    <option value="">--select type--</option>
-                                    <option value="percent">Percent</option>
-                                    <option value="fixed">Fixed</option>
-                                </select>
-                           
+                        <div class="col-12">
+                            <select name="type" wire:model='type' class="form-select type">
+                                <option value="">--select type--</option>
+                                <option value="percent">Percent</option>
+                                <option value="fixed">Fixed</option>
+                            </select>
+
                             <?php $__errorArgs = ['type'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -89,7 +87,26 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
-                    
+                    <div class="form-group row">
+                        <label for="" class="form-label">Expiry Date:</label>
+
+                        <div class="col-12">
+                            <input type="text" name="edit_expiry_date" id="edit_expiry_date" wire:model="edit_expiry_date"
+                                class="form-control form-control-lg datepicker" data-date-format="yyyy-mm-dd"
+                                placeholder="Enter expiry date">
+                            <?php $__errorArgs = ['edit_expiry_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="error text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -107,11 +124,19 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script>
-$(document).ready(function() {
-          $('#editModal').on('shown.bs.modal', function (e) {
-            
+      $('#edit_expiry_date').on('change', function(e) {
+                var expiry_date = $('#edit_expiry_date').val();     
+                 alert(expiry_date);       
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('edit_expiry_date', expiry_date);
+            });
+
+        $(document).ready(function() {
+            $('#editModal').on('shown.bs.modal', function(e) {
+                $(".datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            });
         });
-});
     </script>
 <?php $__env->stopPush(); ?>
 <?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/backend/coupon/edit.blade.php ENDPATH**/ ?>

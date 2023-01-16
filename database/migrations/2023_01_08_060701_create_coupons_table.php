@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('type',['percent','fixed']);
             $table->decimal('value');
             $table->decimal('cart_value');
+            $table->date('expiry_date');
             $table->boolean('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
