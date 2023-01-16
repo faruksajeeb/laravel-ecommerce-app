@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShoppingCart extends Component
 {
@@ -53,6 +54,11 @@ class ShoppingCart extends Component
         $this->taxAfterDiscount = ($this->subtotalAfterDiscount * config('cart.tax')) / 100;
         $this->totalAfterDiscount = $this->subtotalAfterDiscount + $this->taxAfterDiscount;
     }
+
+    public function removeCoupon(){
+        session()->forget('coupon');
+    }
+
     public function render()
     {
        # session()->forget('coupon');
@@ -71,8 +77,11 @@ class ShoppingCart extends Component
                 endif;
             }
         }
+        $this->setAmountForCheckOut();
         return view('livewire.frontend.shopping-cart')->extends('livewire.frontend.master');
     }
+
+
 
     public function increaseQuantity($rowId)
     {
@@ -101,5 +110,31 @@ class ShoppingCart extends Component
         Cart::instance('cart')->destroy();
         $this->emitTo('frontend.shopping-cart-icon', 'refreshComponent');
         session()->flash("success-message", "All Cleared.");
+    }
+
+    public function checkOut(){
+        if(Auth::check()){
+            redirect()->route('checkout');
+        }else{
+            redirect()->route('customer-login');
+        }
+    }
+
+    public function setAmountForCheckOut(){
+        if(session()->has('coupon')){
+            session()->put('checkout',[
+                'discount' => $this->discount,
+                'subtotal' => $this->subtotalAfterDiscount,
+                'tax' => $this->taxAfterDiscount,
+                'total' => $this->totalAfterDiscount
+            ]);
+        }else{
+            session()->put('checkout',[
+                'discount' => 0,
+                'subtotal' => Cart::instance('cart')->subtotal(),
+                'tax' => Cart::instance('cart')->tax(),
+                'total' => Cart::instance('cart')->total(),
+            ]);
+        }
     }
 }

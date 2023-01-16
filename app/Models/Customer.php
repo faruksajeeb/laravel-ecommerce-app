@@ -13,6 +13,7 @@ class Customer extends Model
         'customer_name',
         'email',
         'mobile',
+        'password',
         'present_address',
         'permenent_address',
         'shipping_address',

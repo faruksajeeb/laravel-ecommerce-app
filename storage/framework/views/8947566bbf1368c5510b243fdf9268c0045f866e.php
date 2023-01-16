@@ -4,7 +4,7 @@
         <div class="container">
             <div class="breadcrumb">
                 <a href="index.html" rel="nofollow">Home</a>
-                <span></span> Register
+                <span></span> Login
             </div>
         </div>
     </div>
@@ -13,54 +13,46 @@
             <div class="row">
                 <div class="col-lg-10 m-auto">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
+                        <div class="col-lg-5">
+                            <div
+                                class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
-                                        <h3 class="mb-30">Create an Account</h3>
+                                        <h3 class="mb-30">Login</h3>
                                     </div>
                                     <form method="post">
                                         <div class="form-group">
-                                            <input type="text" required="" name="name" placeholder="Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" required="" name="email" placeholder="Email">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required="" name="mobile" placeholder="Mobile">
+                                            <input type="text" required="" name="email"
+                                                placeholder="Your Email">
                                         </div>
                                         <div class="form-group">
                                             <input required="" type="password" name="password"
                                                 placeholder="Password">
                                         </div>
-                                        <div class="form-group">
-                                            <input required="" type="password" name="password"
-                                                placeholder="Confirm password">
-                                        </div>
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
                                                     <input class="form-check-input" type="checkbox" name="checkbox"
-                                                        id="exampleCheckbox12" value="">
-                                                    <label class="form-check-label" for="exampleCheckbox12"><span>I
-                                                            agree to terms &amp; Policy.</span></label>
+                                                        id="exampleCheckbox1" value="">
+                                                    <label class="form-check-label"
+                                                        for="exampleCheckbox1"><span>Remember me</span></label>
                                                 </div>
                                             </div>
-                                            <a href="privacy-policy.html"><i
-                                                    class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
+                                            <a class="text-muted" href="#">Forgot password?</a>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-fill-out btn-block hover-up"
-                                                name="login">Submit &amp; Register</button>
+                                                name="login">Log in</button>
+                                               
                                         </div>
                                     </form>
-                                    <div class="text-muted text-center">Already have an account? <a href="{{ route('customer-login') }}">Sign
-                                            in now</a></div>
+                                    <div class="text-muted text-center">Create a ewn account? <a href="<?php echo e(route('customer-register')); ?>">Register now</a></div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-1"></div>
                         <div class="col-lg-6">
-                            <img src="{{ asset('frontend-assets/imgs/login.png') }}">
+                            <img src="<?php echo e(asset('frontend-assets/imgs/login.png')); ?>">
                         </div>
                     </div>
                 </div>
@@ -68,3 +60,4 @@
         </div>
     </section>
 </div>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/customer-login.blade.php ENDPATH**/ ?>

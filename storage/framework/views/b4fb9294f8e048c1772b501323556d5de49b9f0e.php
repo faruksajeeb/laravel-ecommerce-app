@@ -54,13 +54,13 @@
                                                 name="login">Submit &amp; Register</button>
                                         </div>
                                     </form>
-                                    <div class="text-muted text-center">Already have an account? <a href="{{ route('customer-login') }}">Sign
+                                    <div class="text-muted text-center">Already have an account? <a href="<?php echo e(route('customer-login')); ?>">Sign
                                             in now</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <img src="{{ asset('frontend-assets/imgs/login.png') }}">
+                            <img src="<?php echo e(asset('frontend-assets/imgs/login.png')); ?>">
                         </div>
                     </div>
                 </div>
@@ -68,3 +68,4 @@
         </div>
     </section>
 </div>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/customer-register.blade.php ENDPATH**/ ?>

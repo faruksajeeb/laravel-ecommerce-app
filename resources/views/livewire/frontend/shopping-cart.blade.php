@@ -425,7 +425,7 @@
                                                 @if (Session::has('coupon'))
                                                     <tr>
                                                         <td class="cart_total_label">Discount
-                                                            ({{ Session::get('coupon')['code'] }})</td>
+                                                            ({{ Session::get('coupon')['code'] }}) <a href="#" wire:click.prevent='removeCoupon' class=""><i class="fi-rs-cross-small"></i></a></td>
                                                         <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>৳
                                                             {{ $discount }}</td>
                                                     </tr>
@@ -470,7 +470,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="{{ route('checkout') }}" class="btn "> <i
+                                    <a href="#" wire:click.prevent='checkOut' class="btn "> <i
                                             class="fi-rs-box-alt mr-10"></i> Proceed
                                         To CheckOut</a>
                                 </div>

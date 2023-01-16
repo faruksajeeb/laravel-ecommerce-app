@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('email')->unique();
             $table->string('mobile')->unique();
+            $table->string('password');
             $table->string('present_address')->nullable();
             $table->string('permenent_address')->nullable();
             $table->string('shipping_address')->nullable();

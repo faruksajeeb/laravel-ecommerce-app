@@ -43,8 +43,10 @@
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-fill-out btn-block hover-up"
                                                 name="login">Log in</button>
+                                               
                                         </div>
                                     </form>
+                                    <div class="text-muted text-center">Create a ewn account? <a href="{{ route('customer-register') }}">Register now</a></div>
                                 </div>
                             </div>
                         </div>
