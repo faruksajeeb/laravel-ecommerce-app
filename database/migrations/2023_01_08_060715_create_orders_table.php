@@ -32,7 +32,6 @@ return new class extends Migration
             $table->string('zip_code')->nullable();
             $table->enum('status',['ordered','delivired','canceled'])->default('ordered');
             $table->boolean('is_shiffing_different')->default(false);
-            $table->boolean('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
