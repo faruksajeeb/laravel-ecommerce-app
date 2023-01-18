@@ -78,20 +78,97 @@
                     <div class="mb-25">
                         <h4>Billing Details</h4>
                     </div>
-                    <form method="post">
+                    <form method="post" wire:submit.prevent='saveCheckout'>
                         <div class="form-group">
-                            <input type="text" required="" name="fname" placeholder="First name *">
+                            <input type="text" required="" name="first_name" wire:model='first_name'
+                                class='dorm-control <?php $__errorArgs = ['first_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid  <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>'
+                                placeholder="First name *">
+                            <?php $__errorArgs = ['first_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group">
-                            <input type="text" required="" name="lname" placeholder="Last name *">
+                            <input type="text" required="" name="lname" wire:model='last_name'
+                                class='dorm-control <?php $__errorArgs = ['last_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid  <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>' placeholder="Last name *">
+                            <?php $__errorArgs = ['last_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group">
-                            <input required="" type="text" name="cname" placeholder="Company Name">
+                            <input required="" type="mobile" name="mobile" wire:model='mobile'
+                                class='dorm-control <?php $__errorArgs = ['mobile'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid  <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>' placeholder="Mobile *">
+                            <?php $__errorArgs = ['mobile'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
+                        <div class="form-group">
+                            <input type="email" name="email" wire:model='email'
+                                class='dorm-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid  <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>' placeholder="Email">
+                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+
                         <div class="form-group">
                             <div class="custom_select">
-                                <select class="form-control select-active">
-                                    <option value="">Select an option...</option>
+                                <select class="form-control select-active" wire:model='country'>
+                                    <option value="">Select a country</option>
                                     <option value="AX">Aland Islands</option>
                                     <option value="AF">Afghanistan</option>
                                     <option value="AL">Albania</option>
@@ -340,26 +417,32 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="billing_address" required="" placeholder="Address *">
+                            <input type="text" name="billing_address" wire:model='line1' required=""
+                                placeholder="Address *">
+                                <?php $__errorArgs = ['first_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="billing_address2" required=""
+                            <input type="text" name="billing_address2" wire:model='line2'
                                 placeholder="Address line2">
                         </div>
                         <div class="form-group">
-                            <input required="" type="text" name="city" placeholder="City / Town *">
+                            <input type="text" name="city" wire:model='city' placeholder="City / Town ">
                         </div>
                         <div class="form-group">
-                            <input required="" type="text" name="state" placeholder="State / County *">
+                            <input type="text" name="state" wire:model='state' placeholder="State / County ">
                         </div>
                         <div class="form-group">
-                            <input required="" type="text" name="zipcode" placeholder="Postcode / ZIP *">
-                        </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="phone" placeholder="Phone *">
-                        </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="email" placeholder="Email address *">
+                            <input type="text" name="zip_code" wire:model='zip_code'
+                                placeholder="Postcode / ZIP ">
                         </div>
                         <!--
                         <div class="form-group">
@@ -393,17 +476,17 @@
                             </div>
                             <div id="collapseAddress" class="different_address collapse in">
                                 <div class="form-group">
-                                    <input type="text" required="" name="fname" placeholder="First name *">
+                                    <input type="text" required="" name="s_first_name" wire:model='s_first_name' placeholder="First name *">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" required="" name="lname" placeholder="Last name *">
+                                    <input type="text" required="" name="s_last_name" wire:model='s_last_name' placeholder="Last name *">
                                 </div>
                                 <div class="form-group">
-                                    <input required="" type="text" name="cname" placeholder="Company Name">
+                                    <input required="" type="text" name="s_mobile" wire:model='s_mobile' placeholder="Mobile">
                                 </div>
                                 <div class="form-group">
                                     <div class="custom_select">
-                                        <select class="form-control select-active">
+                                        <select class="form-control select-active" name='s_country' wire:model='s_country'>
                                             <option value="">Select an option...</option>
                                             <option value="AX">Aland Islands</option>
                                             <option value="AF">Afghanistan</option>
@@ -653,22 +736,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="billing_address" required=""
+                                    <input type="text" name="s_line1" wire:model='' required=""
                                         placeholder="Address *">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="billing_address2" required=""
+                                    <input type="text" name="s_line2" wire:model='' required=""
                                         placeholder="Address line2">
                                 </div>
                                 <div class="form-group">
-                                    <input required="" type="text" name="city" placeholder="City / Town *">
+                                    <input required="" type="text" name="s_city" wire:model='' placeholder="City / Town *">
                                 </div>
                                 <div class="form-group">
-                                    <input required="" type="text" name="state"
+                                    <input required="" type="text" name="s_state" wire:model=''
                                         placeholder="State / County *">
                                 </div>
                                 <div class="form-group">
-                                    <input required="" type="text" name="zipcode"
+                                    <input required="" type="text" name="s_zip_code" wire:model='s_zip_code'
                                         placeholder="Postcode / ZIP *">
                                 </div>
                             </div>
@@ -677,7 +760,7 @@
                             <h5>Additional information</h5>
                         </div>
                         <div class="form-group mb-30">
-                            <textarea rows="5" placeholder="Order notes"></textarea>
+                            <textarea rows="5" placeholder="Order notes" name='order_notes' wire:model='order_notes'></textarea>
                         </div>
                     </form>
                 </div>
@@ -696,23 +779,23 @@
                                 </thead>
                                 <tbody>
                                     <?php if(Cart::instance('cart')->count()): ?>
-                                    <?php $__currentLoopData = Cart::instance('cart')->content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        
-                                        <tr>
-                                            <td class="image product-thumbnail"><img
-                                                    src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($item->options->image); ?>"
-                                                    alt="#"></td>
-                                            <td>
-                                                <h5><a href="product-details.html"><?php echo e($item->name); ?></a></h5>
-                                                <span class="product-qty">x <?php echo e($item->qty); ?></span>
-                                            </td>
-                                            <td>৳ <?php echo e($item->price); ?></td>
-                                        </tr>
+                                        <?php $__currentLoopData = Cart::instance('cart')->content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <tr>
+                                                <td class="image product-thumbnail"><img
+                                                        src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($item->options->image); ?>"
+                                                        alt="#"></td>
+                                                <td>
+                                                    <h5><a href="product-details.html"><?php echo e($item->name); ?></a></h5>
+                                                    <span class="product-qty">x <?php echo e($item->qty); ?></span>
+                                                </td>
+                                                <td>৳ <?php echo e($item->price); ?></td>
+                                            </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     <?php endif; ?>
                                     <tr>
                                         <th>SubTotal</th>
-                                        <td class="product-subtotal text-end" colspan="2">৳ <?php echo e(Cart::instance('cart')->subtotal()); ?></td>
+                                        <td class="product-subtotal text-end" colspan="2">৳
+                                            <?php echo e(Cart::instance('cart')->subtotal()); ?></td>
                                     </tr>
                                     <tr>
                                         <th>Shipping</th>
@@ -721,7 +804,8 @@
                                     <tr>
                                         <th>Total</th>
                                         <td colspan="2" class="product-subtotal text-end"><span
-                                                class="font-xl text-brand fw-900">৳  <?php echo e(Cart::instance('cart')->total()); ?></span></td>
+                                                class="font-xl text-brand fw-900">৳
+                                                <?php echo e(Cart::instance('cart')->total()); ?></span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -753,7 +837,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-fill-out btn-block mt-30">Place Order</a>
+                        <a href="#" type="submit" class="btn btn-fill-out btn-block mt-30">Place Order</a>
                     </div>
                 </div>
             </div>
