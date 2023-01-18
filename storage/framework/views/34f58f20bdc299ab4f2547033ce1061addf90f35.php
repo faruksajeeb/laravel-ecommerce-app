@@ -20,31 +20,31 @@
                                     <!-- MAIN SLIDES -->
                                     <div class="product-image-slider">
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                         <figure class="border-radius-10">
-                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image">
                                         </figure>
                                     </div>
@@ -52,34 +52,34 @@
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
 
                                         <!--
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-3.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-3.jpg')); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-4.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-4.jpg')); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-5.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-5.jpg')); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-6.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-6.jpg')); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-7.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-7.jpg')); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-8.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-8.jpg')); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/shop/thumbnail-9.jpg') }}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/shop/thumbnail-9.jpg')); ?>"
                                                 alt="product image"></div>
                                         -->
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                             alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image"></div>
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{$product->image}}"
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
                                                 alt="product image"></div>
                                     </div>
                                 </div>
@@ -88,19 +88,19 @@
                                     <ul class="text-grey-5 d-inline-block">
                                         <li><strong class="mr-10">Share this:</strong></li>
                                         <li class="social-facebook"><a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-facebook.svg') }}"
+                                                    src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-facebook.svg')); ?>"
                                                     alt=""></a>
                                         </li>
                                         <li class="social-twitter"> <a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-twitter.svg') }}"
+                                                    src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-twitter.svg')); ?>"
                                                     alt=""></a>
                                         </li>
                                         <li class="social-instagram"><a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-instagram.svg') }}"
+                                                    src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-instagram.svg')); ?>"
                                                     alt=""></a>
                                         </li>
                                         <li class="social-linkedin"><a href="#"><img
-                                                    src="{{ asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg') }}"
+                                                    src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg')); ?>"
                                                     alt=""></a>
                                         </li>
                                     </ul>
@@ -108,7 +108,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <div class="detail-info">
-                                    <h2 class="title-detail">{{ $product->name }}</h2>
+                                    <h2 class="title-detail"><?php echo e($product->name); ?></h2>
                                     <div class="product-detail-rating">
                                         <div class="pro-details-brand">
                                             <span> Brands: <a href="shop.html">Bootstrap</a></span>
@@ -123,15 +123,15 @@
                                     </div>
                                     <div class="clearfix product-price-cover">
                                         <div class="product-price primary-color float-left">
-                                            <ins><span class="text-brand">৳ {{ $product->sale_price }}</span></ins>
+                                            <ins><span class="text-brand">৳ <?php echo e($product->sale_price); ?></span></ins>
                                             <ins><span class="old-price font-md ml-15">৳
-                                                    {{ $product->regular_price }}</span></ins>
+                                                    <?php echo e($product->regular_price); ?></span></ins>
                                             <span class="save-price  font-md color3 ml-15">25% Off</span>
                                         </div>
                                     </div>
                                     <div class="bt-1 border-color-1 mt-15 mb-15"></div>
                                     <div class="short-desc mb-30">
-                                        <p>{{ $product->short_description }}</p>
+                                        <p><?php echo e($product->short_description); ?></p>
                                     </div>
                                     <div class="product_sort_info font-xs mb-30">
                                         <ul>
@@ -180,7 +180,7 @@
                                             <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                         </div>
                                         <div class="product-extra-link2">
-                                            <button type="submit" class="button button-add-to-cart"  wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}},'M','{{$product->image}}')">Add to
+                                            <button type="submit" class="button button-add-to-cart"  wire:click.prevent="store(<?php echo e($product->id); ?>,'<?php echo e($product->name); ?>',<?php echo e($product->sale_price); ?>,'M','<?php echo e($product->image); ?>')">Add to
                                                 cart</button>
                                             <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                 href="wishlist.php"><i class="fi-rs-heart"></i></a>
@@ -189,12 +189,12 @@
                                         </div>
                                     </div>
                                     <ul class="product-meta font-xs color-grey mt-50">
-                                        <li class="mb-5">SKU: <a href="#">{{ $product->SKU }}</a></li>
+                                        <li class="mb-5">SKU: <a href="#"><?php echo e($product->SKU); ?></a></li>
                                         <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a
                                                 href="#" rel="tag">Women</a>, <a href="#"
                                                 rel="tag">Dress</a> </li>
                                         <li>Availability:<span
-                                                class="in-stock text-success ml-5">{{ $product->quantity }} Items In
+                                                class="in-stock text-success ml-5"><?php echo e($product->quantity); ?> Items In
                                                 Stock</span></li>
                                     </ul>
                                 </div>
@@ -219,7 +219,7 @@
                             <div class="tab-content shop_info_tab entry-main-content">
                                 <div class="tab-pane fade show active" id="Description">
                                     <div class="">
-                                        <p>{{ $product->description }}</p>
+                                        <p><?php echo e($product->description); ?></p>
                                         <ul class="product-more-infor mt-30">
                                             <li><span>Type Of Packing</span> Bottle</li>
                                             <li><span>Color</span> Green, Pink, Powder Blue, Purple</li>
@@ -352,7 +352,7 @@
                                                     <div class="single-comment justify-content-between d-flex">
                                                         <div class="user justify-content-between d-flex">
                                                             <div class="thumb text-center">
-                                                                <img src="{{ asset('frontend-assets/imgs/page/avatar-6.jpg') }}"
+                                                                <img src="<?php echo e(asset('frontend-assets/imgs/page/avatar-6.jpg')); ?>"
                                                                     alt="">
                                                                 <h6><a href="#">Jacky Chan</a></h6>
                                                                 <p class="font-xxs">Since 2012</p>
@@ -380,7 +380,7 @@
                                                     <div class="single-comment justify-content-between d-flex">
                                                         <div class="user justify-content-between d-flex">
                                                             <div class="thumb text-center">
-                                                                <img src="{{ asset('frontend-assets/imgs/page/avatar-7.jpg') }}"
+                                                                <img src="<?php echo e(asset('frontend-assets/imgs/page/avatar-7.jpg')); ?>"
                                                                     alt="">
                                                                 <h6><a href="#">Ana Rosie</a></h6>
                                                                 <p class="font-xxs">Since 2008</p>
@@ -407,7 +407,7 @@
                                                     <div class="single-comment justify-content-between d-flex">
                                                         <div class="user justify-content-between d-flex">
                                                             <div class="thumb text-center">
-                                                                <img src="{{ asset('frontend-assets/imgs/page/avatar-8.jpg') }}"
+                                                                <img src="<?php echo e(asset('frontend-assets/imgs/page/avatar-8.jpg')); ?>"
                                                                     alt="">
                                                                 <h6><a href="#">Steven Keny</a></h6>
                                                                 <p class="font-xxs">Since 2010</p>
@@ -527,17 +527,46 @@
                                 </div>
                             </div>
                         </div>
-                        @livewire('frontend.related-products-component',['categoryId'=>$product->category_id,'productId'=>$product->id])
+                        <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.related-products-component',['categoryId'=>$product->category_id,'productId'=>$product->id])->html();
+} elseif ($_instance->childHasBeenRendered('l1418710105-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l1418710105-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l1418710105-0');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l1418710105-0');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.related-products-component',['categoryId'=>$product->category_id,'productId'=>$product->id]);
+    $html = $response->html();
+    $_instance->logRenderedChild('l1418710105-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                     </div>
                 </div>
                 <div class="col-lg-3 primary-sidebar sticky-sidebar">                    
-                    {{-- @livewire('frontend.filter-by-category',['route'=>Route::currentRouteName()]) --}}
+                    
                     <!-- Fillter By Price -->                    
-                    {{-- @livewire('frontend.filter-by-price') --}}
+                    
                     <!-- Product sidebar Widget -->
-                    @livewire('frontend.new-products-component')
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.new-products-component')->html();
+} elseif ($_instance->childHasBeenRendered('l1418710105-1')) {
+    $componentId = $_instance->getRenderedChildComponentId('l1418710105-1');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l1418710105-1');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l1418710105-1');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.new-products-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l1418710105-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                 </div>
             </div>
         </div>
     </section>
 </div>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/product-details.blade.php ENDPATH**/ ?>

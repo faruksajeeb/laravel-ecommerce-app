@@ -20,20 +20,31 @@
                                     <div class="heading_s1">
                                         <h3 class="mb-30">Login</h3>
                                     </div>
-                                    <form method="post">
+                                    @if (session()->has('error'))
+                                        <div class="alert alert-danger">{{ session('error') }}</div>
+                                    @endif
+                                    <form method="post" wire:submit.prevent='customerLogin'>
                                         <div class="form-group">
-                                            <input type="text" required="" name="email"
-                                                placeholder="Your Email">
+                                            <input type="text" required="" name="email" wire:model='email'
+                                                placeholder="Your Email"
+                                                class="form-control @error('email') is-invalid @enderror">
+                                            @error('email')
+                                                <div class="invalid-feedback error_msg">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="password" name="password"
-                                                placeholder="Password">
+                                            <input type="password" name="password" wire:model='password'
+                                                placeholder="Password"
+                                                class="form-control @error('password') is-invalid @enderror">
+                                            @error('password')
+                                                <div class="invalid-feedback error_msg">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                                        id="exampleCheckbox1" value="">
+                                                    <input class="form-check-input" type="checkbox" name="remember"
+                                                        wire:model='remember' id="exampleCheckbox1" value="">
                                                     <label class="form-check-label"
                                                         for="exampleCheckbox1"><span>Remember me</span></label>
                                                 </div>
@@ -43,10 +54,11 @@
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-fill-out btn-block hover-up"
                                                 name="login">Log in</button>
-                                               
+
                                         </div>
                                     </form>
-                                    <div class="text-muted text-center">Create a ewn account? <a href="{{ route('customer-register') }}">Register now</a></div>
+                                    <div class="text-muted text-center">Create a ewn account? <a
+                                            href="{{ route('customer-register') }}">Register now</a></div>
                                 </div>
                             </div>
                         </div>

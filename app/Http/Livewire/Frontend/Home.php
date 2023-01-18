@@ -20,9 +20,10 @@ class Home extends Component
              'new_products' => $newProducts,
         ])->extends('livewire.frontend.master');
     }
-    public function store($productId,$productName,$productPrice,$productSize=null){
+    public function store($productId,$productName,$productPrice,$productSize=null,$productImage){
         // Cart::add('293ad', 'Product 1', 1, 9.99, ['size' => 'large']);
-        Cart::instance('cart')->add($productId,$productName,1,$productPrice,['size'=>$productSize])->associate('App\Models\Product');
+        Cart::instance('cart')->add($productId,$productName,1,$productPrice,['size'=>$productSize,'image'=>$productImage])->associate('App\Models\Product');
+
         //session()->flash("success-message","Item added into the cart.");
         $this->emit('added',"Item added");
         $this->emitTo('frontend.shopping-cart-icon','refreshComponent');

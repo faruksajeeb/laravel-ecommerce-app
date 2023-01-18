@@ -9,7 +9,7 @@
                 <li>
                     <div class="shopping-cart-img">
                         <a href="{{ route('product-details', ['productId' => $item->id]) }}"><img alt="Surfside Media"
-                                src="{{ asset('frontend-assets/imgs/shop/product-') }}{{ $item->id }}-1.jpg"></a>
+                                src="{{ asset('frontend-assets/imgs/products') }}/{{ $item->options->image }}"></a>
                     </div>
                     <div class="shopping-cart-title">
                         <h4><a

@@ -361,6 +361,7 @@
                         <div class="form-group">
                             <input required="" type="text" name="email" placeholder="Email address *">
                         </div>
+                        <!--
                         <div class="form-group">
                             <div class="checkbox">
                                 <div class="custome-checkbox">
@@ -373,6 +374,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
                         <div id="collapsePassword" class="form-group create-account collapse in">
                             <input required="" type="password" placeholder="Password" name="password">
                         </div>
@@ -693,48 +695,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="image product-thumbnail"><img
-                                                src="{{ asset('frontend-assets/imgs/shop/product-1-1.jpg') }}"
-                                                alt="#"></td>
-                                        <td>
-                                            <h5><a href="product-details.html">Yidarton Women Summer Blue</a></h5>
-                                            <span class="product-qty">x 2</span>
-                                        </td>
-                                        <td>৳ 180.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="image product-thumbnail"><img
-                                                src="{{ asset('frontend-assets/imgs/shop/product-2-1.jpg') }}"
-                                                alt="#"></td>
-                                        <td>
-                                            <h5><a href="product-details.html">LDB MOON Women Summe</a></h5> <span
-                                                class="product-qty">x 1</span>
-                                        </td>
-                                        <td>৳ 65.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="image product-thumbnail"><img
-                                                src="{{ asset('frontend-assets/imgs/shop/product-3-1.jpg') }}"
-                                                alt="#"></td>
-                                        <td><i class="ti-check-box font-small text-muted mr-10"></i>
-                                            <h5><a href="product-details.html">Women's Short Sleeve Loose</a></h5>
-                                            <span class="product-qty">x 1</span>
-                                        </td>
-                                        <td>৳ 35.00</td>
-                                    </tr>
+                                    @if (Cart::instance('cart')->count())
+                                    @foreach (Cart::instance('cart')->content() as $item)
+                                        
+                                        <tr>
+                                            <td class="image product-thumbnail"><img
+                                                    src="{{ asset('frontend-assets/imgs/products')}}/{{$item->options->image}}"
+                                                    alt="#"></td>
+                                            <td>
+                                                <h5><a href="product-details.html">{{$item->name}}</a></h5>
+                                                <span class="product-qty">x {{ $item->qty}}</span>
+                                            </td>
+                                            <td>৳ {{ $item->price}}</td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
                                     <tr>
                                         <th>SubTotal</th>
-                                        <td class="product-subtotal" colspan="2">৳ 280.00</td>
+                                        <td class="product-subtotal text-end" colspan="2">৳ {{ Cart::instance('cart')->subtotal() }}</td>
                                     </tr>
                                     <tr>
                                         <th>Shipping</th>
-                                        <td colspan="2"><em>Free Shipping</em></td>
+                                        <td colspan="2" class=" text-end"><em>Free Shipping</em></td>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
-                                        <td colspan="2" class="product-subtotal"><span
-                                                class="font-xl text-brand fw-900">৳ 280.00</span></td>
+                                        <td colspan="2" class="product-subtotal text-end"><span
+                                                class="font-xl text-brand fw-900">৳  {{ Cart::instance('cart')->total() }}</span></td>
                                     </tr>
                                 </tbody>
                             </table>

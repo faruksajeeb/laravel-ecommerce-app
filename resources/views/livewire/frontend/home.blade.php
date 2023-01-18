@@ -109,7 +109,7 @@
                                         <span class="old-price">৳ {{$feature_product->regular_price}}</span>
                                     </div>
                                     <div class="product-action-1 show">
-                                        <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{ $feature_product->id }},'{{ $feature_product->name }}',{{ $feature_product->sale_price }},'M')"><i
+                                        <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{ $feature_product->id }},'{{ $feature_product->name }}',{{ $feature_product->sale_price }},'M','{{$feature_product->image}}')"><i
                                                 class="fi-rs-shopping-bag-add"></i></a>
                                     </div>
                                 </div>

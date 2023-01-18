@@ -11,7 +11,7 @@
                         alt="{{ $new_product->name }}">
                 </div>
                 <div class="content pt-10">
-                    <h5><a href="product-details.html">{{ $new_product->name }}</a></h5>
+                    <h5><a href="{{ route('product-details', ['productId' => $new_product->id]) }}">{{ $new_product->name }}</a></h5>
                     <p class="price mb-0 mt-5">৳ {{ $new_product->sale_price }}</p>
                     <div class="product-rate">
                         <div class="product-rating" style="width:90%"></div>

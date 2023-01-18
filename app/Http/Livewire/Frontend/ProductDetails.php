@@ -8,9 +8,9 @@ use Cart;
 
 class ProductDetails extends Component
 {
-    public function store($productId,$productName,$productPrice,$productSize=null){
+    public function store($productId,$productName,$productPrice,$productSize=null,$productImage){
         // Cart::add('293ad', 'Product 1', 1, 9.99, ['size' => 'large']);
-        Cart::instance('cart')->add($productId,$productName,1,$productPrice,['size'=>$productSize])->associate('Product');
+        Cart::instance('cart')->add($productId,$productName,1,$productPrice,['size'=>$productSize,'image'=>$productImage])->associate('Product');
         session()->flash("success-message","Item added into the cart.");
         return redirect()->route('cart');
     }

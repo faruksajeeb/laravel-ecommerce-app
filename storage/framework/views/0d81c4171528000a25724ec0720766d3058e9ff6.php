@@ -123,7 +123,7 @@ echo $html;
                                         <span class="old-price">৳ <?php echo e($feature_product->regular_price); ?></span>
                                     </div>
                                     <div class="product-action-1 show">
-                                        <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store(<?php echo e($feature_product->id); ?>,'<?php echo e($feature_product->name); ?>',<?php echo e($feature_product->sale_price); ?>,'M')"><i
+                                        <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store(<?php echo e($feature_product->id); ?>,'<?php echo e($feature_product->name); ?>',<?php echo e($feature_product->sale_price); ?>,'M','<?php echo e($feature_product->image); ?>')"><i
                                                 class="fi-rs-shopping-bag-add"></i></a>
                                     </div>
                                 </div>

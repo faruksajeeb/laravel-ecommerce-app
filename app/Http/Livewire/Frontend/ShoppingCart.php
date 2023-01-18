@@ -16,7 +16,10 @@ class ShoppingCart extends Component
     public $subtotalAfterDiscount;
     public $taxAfterDiscount;
     public $totalAfterDiscount;
-
+    protected $listeners = [
+        
+        'refreshComponent' => '$refresh'
+    ];
     public function applyCouponCode(Request $request)
     {
       //  dd(session()->get('coupon'));
@@ -113,7 +116,7 @@ class ShoppingCart extends Component
     }
 
     public function checkOut(){
-        if(Auth::check()){
+        if(Auth::guard('customer')->check()){
             redirect()->route('checkout');
         }else{
             redirect()->route('customer-login');

@@ -38,9 +38,14 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info header-info-right">
                         <ul>
+                            @if (Auth::guard('customer')->check())
+                               @livewire('frontend.customer-logout')
+                            @else
                             <li><i class="fi-rs-key"></i><a href="{{ route('customer-login') }}">Log In </a> / <a
-                                    href="{{ route('customer-register') }}">Sign
-                                    Up</a></li>
+                                href="{{ route('customer-register') }}">Sign
+                                Up</a></li>
+                            @endif
+                           
                         </ul>
                     </div>
                 </div>

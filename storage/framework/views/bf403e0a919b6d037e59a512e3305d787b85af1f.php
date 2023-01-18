@@ -135,10 +135,10 @@
                                                 href="#" wire:click.prevent='removeFromWishList(<?php echo e($product->id); ?>)'><i class="fi-rs-heart"></i></a>
                                             <?php else: ?>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                href="#" wire:click.prevent='addToWishList(<?php echo e($product->id); ?>,"<?php echo e($product->name); ?>",<?php echo e($product->sale_price); ?>)'><i class="fi-rs-heart"></i></a>
+                                                href="#" wire:click.prevent='addToWishList(<?php echo e($product->id); ?>,"<?php echo e($product->name); ?>",<?php echo e($product->sale_price); ?>,"M","<?php echo e($product->image); ?>")'><i class="fi-rs-heart"></i></a>
                                             <?php endif; ?>
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#"
-                                                    wire:click.prevent="store(<?php echo e($product->id); ?>,'<?php echo e($product->name); ?>',<?php echo e($product->sale_price); ?>,'M')"><i
+                                                    wire:click.prevent="store(<?php echo e($product->id); ?>,'<?php echo e($product->name); ?>',<?php echo e($product->sale_price); ?>,'M','<?php echo e($product->image); ?>')"><i
                                                         class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>

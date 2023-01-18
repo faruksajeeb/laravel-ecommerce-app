@@ -9,7 +9,7 @@
                 <li>
                     <div class="shopping-cart-img">
                         <a href="<?php echo e(route('product-details', ['productId' => $item->id])); ?>"><img alt="Surfside Media"
-                                src="<?php echo e(asset('frontend-assets/imgs/shop/product-')); ?><?php echo e($item->id); ?>-1.jpg"></a>
+                                src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($item->options->image); ?>"></a>
                     </div>
                     <div class="shopping-cart-title">
                         <h4><a

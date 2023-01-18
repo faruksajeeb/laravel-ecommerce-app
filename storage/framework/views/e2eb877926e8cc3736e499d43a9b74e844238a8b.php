@@ -5,19 +5,19 @@
         </div>
         <div class="col-12">
             <div class="row related-products">
-                @foreach ($related_products as $related_product)
+                <?php $__currentLoopData = $related_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     :
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap small hover-up">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a href="{{ route('product-details', ['productId' => $related_product->id]) }}"
+                                    <a href="<?php echo e(route('product-details', ['productId' => $related_product->id])); ?>"
                                         tabindex="0">
                                         <img class="default-img"
-                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $related_product->image }}"
+                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($related_product->image); ?>"
                                             alt="">
                                         <img class="hover-img"
-                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $related_product->image }}"
+                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($related_product->image); ?>"
                                             alt="">
                                     </a>
                                 </div>
@@ -34,22 +34,23 @@
                                 </div>
                             </div>
                             <div class="product-content-wrap">
-                                <h2><a href="{{ route('product-details', ['productId' => $related_product->id]) }}"
-                                        tabindex="0">{{ $related_product->name }}</a></h2>
+                                <h2><a href="<?php echo e(route('product-details', ['productId' => $related_product->id])); ?>"
+                                        tabindex="0"><?php echo e($related_product->name); ?></a></h2>
                                 <div class="rating-result" title="90%">
                                     <span>
                                     </span>
                                 </div>
                                 <div class="product-price">
-                                    <span>৳ {{ $related_product->sale_price }} </span>
+                                    <span>৳ <?php echo e($related_product->sale_price); ?> </span>
                                     <span class="old-price">৳
-                                        {{ $related_product->regular_price }}</span>
+                                        <?php echo e($related_product->regular_price); ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>    
 </div>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/related-products-component.blade.php ENDPATH**/ ?>

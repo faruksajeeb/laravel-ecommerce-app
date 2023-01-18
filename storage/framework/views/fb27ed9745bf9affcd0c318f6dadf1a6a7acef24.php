@@ -1,11 +1,11 @@
-@push('styles')
+<?php $__env->startPush('styles'); ?>
     <style>
         .product-cart-wrap .product-action-1 button:after,
         .product-cart-wrap .product-action-1 a.action-btn:after {
             left: -32%;
         }
     </style>
-@endpush
+<?php $__env->stopPush(); ?>
 <div>
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -18,17 +18,17 @@
     <section class="mt-50 mb-50">
         <div class="container">
             <div class="row product-grid-3">
-                @foreach (Cart::instance('wishlist')->content() as $item)
+                <?php $__currentLoopData = Cart::instance('wishlist')->content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-3 col-md-3 col-6 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a href="{{ route('product-details', ['productId' => $item->model->id]) }}">
+                                    <a href="<?php echo e(route('product-details', ['productId' => $item->model->id])); ?>">
                                         <img class="default-img"
-                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $item->options->image }}"
+                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($item->options->image); ?>"
                                             alt="">
                                         <img class="hover-img"
-                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $item->options->image }}"
+                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($item->options->image); ?>"
                                             alt="">
                                     </a>
                                 </div>
@@ -50,7 +50,7 @@
                                     <a href="shop.html">Music</a>
                                 </div>
                                 <h2><a
-                                        href="{{ route('product-details', ['productId' => $item->model->id]) }}">{{ $item->model->name }}</a>
+                                        href="<?php echo e(route('product-details', ['productId' => $item->model->id])); ?>"><?php echo e($item->model->name); ?></a>
                                 </h2>
                                 <div class="rating-result" title="90%">
                                     <span>
@@ -58,22 +58,23 @@
                                     </span>
                                 </div>
                                 <div class="product-price">
-                                    <span>৳ {{ $item->model->sale_price }} </span>
-                                    <span class="old-price">৳ {{ $item->model->regular_price }}</span>
+                                    <span>৳ <?php echo e($item->model->sale_price); ?> </span>
+                                    <span class="old-price">৳ <?php echo e($item->model->regular_price); ?></span>
                                 </div>
                                 <div class="product-action-1 show">
                                     <a aria-label="Remove from Wishlist" class="action-btn hover-up wishlisted"
-                                        href="#" wire:click.prevent='removeFromWishList({{ $item->model->id }})'><i
+                                        href="#" wire:click.prevent='removeFromWishList(<?php echo e($item->model->id); ?>)'><i
                                             class="fi-rs-trash"></i></a>
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#"
-                                            wire:click.prevent="moveProductToCart('{{$item->rowId}}')"><i
+                                            wire:click.prevent="moveProductToCart('<?php echo e($item->rowId); ?>')"><i
                                                 class="fi-rs-shopping-bag-add"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </section>
 </div>
+<?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/wishlist-component.blade.php ENDPATH**/ ?>

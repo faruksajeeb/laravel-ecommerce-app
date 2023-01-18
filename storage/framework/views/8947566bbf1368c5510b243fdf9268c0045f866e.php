@@ -20,20 +20,59 @@
                                     <div class="heading_s1">
                                         <h3 class="mb-30">Login</h3>
                                     </div>
-                                    <form method="post">
+                                    <?php if(session()->has('error')): ?>
+                                        <div class="alert alert-danger"><?php echo e(session('error')); ?></div>
+                                    <?php endif; ?>
+                                    <form method="post" wire:submit.prevent='customerLogin'>
                                         <div class="form-group">
-                                            <input type="text" required="" name="email"
-                                                placeholder="Your Email">
+                                            <input type="text" required="" name="email" wire:model='email'
+                                                placeholder="Your Email"
+                                                class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="password" name="password"
-                                                placeholder="Password">
+                                            <input type="password" name="password" wire:model='password'
+                                                placeholder="Password"
+                                                class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                                            <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                                        id="exampleCheckbox1" value="">
+                                                    <input class="form-check-input" type="checkbox" name="remember"
+                                                        wire:model='remember' id="exampleCheckbox1" value="">
                                                     <label class="form-check-label"
                                                         for="exampleCheckbox1"><span>Remember me</span></label>
                                                 </div>
@@ -43,10 +82,11 @@
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-fill-out btn-block hover-up"
                                                 name="login">Log in</button>
-                                               
+
                                         </div>
                                     </form>
-                                    <div class="text-muted text-center">Create a ewn account? <a href="<?php echo e(route('customer-register')); ?>">Register now</a></div>
+                                    <div class="text-muted text-center">Create a ewn account? <a
+                                            href="<?php echo e(route('customer-register')); ?>">Register now</a></div>
                                 </div>
                             </div>
                         </div>

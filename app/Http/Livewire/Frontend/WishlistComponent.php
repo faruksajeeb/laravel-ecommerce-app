@@ -19,14 +19,14 @@ class WishlistComponent extends Component
     public function moveProductToCart($rowId){
         $item = Cart::instance('wishlist')->get($rowId);
         Cart::instance('wishlist')->remove($rowId);
-        Cart::instance('cart')->add($item->id,$item->name,1,$item->price,['size'=>'M'])->associate('App\Models\Product');
+        Cart::instance('cart')->add($item->id,$item->name,1,$item->price,['size'=>$item->options->size,'image'=>$item->options->image])->associate('App\Models\Product');
         $this->emitTo('frontend.wishlist-icon-component','refreshComponent');
         $this->emitTo('frontend.shopping-cart-icon','refreshComponent');
         $this->emit('added',"Item added to cart");
     }
-    public function store($productId,$productName,$productPrice,$productSize=null){
+    public function store($productId,$productName,$productPrice,$productSize=null,$productImage){
         // Cart::add('293ad', 'Product 1', 1, 9.99, ['size' => 'large']);
-        Cart::instance('cart')->add($productId,$productName,1,$productPrice,['size'=>$productSize])->associate('App\Models\Product');
+        Cart::instance('cart')->add($productId,$productName,1,$productPrice,['size'=>$productSize,'image'=>$productImage])->associate('App\Models\Product');
         //session()->flash("success-message","Item added into the cart.");
         $this->emit('added',"Item added");
         $this->emitTo('frontend.shopping-cart-icon','refreshComponent');

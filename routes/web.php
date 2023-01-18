@@ -51,11 +51,16 @@ Route::get('/shop',Shop::class)->name('shop');
 Route::get('/product-details/{productId}',ProductDetails::class)->name('product-details'); 
 Route::get('/cart',ShoppingCart::class)->name('cart'); 
 Route::get('/wishlist',WishlistComponent::class)->name('wishlist'); 
-Route::get('/checkout',Checkout::class)->name('checkout'); 
+
+
 Route::get('/customer-login',CustomerLogin::class)->name('customer-login'); 
 Route::get('/customer-register',CustomerRegister::class)->name('customer-register'); 
 Route::get('/search',SearchComponent::class)->name('product-search'); 
 
+Route::group(['middleware' => ['auth:customer']], function() {
+    Route::get('/checkout',Checkout::class)->name('checkout');
+    // Route::get('/customer-logout',CustomerLogout::class)->name('customer-logout');
+});
 Route::middleware('auth')->group(function () {
     Route::get('active-inactive', [Webspice::class, 'activeInactive'])->name('active.inactive');
     Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
