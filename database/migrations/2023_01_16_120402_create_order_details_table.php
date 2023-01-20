@@ -19,6 +19,8 @@ return new class extends Migration
             $table->bigInteger('order_id')->unsigned();
             $table->decimal('price');
             $table->decimal('quantity');
+            $table->enum('size',['XS','S','M','L','XL','XXL']);
+            $table->enum('color',['red','blue','yellow','green','white','black','indigo','viloate','orange','gray']);
             $table->timestamps();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

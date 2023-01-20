@@ -124,6 +124,11 @@ class ShoppingCart extends Component
     }
 
     public function setAmountForCheckOut(){
+        if(!Cart::instance('cart')->count() > 0 ){
+            session()->forget('checkout');
+            return;
+        }
+
         if(session()->has('coupon')){
             session()->put('checkout',[
                 'discount' => $this->discount,

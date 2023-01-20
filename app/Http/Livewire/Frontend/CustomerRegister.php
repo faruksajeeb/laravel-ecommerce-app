@@ -22,6 +22,14 @@ class CustomerRegister extends Component
 
     public function saveCustomerRegister()
     {
+        $this->validate(
+            [
+                'name'   => 'required',
+                'email'   => 'required',
+                'mobile'   => 'required',
+                'password'   => 'required|confirmed',
+            ]
+        );
          
         try {
             $customer = new Customer();

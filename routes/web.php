@@ -30,6 +30,7 @@ use App\Http\Livewire\Frontend\About;
 use App\Http\Livewire\Frontend\Contact;
 use App\Http\Livewire\Frontend\SearchComponent;
 use App\Http\Livewire\Frontend\WishlistComponent;
+use App\Http\Livewire\Frontend\ThankYouComponent;
 
 
 /*
@@ -56,9 +57,10 @@ Route::get('/wishlist',WishlistComponent::class)->name('wishlist');
 Route::get('/customer-login',CustomerLogin::class)->name('customer-login'); 
 Route::get('/customer-register',CustomerRegister::class)->name('customer-register'); 
 Route::get('/search',SearchComponent::class)->name('product-search'); 
+Route::get('/thank-you',ThankYouComponent::class)->name('thank-you'); 
 
 Route::group(['middleware' => ['auth:customer']], function() {
-    Route::get('/checkout',Checkout::class)->name('checkout');
+Route::get('/checkout',Checkout::class)->name('checkout');
     // Route::get('/customer-logout',CustomerLogout::class)->name('customer-logout');
 });
 Route::middleware('auth')->group(function () {

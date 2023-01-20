@@ -23,7 +23,7 @@
                                     @if (session()->has('error'))
                                         <div class="alert alert-danger">{{ session('error') }}</div>
                                     @endif
-                                    <form method="post" wire:submit.prevent='customerLogin'>
+                                    <form method="post" wire:submit.prevent='customerLogin' class="needs-validation" novalidate>
                                         <div class="form-group">
                                             <input type="text" required="" name="email" wire:model='email'
                                                 placeholder="Your Email"

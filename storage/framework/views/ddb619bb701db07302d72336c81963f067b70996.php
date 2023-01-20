@@ -42,15 +42,15 @@
                                <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.customer-logout')->html();
-} elseif ($_instance->childHasBeenRendered('dTwkGiA')) {
-    $componentId = $_instance->getRenderedChildComponentId('dTwkGiA');
-    $componentTag = $_instance->getRenderedChildComponentTagName('dTwkGiA');
+} elseif ($_instance->childHasBeenRendered('7bljocj')) {
+    $componentId = $_instance->getRenderedChildComponentId('7bljocj');
+    $componentTag = $_instance->getRenderedChildComponentTagName('7bljocj');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('dTwkGiA');
+    $_instance->preserveRenderedChild('7bljocj');
 } else {
     $response = \Livewire\Livewire::mount('frontend.customer-logout');
     $html = $response->html();
-    $_instance->logRenderedChild('dTwkGiA', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('7bljocj', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -77,15 +77,15 @@ echo $html;
                     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.header-search-component')->html();
-} elseif ($_instance->childHasBeenRendered('p9EwxkE')) {
-    $componentId = $_instance->getRenderedChildComponentId('p9EwxkE');
-    $componentTag = $_instance->getRenderedChildComponentTagName('p9EwxkE');
+} elseif ($_instance->childHasBeenRendered('LT89mqM')) {
+    $componentId = $_instance->getRenderedChildComponentId('LT89mqM');
+    $componentTag = $_instance->getRenderedChildComponentTagName('LT89mqM');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('p9EwxkE');
+    $_instance->preserveRenderedChild('LT89mqM');
 } else {
     $response = \Livewire\Livewire::mount('frontend.header-search-component');
     $html = $response->html();
-    $_instance->logRenderedChild('p9EwxkE', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('LT89mqM', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -94,15 +94,15 @@ echo $html;
                             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.wishlist-icon-component')->html();
-} elseif ($_instance->childHasBeenRendered('rPgD9l3')) {
-    $componentId = $_instance->getRenderedChildComponentId('rPgD9l3');
-    $componentTag = $_instance->getRenderedChildComponentTagName('rPgD9l3');
+} elseif ($_instance->childHasBeenRendered('7V6iFeE')) {
+    $componentId = $_instance->getRenderedChildComponentId('7V6iFeE');
+    $componentTag = $_instance->getRenderedChildComponentTagName('7V6iFeE');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('rPgD9l3');
+    $_instance->preserveRenderedChild('7V6iFeE');
 } else {
     $response = \Livewire\Livewire::mount('frontend.wishlist-icon-component');
     $html = $response->html();
-    $_instance->logRenderedChild('rPgD9l3', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('7V6iFeE', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -110,15 +110,15 @@ echo $html;
                             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.shopping-cart-icon')->html();
-} elseif ($_instance->childHasBeenRendered('dKoz36O')) {
-    $componentId = $_instance->getRenderedChildComponentId('dKoz36O');
-    $componentTag = $_instance->getRenderedChildComponentTagName('dKoz36O');
+} elseif ($_instance->childHasBeenRendered('SgzSWu1')) {
+    $componentId = $_instance->getRenderedChildComponentId('SgzSWu1');
+    $componentTag = $_instance->getRenderedChildComponentTagName('SgzSWu1');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('dKoz36O');
+    $_instance->preserveRenderedChild('SgzSWu1');
 } else {
     $response = \Livewire\Livewire::mount('frontend.shopping-cart-icon');
     $html = $response->html();
-    $_instance->logRenderedChild('dKoz36O', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('SgzSWu1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
