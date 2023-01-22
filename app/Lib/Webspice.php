@@ -28,6 +28,38 @@ class Webspice
 		Log::channel('customlog')->info($currentTime . ' | USER ID:' . $userId . ' | USER NAME:' . $userName . ' | TABLE:' . $table . ' | ROW ID:' . $id . ' | ' . $action);
 	}
 
+	static function textStatus($status)
+	{
+		$text = null;
+		switch ($status) {
+			case 'pending':
+				$text = '<span class="badge bg-secondary">Pending</span>';
+				break;
+			case 'ordered':
+				$text = '<span class="badge bg-primary">Ordered</span>';
+				break;
+			case 'processing':
+				$text = '<span class="badge bg-warning">Processing</span>';
+				break;
+			case 'approved':
+				$text = '<span class="badge bg-success">Approved</span>';
+				break;
+			case 'delivered':
+				$text = '<span class="badge bg-success">Delivered</span>';
+				break;
+			case 'canceled':
+				$text = '<span class="badge bg-danger">Canceled</span>';
+				break;
+			case 'declined':
+				$text = '<span class="badge bg-danger">Declined</span>';
+				break;
+			default:
+				$text = '<span class="badge bg-default">Unknown</span>';
+				break;
+		}
+		return $text;
+	}
+
 	static function status($status)
 	{
 		/*
@@ -199,14 +231,14 @@ class Webspice
 			// 	Redis::set($request->table, json_encode($cache));
 			// 	$cache = Redis::get($request->table);
 			// }
-			 $cache = Cache::get($request->table);
-			
+			$cache = Cache::get($request->table);
+
 			if (!isset($cache)) {
 				$cache = DB::table($request->table)->get();
 				Cache::set($request->table, json_encode($cache));
 				$cache = Cache::get($request->table);
 			}
-			
+
 			$cacheData = collect(json_decode($cache));
 			$data = $cacheData->where('id', $id)->first();
 			$data->status = $status;
@@ -399,5 +431,34 @@ class Webspice
 
 		$clean_file_name = $file_name_str . '.' . $file_ext;
 		return $clean_file_name;
+	}
+
+	static function now($param=null){
+		 date_default_timezone_set('Asia/Dhaka');
+		switch($param){
+			case 'time':
+				return date('h:i:s');
+				break;
+			
+			case 'timeampm':
+				return date('h:i:s A');
+				break;
+			
+			case 'time24':
+				return date('H:i:s');
+				break;
+			
+			case 'date':
+				return date('Y-m-d');
+				break;
+			
+			case 'datetime24':
+				return date('Y-m-d H:i:s');
+				break;
+			
+			default:
+				return date('Y-m-d h:i:s');
+				break;
+		}
 	}
 }

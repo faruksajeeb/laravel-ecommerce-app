@@ -338,7 +338,7 @@
                                 <li><a class="active" href="{{ route('/') }}">Home </a></li>
                                 <li><a href="{{ route('about') }}">About</a></li>
                                 <li><a href="{{ route('shop') }}">Shop</a></li>
-                                <li class="position-static"><a href="#">Our Collections <i
+                                {{-- <li class="position-static"><a href="#">Our Collections <i
                                             class="fi-rs-angle-down"></i></a>
                                     <ul class="mega-menu">
                                         <li class="sub-mega-menu sub-mega-menu-width-22">
@@ -397,20 +397,22 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> --}}
 
                                 <li><a href="{{ route('contact') }}">Contact</a></li>
+                                @if (Auth::guard('customer')->check())
                                 <li><a href="#">My Account<i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">Dashboard</a></li>
-                                        <li><a href="#">Products</a></li>
+                                        {{-- <li><a href="{{ route('my-account')}}">Dashboard</a></li> --}}
+                                        {{-- <li><a href="#">Products</a></li>
                                         <li><a href="#">Categories</a></li>
-                                        <li><a href="#">Coupons</a></li>
-                                        <li><a href="#">Orders</a></li>
-                                        <li><a href="#">Customers</a></li>
-                                        <li><a href="#">Logout</a></li>
+                                        <li><a href="#">Coupons</a></li> --}}
+                                        <li><a href="{{ route('my-orders')}}">My Orders</a></li>
+                                        {{-- <li><a href="#">Customers</a></li> --}}
+                                        {{-- <li><a href="#">Logout</a></li> --}}
                                     </ul>
                                 </li>
+                                @endif
                             </ul>
                         </nav>
                     </div>

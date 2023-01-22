@@ -30,9 +30,9 @@
             </div>
             <div class="shopping-cart-button">
                 <a href="<?php echo e(route('cart')); ?>" class="outline">View cart</a>
-                <a href="<?php echo e(route('checkout')); ?>">Checkout</a>
+                <a href="#" wire:click.prevent='checkOut'>Checkout</a>
             </div>
         </div>
-    </div>
+    </div>t
 </div>
 <?php /**PATH C:\xampp8.1.6\htdocs\laravel-ecommerce-app\resources\views/livewire/frontend/shopping-cart-icon.blade.php ENDPATH**/ ?>

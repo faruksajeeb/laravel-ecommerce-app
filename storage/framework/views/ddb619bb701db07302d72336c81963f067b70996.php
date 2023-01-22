@@ -42,15 +42,15 @@
                                <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.customer-logout')->html();
-} elseif ($_instance->childHasBeenRendered('7bljocj')) {
-    $componentId = $_instance->getRenderedChildComponentId('7bljocj');
-    $componentTag = $_instance->getRenderedChildComponentTagName('7bljocj');
+} elseif ($_instance->childHasBeenRendered('c8KpK0X')) {
+    $componentId = $_instance->getRenderedChildComponentId('c8KpK0X');
+    $componentTag = $_instance->getRenderedChildComponentTagName('c8KpK0X');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('7bljocj');
+    $_instance->preserveRenderedChild('c8KpK0X');
 } else {
     $response = \Livewire\Livewire::mount('frontend.customer-logout');
     $html = $response->html();
-    $_instance->logRenderedChild('7bljocj', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('c8KpK0X', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -77,15 +77,15 @@ echo $html;
                     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.header-search-component')->html();
-} elseif ($_instance->childHasBeenRendered('LT89mqM')) {
-    $componentId = $_instance->getRenderedChildComponentId('LT89mqM');
-    $componentTag = $_instance->getRenderedChildComponentTagName('LT89mqM');
+} elseif ($_instance->childHasBeenRendered('n7xlDJk')) {
+    $componentId = $_instance->getRenderedChildComponentId('n7xlDJk');
+    $componentTag = $_instance->getRenderedChildComponentTagName('n7xlDJk');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('LT89mqM');
+    $_instance->preserveRenderedChild('n7xlDJk');
 } else {
     $response = \Livewire\Livewire::mount('frontend.header-search-component');
     $html = $response->html();
-    $_instance->logRenderedChild('LT89mqM', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('n7xlDJk', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -94,15 +94,15 @@ echo $html;
                             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.wishlist-icon-component')->html();
-} elseif ($_instance->childHasBeenRendered('7V6iFeE')) {
-    $componentId = $_instance->getRenderedChildComponentId('7V6iFeE');
-    $componentTag = $_instance->getRenderedChildComponentTagName('7V6iFeE');
+} elseif ($_instance->childHasBeenRendered('l1fYBrY')) {
+    $componentId = $_instance->getRenderedChildComponentId('l1fYBrY');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l1fYBrY');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('7V6iFeE');
+    $_instance->preserveRenderedChild('l1fYBrY');
 } else {
     $response = \Livewire\Livewire::mount('frontend.wishlist-icon-component');
     $html = $response->html();
-    $_instance->logRenderedChild('7V6iFeE', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('l1fYBrY', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -110,15 +110,15 @@ echo $html;
                             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.shopping-cart-icon')->html();
-} elseif ($_instance->childHasBeenRendered('SgzSWu1')) {
-    $componentId = $_instance->getRenderedChildComponentId('SgzSWu1');
-    $componentTag = $_instance->getRenderedChildComponentTagName('SgzSWu1');
+} elseif ($_instance->childHasBeenRendered('hL0P1LA')) {
+    $componentId = $_instance->getRenderedChildComponentId('hL0P1LA');
+    $componentTag = $_instance->getRenderedChildComponentTagName('hL0P1LA');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('SgzSWu1');
+    $_instance->preserveRenderedChild('hL0P1LA');
 } else {
     $response = \Livewire\Livewire::mount('frontend.shopping-cart-icon');
     $html = $response->html();
-    $_instance->logRenderedChild('SgzSWu1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('hL0P1LA', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -394,79 +394,20 @@ echo $html;
                                 <li><a class="active" href="<?php echo e(route('/')); ?>">Home </a></li>
                                 <li><a href="<?php echo e(route('about')); ?>">About</a></li>
                                 <li><a href="<?php echo e(route('shop')); ?>">Shop</a></li>
-                                <li class="position-static"><a href="#">Our Collections <i
-                                            class="fi-rs-angle-down"></i></a>
-                                    <ul class="mega-menu">
-                                        <li class="sub-mega-menu sub-mega-menu-width-22">
-                                            <a class="menu-title" href="#">Women's Fashion</a>
-                                            <ul>
-                                                <li><a href="product-details.html">Dresses</a></li>
-                                                <li><a href="product-details.html">Blouses & Shirts</a></li>
-                                                <li><a href="product-details.html">Hoodies & Sweatshirts</a></li>
-                                                <li><a href="product-details.html">Wedding Dresses</a></li>
-                                                <li><a href="product-details.html">Prom Dresses</a></li>
-                                                <li><a href="product-details.html">Cosplay Costumes</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="sub-mega-menu sub-mega-menu-width-22">
-                                            <a class="menu-title" href="#">Men's Fashion</a>
-                                            <ul>
-                                                <li><a href="product-details.html">Jackets</a></li>
-                                                <li><a href="product-details.html">Casual Faux Leather</a></li>
-                                                <li><a href="product-details.html">Genuine Leather</a></li>
-                                                <li><a href="product-details.html">Casual Pants</a></li>
-                                                <li><a href="product-details.html">Sweatpants</a></li>
-                                                <li><a href="product-details.html">Harem Pants</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="sub-mega-menu sub-mega-menu-width-22">
-                                            <a class="menu-title" href="#">Technology</a>
-                                            <ul>
-                                                <li><a href="product-details.html">Gaming Laptops</a></li>
-                                                <li><a href="product-details.html">Ultraslim Laptops</a></li>
-                                                <li><a href="product-details.html">Tablets</a></li>
-                                                <li><a href="product-details.html">Laptop Accessories</a></li>
-                                                <li><a href="product-details.html">Tablet Accessories</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="sub-mega-menu sub-mega-menu-width-34">
-                                            <div class="menu-banner-wrap">
-                                                <a href="product-details.html"><img
-                                                        src="<?php echo e(asset('frontend-assets/imgs/banner/menu-banner.jpg')); ?>"
-                                                        alt="Surfside Media"></a>
-                                                <div class="menu-banner-content">
-                                                    <h4>Hot deals</h4>
-                                                    <h3>Don't miss<br> Trending</h3>
-                                                    <div class="menu-banner-price">
-                                                        <span class="new-price text-success">Save to 50%</span>
-                                                    </div>
-                                                    <div class="menu-banner-btn">
-                                                        <a href="product-details.html">Shop now</a>
-                                                    </div>
-                                                </div>
-                                                <div class="menu-banner-discount">
-                                                    <h3>
-                                                        <span>35%</span>
-                                                        off
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
+                                
 
                                 <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
+                                <?php if(Auth::guard('customer')->check()): ?>
                                 <li><a href="#">My Account<i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">Dashboard</a></li>
-                                        <li><a href="#">Products</a></li>
-                                        <li><a href="#">Categories</a></li>
-                                        <li><a href="#">Coupons</a></li>
-                                        <li><a href="#">Orders</a></li>
-                                        <li><a href="#">Customers</a></li>
-                                        <li><a href="#">Logout</a></li>
+                                        
+                                        
+                                        <li><a href="<?php echo e(route('my-orders')); ?>">My Orders</a></li>
+                                        
+                                        
                                     </ul>
                                 </li>
+                                <?php endif; ?>
                             </ul>
                         </nav>
                     </div>

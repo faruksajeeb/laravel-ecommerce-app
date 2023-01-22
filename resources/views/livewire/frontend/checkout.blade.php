@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <input type="text" name="first_name" wire:model='first_name'
                                 class='dorm-control @error('first_name') is-invalid  @enderror'
-                                placeholder="First name *">
+                                placeholder="First name *" >
                             @error('first_name')
                                 <div class="invalid-feedback error_msg">{{ $message }}</div>
                             @enderror

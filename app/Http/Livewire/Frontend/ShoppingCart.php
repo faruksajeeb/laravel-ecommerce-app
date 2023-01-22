@@ -139,9 +139,9 @@ class ShoppingCart extends Component
         }else{
             session()->put('checkout',[
                 'discount' => 0,
-                'subtotal' => Cart::instance('cart')->subtotal(),
-                'tax' => Cart::instance('cart')->tax(),
-                'total' => Cart::instance('cart')->total(),
+                'subtotal' => str_replace(",", "", Cart::instance('cart')->subtotal()),
+                'tax' => str_replace(",", "", Cart::instance('cart')->tax()),
+                'total' => str_replace(",", "", Cart::instance('cart')->total()),
             ]);
         }
     }

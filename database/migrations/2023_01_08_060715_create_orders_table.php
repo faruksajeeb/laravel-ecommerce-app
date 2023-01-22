@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('country')->nullable();
             $table->string('zip_code')->nullable();
-            $table->enum('status',['ordered','delivired','canceled'])->default('ordered');
+            $table->enum('status',['ordered','processing','delivired','canceled','declined'])->default('ordered');
             $table->boolean('is_shiffing_different')->default(false);
             $table->string('order_notes',500)->nullable();
             $table->integer('created_by')->nullable();

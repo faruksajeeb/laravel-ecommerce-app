@@ -66,9 +66,9 @@
                     </a>
                 </li>
                
-                <li>
-                    <a href="#user_submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
-                        <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                <li class="{{ Route::is('orders') ? 'active' : '' }}">
+                    <a  href="{{ route('orders') }}" class="nav-link ps-1 align-middle">
+                        <span class="icon"><i class="fa-solid fa-box-open"></i></span>
                         <span class="ms-1 d-sm-inline title ">Orders</span>
                         {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
                     </a>

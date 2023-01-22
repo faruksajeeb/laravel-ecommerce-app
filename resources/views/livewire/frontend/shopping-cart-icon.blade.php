@@ -30,8 +30,8 @@
             </div>
             <div class="shopping-cart-button">
                 <a href="{{ route('cart') }}" class="outline">View cart</a>
-                <a href="{{ route('checkout') }}">Checkout</a>
+                <a href="#" wire:click.prevent='checkOut'>Checkout</a>
             </div>
         </div>
-    </div>
+    </div>t
 </div>
