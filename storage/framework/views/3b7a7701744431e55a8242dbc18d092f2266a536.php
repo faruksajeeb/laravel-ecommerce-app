@@ -63,11 +63,11 @@
         }
     </style>
 
-    <?php echo $__env->yieldPushContent('styles'); ?>
+   
 
     <?php echo \Livewire\Livewire::styles(); ?>
 
-
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 
 <body class="font-sans antialiased">

@@ -2,17 +2,24 @@
     <x-slot name="title">
         Dashboard
     </x-slot>
+    @push('style')
+        <style>
+.card-box .card .numbers{
+    font-size:405px!important;
+}
+            </style>
+    @endpush
     @can('dashboard.view')
-        <div class="card-box p-2 my-3">
+        <div class="card-box p-1">
             <div class="card mx-1">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers">1,024</div>
-                        <div class="card-name">Daily Views</div>
+                        <div class="numbers"><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{$totalRevenue}}</div>
+                        <div class="card-name">Total Revenue</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
                         <div class="iconBox">
-                            <i class="fa fa-eye"></i>
+                            <i class="fa-solid fa-bangladeshi-taka-sign display-6 text-danger"></i>
                         </div>
                     </div>
                 </div>
@@ -20,12 +27,12 @@
             <div class="card">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers">1,024</div>
-                        <div class="card-name">Daily Views</div>
+                        <div class="numbers"> {{$totalSales}}</div>
+                        <div class="card-name">Total Sales</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
                         <div class="iconBox">
-                            <i class="fa fa-eye"></i>
+                            <i class="fa-solid fa-cart-flatbed-suitcase display-6"></i>
                         </div>
                     </div>
                 </div>
@@ -33,12 +40,12 @@
             <div class="card">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers">1,024</div>
-                        <div class="card-name">Daily Views</div>
+                        <div class="numbers"><i class="fa-solid fa-bangladeshi-taka-sign"></i>  {{$todayRevenue}}</div>
+                        <div class="card-name">Today Revenue</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
                         <div class="iconBox">
-                            <i class="fa fa-eye"></i>
+                            <i class="fa-solid fa-bangladeshi-taka-sign display-6 text-danger"></i>
                         </div>
                     </div>
                 </div>
@@ -46,18 +53,18 @@
             <div class="card">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers">1,024</div>
-                        <div class="card-name">Daily Views</div>
+                        <div class="numbers"> {{$todaySales}}</div>
+                        <div class="card-name">Today Sales</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
                         <div class="iconBox">
-                            <i class="fa fa-eye"></i>
+                            <i class="fa-solid fa-cart-flatbed-suitcase display-6"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row align-items-md-stretch">
+        {{-- <div class="row align-items-md-stretch">
             <div class="col-md-3">
                 <div class="h-100 p-5 text-dark bg-white rounded-3 text-center">
                     <h2>5000+</h2>
@@ -117,10 +124,10 @@
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
-        </button>
+        </button> --}}
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -136,55 +143,43 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+        </div> --}}
+        <div class="row  p-2">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card ">
                     <div class="card-header bg-white">
-                        <h3 class="card-title">Simple Table</h3>
+                        <h4 class="card-title">Latest 10 Orders</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table text-nowrap text-md-nowrap mb-0">
+                            <table class="table table-sm text-nowrap text-md-nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Salary</th>
+                                        {{-- <th>Sl</th> --}}
+                                        <th class="text-center">Order ID</th>
+                                        <th>Customer Name</th>
+                                        <th class="text-center">Mobile</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-end">Total</th>
+                                        <th class="text-center">Order Date</th>
+                                        <th class="text-center">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($orders as $k=>$order)                                    
                                     <tr>
-                                        <td>1</td>
-                                        <td>Joan Powell</td>
-                                        <td>Associate Developer</td>
-                                        <td>$450,870</td>
+                                        {{-- <td>{{$k+1}}</td> --}}
+                                        <td class="text-center">{{ $order->id }}</td>
+                                        <td>{{ $order->first_name.' '.$order->last_name }}</td>
+                                        <td class="text-center"><i class="fa-solid fa-mobile-retro"></i> {{ $order->mobile }}</td>
+                                        <td class="text-center"><i class="fa-solid fa-envelope"></i> {{ $order->email }}</td>
+                                        <td class="text-end"><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ $order->total }}</td>
+                                        <td class="text-center"><i class="fa-solid fa-calander"></i> {{ $order->created_at }}</td>
+                                        <td class="text-center"><i class="fa-solid fa-calander"></i> {!! App\Lib\Webspice::textStatus($order->status) !!}</td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Gavin Gibson</td>
-                                        <td>Account manager</td>
-                                        <td>$230,540</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Julian Kerr</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td>$55,300</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Cedric Kelly</td>
-                                        <td>Accountant</td>
-                                        <td>$234,100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Samantha May</td>
-                                        <td>Junior Technical Author</td>
-                                        <td>$43,198</td>
-                                    </tr>
+                                        
+                                    @endforeach
+                                    
                                 </tbody>
                             </table>
                         </div>

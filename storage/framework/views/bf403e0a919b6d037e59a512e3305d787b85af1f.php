@@ -22,6 +22,68 @@
     <section class="mt-50 mb-50">
         <div class="container">
             <div class="row">
+                <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                    <div class="row">
+                        <div class="col-lg-12 col-mg-6"></div>
+                        <div class="col-lg-12 col-mg-6"></div>
+                    </div>
+                    
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.filter-by-category',['route'=>Route::currentRouteName()])->html();
+} elseif ($_instance->childHasBeenRendered('l2676699194-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l2676699194-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-0');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l2676699194-0');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.filter-by-category',['route'=>Route::currentRouteName()]);
+    $html = $response->html();
+    $_instance->logRenderedChild('l2676699194-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+                    <!-- Fillter By Price -->                    
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.filter-by-price')->html();
+} elseif ($_instance->childHasBeenRendered('l2676699194-1')) {
+    $componentId = $_instance->getRenderedChildComponentId('l2676699194-1');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-1');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l2676699194-1');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.filter-by-price');
+    $html = $response->html();
+    $_instance->logRenderedChild('l2676699194-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+                    <!-- Product sidebar Widget -->
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.new-products-component')->html();
+} elseif ($_instance->childHasBeenRendered('l2676699194-2')) {
+    $componentId = $_instance->getRenderedChildComponentId('l2676699194-2');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-2');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l2676699194-2');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.new-products-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l2676699194-2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+                    <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
+                        <img src="<?php echo e(asset('frontend-assets/imgs/banner/banner-11.jpg')); ?>" alt="">
+                        <div class="banner-text">
+                            <span>Women Zone</span>
+                            <h4>Save 17% on <br>Office Dress</h4>
+                            <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-9">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
@@ -154,68 +216,7 @@
                         
                     </div>
                 </div>
-                <div class="col-lg-3 primary-sidebar sticky-sidebar">
-                    <div class="row">
-                        <div class="col-lg-12 col-mg-6"></div>
-                        <div class="col-lg-12 col-mg-6"></div>
-                    </div>
-                    
-                    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('frontend.filter-by-category',['route'=>Route::currentRouteName()])->html();
-} elseif ($_instance->childHasBeenRendered('l2676699194-0')) {
-    $componentId = $_instance->getRenderedChildComponentId('l2676699194-0');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-0');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l2676699194-0');
-} else {
-    $response = \Livewire\Livewire::mount('frontend.filter-by-category',['route'=>Route::currentRouteName()]);
-    $html = $response->html();
-    $_instance->logRenderedChild('l2676699194-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-                    <!-- Fillter By Price -->                    
-                    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('frontend.filter-by-price')->html();
-} elseif ($_instance->childHasBeenRendered('l2676699194-1')) {
-    $componentId = $_instance->getRenderedChildComponentId('l2676699194-1');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-1');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l2676699194-1');
-} else {
-    $response = \Livewire\Livewire::mount('frontend.filter-by-price');
-    $html = $response->html();
-    $_instance->logRenderedChild('l2676699194-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-                    <!-- Product sidebar Widget -->
-                    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('frontend.new-products-component')->html();
-} elseif ($_instance->childHasBeenRendered('l2676699194-2')) {
-    $componentId = $_instance->getRenderedChildComponentId('l2676699194-2');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l2676699194-2');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l2676699194-2');
-} else {
-    $response = \Livewire\Livewire::mount('frontend.new-products-component');
-    $html = $response->html();
-    $_instance->logRenderedChild('l2676699194-2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-                    <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                        <img src="<?php echo e(asset('frontend-assets/imgs/banner/banner-11.jpg')); ?>" alt="">
-                        <div class="banner-text">
-                            <span>Women Zone</span>
-                            <h4>Save 17% on <br>Office Dress</h4>
-                            <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>

@@ -196,7 +196,7 @@ class ProductComponent extends Component
             $product->stock_status = $this->stock_status;
             $product->featured = $this->featured;
             $product->quantity = $this->quantity;
-            
+
             $product->category_id = $this->SelectedCategory;
             $product->subcategory_id = $this->subcategory_id;
             $product->created_by = Auth::user()->id;
@@ -205,6 +205,14 @@ class ProductComponent extends Component
                 #custom file name        
                 $imageName = Carbon::now()->timestamp . "-product." . $this->image->extension();
             }
+            $imagesName = '';
+            if ($this->images != NULL) {
+                foreach ($this->images as $key => $image) {
+                    $imageName = Carbon::now()->timestamp . '-' . $key . "-product." . $image->extension();
+                    $image->storeAs('products', $imageName);
+                    $imagesName = $imagesName . ',' . $imageName;
+                }
+            }
             # Upload Image
             // $destinationPath = 'frontend-assets/imgs/products';
             // if (File::exists(public_path($destinationPath . '/' . $existingRecord->website_favicon))) {
@@ -212,7 +220,7 @@ class ProductComponent extends Component
             // }            
             // $this->image->storeAs('products',$imageName);
             $product->image = $imageName;
-            $product->images = NULL;
+            $product->images = $imagesName;
             // if($this->image->move($destinationPath, $imageName)){
             if ($this->image->storeAs('products', $imageName)) {
                 $product->save();
@@ -304,7 +312,7 @@ class ProductComponent extends Component
                 $imageName = Carbon::now()->timestamp . "-product." . $this->newImage->extension();
                 $product->image = $imageName;
                 $this->newImage->storeAs('products', $imageName);
-            }           
+            }
             $product->updated_by = Auth::user()->id;
             $product->save();
 
@@ -327,8 +335,8 @@ class ProductComponent extends Component
     {
         try {
             $id = Crypt::decryptString($id);
-            $product = Product::find($id); 
-            unlink('frontend-assets/imgs/products/'.$product->image);
+            $product = Product::find($id);
+            unlink('frontend-assets/imgs/products/' . $product->image);
             $product->delete();
             # Write Log
             Webspice::log($this->tableName, $id, 'DELETE');

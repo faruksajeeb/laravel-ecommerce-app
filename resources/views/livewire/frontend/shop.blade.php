@@ -22,6 +22,26 @@
     <section class="mt-50 mb-50">
         <div class="container">
             <div class="row">
+                <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                    <div class="row">
+                        <div class="col-lg-12 col-mg-6"></div>
+                        <div class="col-lg-12 col-mg-6"></div>
+                    </div>
+                    
+                    @livewire('frontend.filter-by-category',['route'=>Route::currentRouteName()])
+                    <!-- Fillter By Price -->                    
+                    @livewire('frontend.filter-by-price')
+                    <!-- Product sidebar Widget -->
+                    @livewire('frontend.new-products-component')
+                    <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
+                        <img src="{{ asset('frontend-assets/imgs/banner/banner-11.jpg') }}" alt="">
+                        <div class="banner-text">
+                            <span>Women Zone</span>
+                            <h4>Save 17% on <br>Office Dress</h4>
+                            <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-9">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
@@ -163,26 +183,7 @@
                             </nav> --}}
                     </div>
                 </div>
-                <div class="col-lg-3 primary-sidebar sticky-sidebar">
-                    <div class="row">
-                        <div class="col-lg-12 col-mg-6"></div>
-                        <div class="col-lg-12 col-mg-6"></div>
-                    </div>
-                    
-                    @livewire('frontend.filter-by-category',['route'=>Route::currentRouteName()])
-                    <!-- Fillter By Price -->                    
-                    @livewire('frontend.filter-by-price')
-                    <!-- Product sidebar Widget -->
-                    @livewire('frontend.new-products-component')
-                    <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                        <img src="{{ asset('frontend-assets/imgs/banner/banner-11.jpg') }}" alt="">
-                        <div class="banner-text">
-                            <span>Women Zone</span>
-                            <h4>Save 17% on <br>Office Dress</h4>
-                            <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>

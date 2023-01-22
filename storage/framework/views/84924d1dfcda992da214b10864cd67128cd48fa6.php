@@ -314,6 +314,38 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Product Gallery <span class="text-danger">*</span></label>
+                                <input name="images" wire:model="images"
+                                    class="form-control add-image images <?php $__errorArgs = ['images'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" type="file"
+                                    multiple>
+                                <?php if($images): ?>
+                                    <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                                    
+                                        <img src="<?php echo e($image->temporaryUrl()); ?>" width="100" alt="product images" />
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                                <?php $__errorArgs = ['images'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-md-12">
                             <label for="">Featured: <span class="text-danger">*</span></label>
                             <select name="featured" wire:model='featured' placeholder='Select a featured'
                                 class="form-select   featured  <?php $__errorArgs = ['featured'];

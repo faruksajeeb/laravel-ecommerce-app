@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Frontend;
 
+use App\Lib\Webspice;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Shipping;
@@ -144,6 +145,7 @@ class Checkout extends Component
         $order->order_notes = $this->order_notes;
         $order->status      = 'ordered';
         $order->is_shiffing_different = $this->differentaddress ? 1 : 0;
+        $order->created_at = Webspice::now('datetime24');
         $order->save();
 
         $orderDetailData = array();

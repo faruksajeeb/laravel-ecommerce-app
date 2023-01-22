@@ -172,6 +172,24 @@
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Product Gallery <span class="text-danger">*</span></label>
+                                <input name="images" wire:model="images"
+                                    class="form-control add-image images @error('images') is-invalid @enderror" type="file"
+                                    multiple>
+                                @if ($images)
+                                    @foreach ($images as $image)                                    
+                                        <img src="{{ $image->temporaryUrl()}}" width="100" alt="product images" />
+                                    @endforeach
+                                @endif
+                                @error('images')
+                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-md-12">
                             <label for="">Featured: <span class="text-danger">*</span></label>
                             <select name="featured" wire:model='featured' placeholder='Select a featured'
                                 class="form-select   featured  @error('featured') is-invalid @enderror" required>
