@@ -20,42 +20,40 @@
                                     <!-- MAIN SLIDES -->
                                     @php
                                         $images = explode(',', $product->images);
-                                      
+                                        
                                     @endphp
                                     <div class="product-image-slider">
-                                        @if (count($images)>1)
-                                            @foreach ($images as $image)
-                                                @if ($image)
-                                                    <figure class="border-radius-10">
-                                                        <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
-                                                            alt="Gallery Image {{ $product->name }}">
-                                                    </figure>
-                                                @endif
-                                            @endforeach
-                                        @else
-                                            <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
-                                                    alt="Gallery Image {{ $product->name }}">
-                                            </figure>
-                                        @endif
+                                        <!-- MAIN IMAGE VIEW-->
+                                        <figure class="border-radius-10">
+                                            <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                                alt="Gallery Image {{ $product->name }}">
+                                        </figure>
+                                         <!--  SLIDER IMAGE VIEW-->
+                                        @foreach ($images as $image)
+                                            @if ($image)
+                                                <figure class="border-radius-10">
+                                                    <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
+                                                        alt="Gallery Image {{ $product->name }}">
+                                                </figure>
+                                            @endif
+                                        @endforeach
+
 
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
-                                        @if (count($images)>1)
-                                            @foreach ($images as $image)
-                                                @if ($image)
-                                                    <div><img
-                                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
-                                                            alt="Gallery Image {{ $product->name }}"></div>
-                                                @endif
-                                            @endforeach
-                                        @else
-                                            <div><img
-                                                    src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
-                                                    alt="Gallery Image {{ $product->name }}"></div>
-                                        @endif
-
+                                         <!-- MAIN IMAGE THUMBNAIL-->
+                                        <div><img
+                                                src="{{ asset('frontend-assets/imgs/products') }}/{{ $product->image }}"
+                                                alt="Gallery Image {{ $product->name }}"></div>
+                                        <!-- SLIDER IMAGE THUMBNAIL-->
+                                        @foreach ($images as $image)
+                                            @if ($image)
+                                                <div><img
+                                                        src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
+                                                        alt="Gallery Image {{ $product->name }}"></div>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- End Gallery -->

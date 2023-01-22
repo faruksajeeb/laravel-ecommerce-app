@@ -55,6 +55,9 @@ class ProductComponent extends Component
     public $oldImage;
     public $images;
 
+    public $oldImages;
+    public $newImages;
+
     // public $slug;
     public $search_category_id;
     public $subcategory_id;
@@ -67,6 +70,8 @@ class ProductComponent extends Component
     {
         $this->categories = Category::where('status', 1)->get();
         $this->subcategories = collect();
+
+        
     }
     public function updatedSelectedCategory($SelectedCategory)
     {
@@ -95,6 +100,26 @@ class ProductComponent extends Component
     public function updatedpazeSize()
     {
         $this->resetPage();
+    }
+
+    public function updated($fields){
+        $this->validateOnly($fields,[
+            'name' => 'required|min:3|max:50',
+            'slug' => 'required',
+            'SKU' => 'required',
+            'quantity' => 'required',
+            'regular_price' => 'required',
+            'sale_price' => 'required',
+            'image' => 'requiredmimes:jpeg,png',
+            'stock_status' => 'required',
+            'featured' => 'required',
+            'SelectedCategory' => 'required'
+        ]);
+        if($this->newImage){
+            $this->validateOnly($fields,[
+                'newImage' => 'required|mimes:jpeg,png'
+            ]);
+        }
     }
 
     public function render($export = null)
@@ -264,6 +289,7 @@ class ProductComponent extends Component
         $this->featured = $data->featured;
         $this->quantity = $data->quantity;
         $this->oldImage = $data->image;
+        $this->oldImages = explode(",",$data->images);
     }
     public function update()
     {
@@ -289,6 +315,11 @@ class ProductComponent extends Component
                 })
             ],
         ]);
+        if($this->newImage){
+            $this->validate([
+                'image' => 'required|mimes:jpeg,png'
+            ]);
+        }
 
         try {
 
@@ -307,11 +338,31 @@ class ProductComponent extends Component
             $product->category_id = $this->SelectedCategory;
             $product->subcategory_id = $this->subcategory_id;
             if ($this->newImage) {
+                if($product->image){
+                    unlink('frontend-assets/imgs/products/' . $product->image);
+                }
                 $imageName = '';
                 #custom file name        
                 $imageName = Carbon::now()->timestamp . "-product." . $this->newImage->extension();
                 $product->image = $imageName;
                 $this->newImage->storeAs('products', $imageName);
+            }
+            if ($this->newImages) {
+                if($product->images){
+                    $images = explode(",",$product->images);
+                    foreach($images as $image){
+                        if($image){
+                            unlink('frontend-assets/imgs/products/' . $image);
+                        }
+                    }
+                }
+                $imagesName = '';
+                foreach ($this->newImages as $key => $image) {
+                    $imageName = Carbon::now()->timestamp . '-' . $key . "-product." . $image->extension();
+                    $image->storeAs('products', $imageName);
+                    $imagesName = $imagesName . ',' . $imageName;
+                }
+                $product->images = $imagesName;
             }
             $product->updated_by = Auth::user()->id;
             $product->save();
@@ -336,7 +387,18 @@ class ProductComponent extends Component
         try {
             $id = Crypt::decryptString($id);
             $product = Product::find($id);
-            unlink('frontend-assets/imgs/products/' . $product->image);
+            if ($product->image) {
+                unlink('frontend-assets/imgs/products/' . $product->image);
+            }
+            if ($product->images) {
+                $images = explode(",",$product->images);
+                foreach ($images as $image) {
+                    if ($image) {
+                        unlink('frontend-assets/imgs/products/' . $image);
+                    }
+                }
+            }
+
             $product->delete();
             # Write Log
             Webspice::log($this->tableName, $id, 'DELETE');

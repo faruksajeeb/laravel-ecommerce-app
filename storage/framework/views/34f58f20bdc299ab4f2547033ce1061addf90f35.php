@@ -20,42 +20,40 @@
                                     <!-- MAIN SLIDES -->
                                     <?php
                                         $images = explode(',', $product->images);
-                                      
+                                        
                                     ?>
                                     <div class="product-image-slider">
-                                        <?php if(count($images)>1): ?>
-                                            <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php if($image): ?>
-                                                    <figure class="border-radius-10">
-                                                        <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($image); ?>"
-                                                            alt="Gallery Image <?php echo e($product->name); ?>">
-                                                    </figure>
-                                                <?php endif; ?>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        <?php else: ?>
-                                            <figure class="border-radius-10">
-                                                <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
-                                                    alt="Gallery Image <?php echo e($product->name); ?>">
-                                            </figure>
-                                        <?php endif; ?>
+                                        <!-- MAIN IMAGE VIEW-->
+                                        <figure class="border-radius-10">
+                                            <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
+                                                alt="Gallery Image <?php echo e($product->name); ?>">
+                                        </figure>
+                                         <!--  SLIDER IMAGE VIEW-->
+                                        <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($image): ?>
+                                                <figure class="border-radius-10">
+                                                    <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($image); ?>"
+                                                        alt="Gallery Image <?php echo e($product->name); ?>">
+                                                </figure>
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
-                                        <?php if(count($images)>1): ?>
-                                            <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php if($image): ?>
-                                                    <div><img
-                                                            src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($image); ?>"
-                                                            alt="Gallery Image <?php echo e($product->name); ?>"></div>
-                                                <?php endif; ?>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        <?php else: ?>
-                                            <div><img
-                                                    src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
-                                                    alt="Gallery Image <?php echo e($product->name); ?>"></div>
-                                        <?php endif; ?>
-
+                                         <!-- MAIN IMAGE THUMBNAIL-->
+                                        <div><img
+                                                src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($product->image); ?>"
+                                                alt="Gallery Image <?php echo e($product->name); ?>"></div>
+                                        <!-- SLIDER IMAGE THUMBNAIL-->
+                                        <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($image): ?>
+                                                <div><img
+                                                        src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($image); ?>"
+                                                        alt="Gallery Image <?php echo e($product->name); ?>"></div>
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
                                 <!-- End Gallery -->

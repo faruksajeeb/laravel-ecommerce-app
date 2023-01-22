@@ -254,12 +254,12 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" type="file"
-                                    >
+unset($__errorArgs, $__bag); ?>" type="file">
                                 <?php if($newImage): ?>
                                     <img src="<?php echo e($newImage->temporaryUrl()); ?>" width="100" alt="product image" />
-                                <?php else: ?> 
-                                    <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($oldImage); ?>" width="80" height="80" alt="<?php echo e($name); ?>">
+                                <?php else: ?>
+                                    <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($oldImage); ?>"
+                                        width="80" height="80" alt="<?php echo e($name); ?>">
                                 <?php endif; ?>
                                 
                                 <?php $__errorArgs = ['image'];
@@ -305,6 +305,51 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                     </div>
+                    <div class="row my=-1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Product Gallery <span class="text-danger"></span></label>
+                                <input name="image" id="product_image" wire:model="newImages"
+                                    class="form-control image <?php $__errorArgs = ['newImages'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                                    type="file" multiple>
+                                <?php if($newImages): ?>
+                                    <?php $__currentLoopData = $newImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $newImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($newImage): ?>
+                                            <img src="<?php echo e($newImage->temporaryUrl()); ?>" width="80" height="80"
+                                                alt="product image" />
+                                        <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                    <?php if($oldImages): ?>
+                                        <?php $__currentLoopData = $oldImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $oldImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($oldImage): ?>
+                                                <img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($oldImage); ?>"
+                                                    width="80" height="80" alt="<?php echo e($name); ?>" class="">
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                
+                                <?php $__errorArgs = ['newImages'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <div class="invalid-feedback error_msg"><?php echo e($message); ?></div>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Featured: <span class="text-danger">*</span></label>
@@ -337,14 +382,16 @@ unset($__errorArgs, $__bag); ?>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Short Description:</label>
-                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30"
+                                    rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Description:</label>
-                            <textarea name="description"  id="description" wire:model='description' cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="description" id="description" wire:model='description' cols="30" rows="5"
+                                class="form-control"></textarea>
                         </div>
                     </div>
                 </div>

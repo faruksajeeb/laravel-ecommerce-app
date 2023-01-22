@@ -133,12 +133,12 @@
                             <div class="form-group">
                                 <label>Product Image <span class="text-danger"></span></label>
                                 <input name="image" id="product_image" wire:model="newImage"
-                                    class="form-control image @error('image') is-invalid @enderror" type="file"
-                                    >
+                                    class="form-control image @error('image') is-invalid @enderror" type="file">
                                 @if ($newImage)
                                     <img src="{{ $newImage->temporaryUrl() }}" width="100" alt="product image" />
-                                @else 
-                                    <img src="{{asset('frontend-assets/imgs/products')}}/{{$oldImage}}" width="80" height="80" alt="{{$name}}">
+                                @else
+                                    <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $oldImage }}"
+                                        width="80" height="80" alt="{{ $name }}">
                                 @endif
                                 {{-- <img id="product_image_preview" src="uploads/{{ $image ? $image : old('image') }}"
                                     class="img-fluid" width="16" height="16" alt=""> --}}
@@ -164,6 +164,38 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row my=-1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Product Gallery <span class="text-danger"></span></label>
+                                <input name="image" id="product_image" wire:model="newImages"
+                                    class="form-control image @error('newImages') is-invalid @enderror"
+                                    type="file" multiple>
+                                @if ($newImages)
+                                    @foreach ($newImages as $newImage)
+                                        @if ($newImage)
+                                            <img src="{{ $newImage->temporaryUrl() }}" width="80" height="80"
+                                                alt="product image" />
+                                        @endif
+                                    @endforeach
+                                @else
+                                    @if ($oldImages)
+                                        @foreach ($oldImages as $oldImage)
+                                            @if ($oldImage)
+                                                <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $oldImage }}"
+                                                    width="80" height="80" alt="{{ $name }}" class="">
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endif
+                                {{-- <img id="product_image_preview" src="uploads/{{ $image ? $image : old('image') }}"
+                                    class="img-fluid" width="16" height="16" alt=""> --}}
+                                @error('newImages')
+                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Featured: <span class="text-danger">*</span></label>
@@ -182,14 +214,16 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Short Description:</label>
-                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30"
+                                    rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row my-1">
                         <div class="col-md-12">
                             <label for="">Description:</label>
-                            <textarea name="description"  id="description" wire:model='description' cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="description" id="description" wire:model='description' cols="30" rows="5"
+                                class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
