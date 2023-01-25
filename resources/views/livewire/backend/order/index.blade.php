@@ -148,20 +148,11 @@
                                         <td>{{ $val->created_at }}</td>
                                         {{-- <td>{{ $val->updated_at }}</td> --}}
                                         <td>
+                                            <button class="btn btn-sm btn-danger" wire:click.prevent="downloadOrderInvoice('{{ Crypt::encryptString($val->id) }}')"><i class="fa-solid fa-file-arrow-down"></i> invoice</button>
                                             <button class="btn btn-sm btn-secondary me-1 mt-1" data-bs-toggle="modal" data-bs-target="#detailModal" 
                                             wire:click.prevent="orderDetail('{{ Crypt::encryptString($val->id) }}')">
                                                 <i class="fa-solid fa-magnifying-glass-plus"></i></button>                                            
-                                            <button class="btn btn-sm btn-success me-1 py-1 mt-1 "
-                                                wire:click.prevent="edit('{{ Crypt::encryptString($val->id) }}')"
-                                                data-bs-toggle="modal" {{-- wire:click.prevent="edit({{ '553453453453454535SDD' }})" data-bs-toggle="modal" --}} {{-- wire:click.prevent="edit({{$val->id}})" data-bs-toggle="modal" --}}
-                                                data-bs-target="#editModal" title="Edit"><i
-                                                    class="fa-solid fa-file-pen"></i></button>
-
-                                            <button class="btn btn-sm btn-danger py-1 mt-1 del_btn"
-                                                {{-- wire:click.prevent="$emit('triggerDelete',{{ $val->id }})" --}}
-                                                wire:click.prevent="$emit('triggerDelete','{{ Crypt::encryptString($val->id) }}')"
-                                                {{-- wire:click.prevent="destroy('{{ Crypt::encryptString($val->id) }}')" --}} title="Delete"><i
-                                                    class="fa-solid fa-trash-can"></i></button>
+                                         
                                         </td>
                                     </tr>
                                 @endforeach

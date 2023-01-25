@@ -118,7 +118,7 @@
                                         <td>{{ $val->link }}</td>
                                         @php
                                         $file = '';
-                                            if(file_exists(public_path().'/frontend-assets/imgs/sliders/'.$val->image.'')) :      
+                                            if(file_exists(base_path().'/frontend-assets/imgs/sliders/'.$val->image.'')) :      
                                                 $file = $val->image;
                                             else:
                                                 $file = "product-image-avatar.png";

@@ -108,7 +108,7 @@
                                 @foreach ($categories as $key => $val)
                                     <tr>
                                         <td>{{ $key + $categories->firstItem() }}</td>
-                                        <td><img src="{{asset('frontend-assets/imgs/categories')}}/{{ $val->image }}" width="80" /></td>
+                                        <td><img src="{{asset('frontend-assets/imgs/categories')}}/{{ $val->image }}" width="50" /></td>
                                         <td>{{ $val->name }}</td>
                                         <td>{{ str_replace('_', ' ', $val->slug) }}</td>
                                         <td>{{ $val->is_popular==1 ? 'Yes':'No' }}</td>

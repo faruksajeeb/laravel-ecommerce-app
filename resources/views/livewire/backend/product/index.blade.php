@@ -117,12 +117,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                               
                                 @foreach ($products as $key => $val)
                                     <tr>
                                         <td>{{ $key + $products->firstItem() }}</td>
                                         @php
                                             $file = '';
-                                            if (file_exists(public_path() . '/frontend-assets/imgs/products/' . $val->image . '')):
+                                            if (file_exists(base_path() . '/frontend-assets/imgs/products/' . $val->image . '')):
                                                 $file = $val->image;
                                             else:
                                                 $file = 'product-image-avatar.png';
