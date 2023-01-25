@@ -80,7 +80,7 @@ class CustomerComponent extends Component
 
         if ($searchTerm != null) {
             $query->where(function ($query) use ($searchTerm) {
-                $query->where('customer_name', 'LIKE', $searchTerm);
+                $query->where('name', 'LIKE', $searchTerm);
                 $query->orWhere('email', 'LIKE', $searchTerm);
                 $query->orWhere('mobile', 'LIKE', $searchTerm);
                 $query->orWhere('present_address', 'LIKE', $searchTerm);
