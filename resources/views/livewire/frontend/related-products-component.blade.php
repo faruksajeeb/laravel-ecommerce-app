@@ -1,3 +1,15 @@
+@push('styles')
+<style>
+.wishlisted{
+    background-color: #F15412 !important;
+    border: 1px solid transparent !important; 
+}
+.wishlisted i{
+    color:#fff !important;
+}
+</style>
+    
+@endpush
 <div>
     <div class="row mt-60">
         <div class="col-12">
@@ -5,6 +17,11 @@
         </div>
         <div class="col-12">
             <div class="row related-products">
+                @php
+                $wishItems = Cart::instance('wishlist')
+                    ->content()
+                    ->pluck('id');
+            @endphp
                 @foreach ($related_products as $related_product)
                     :
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
@@ -24,9 +41,17 @@
                                 <div class="product-action-1">
                                     <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal"
                                         data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="wishlist.php"
-                                        tabindex="0"><i class="fi-rs-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="compare.php"
+                                        @if ($wishItems->contains($related_product->id))
+                                        <a aria-label="Remove from Wishlist" class="action-btn hover-up wishlisted"
+                                            href="#"
+                                            wire:click.prevent='removeFromWishList({{ $related_product->id }})'><i
+                                                class="fi-rs-heart"></i></a>
+                                    @else
+                                        <a aria-label="Add To Wishlist" class="action-btn hover-up" 
+                                            wire:click.prevent='addToWishList({{ $related_product->id }},"{{ $related_product->name }}",{{ $related_product->sale_price }},"M","{{ $related_product->image }}")'><i
+                                                class="fi-rs-heart"></i></a>
+                                    @endif
+                                    <a aria-label="Compare" class="action-btn small hover-up" href="#"
                                         tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                 </div>
                                 <div class="product-badges product-badges-position product-badges-mrg">

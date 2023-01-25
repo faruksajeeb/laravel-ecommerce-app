@@ -26,6 +26,7 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Size</th>
+                                            <th scope="col">colr</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Tax</th>
                                             <th scope="col">Subtotal</th>
@@ -50,7 +51,9 @@
                                                 <td class="price" data-title="Price"><span>৳ {{ $item->price }}
                                                     </span>
                                                 </td>
-                                                <td class="size" data-title="size"><span><?php echo $item->options->has('size') ? $item->options->size : ''; ?> </span>
+                                                <td class="size" data-title="size"><span><?php echo $item->options->has('size') ? $item->options->size : 'M'; ?> </span>
+                                                </td>
+                                                <td class="color" data-title="color"><span><?php echo $item->options->has('color') ? $item->options->color : 'white'; ?> </span>
                                                 </td>
 
                                                 <td class="text-center" data-title="Stock">
