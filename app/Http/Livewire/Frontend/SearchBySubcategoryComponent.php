@@ -8,19 +8,23 @@ use Livewire\WithPagination;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Cart;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 // use Gloudemans\Shoppingcart\Facades\Cart;
 
-class SearchComponent extends Component
+class SearchBySubcategoryComponent extends Component
 {
     public $pageSize=12;
     public $orderBy = "Default Sorting";
+  
     public $q;
     public $searchTerm;
 
     public $categoryId;
+    public $subcategoryId;
     public $categoryName;
+    public $subcategoryName;
     public $minPrice = 0;
     public $maxPrice = 10000;
 
@@ -39,6 +43,7 @@ class SearchComponent extends Component
     }
     public function subcategoryId($subcategoryId)
     {
+        // dd($categoryId);
         $this->subcategoryId = $subcategoryId;
     }
     public function maxPrice($maxPrice)
@@ -50,9 +55,8 @@ class SearchComponent extends Component
         $this->minPrice = $minPrice;
     }
 
-    public function mount(){
-        $this->fill(request()->only('q'));
-        $this->searchTerm = '%'.$this->q.'%';
+    public function mount($subcategoryId){
+        $this->subcategoryId = Crypt::decryptString($subcategoryId);
     }
 
     public function changePageSize($size){
@@ -109,6 +113,7 @@ class SearchComponent extends Component
             $query->orderBy('products.created_at','DESC');
         }else{
         }
+        
         if($this->categoryId !=null){
             $query->where('products.category_id',$this->categoryId);
             $category = Category::where('id',$this->categoryId)->first();

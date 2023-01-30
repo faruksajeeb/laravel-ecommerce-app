@@ -163,7 +163,7 @@ class ProductComponent extends Component
         }
 
         if ($export == 'excelExport') {
-            return Excel::download(new ProductExport($query->get()), 'subcategory_data_' . time() . '.xlsx');
+            return Excel::download(new ProductExport($query->get()), 'product_list_' . time() . '.xlsx');
         }
         // if($export=='pdfExport'){
         //     # Generate PDF  

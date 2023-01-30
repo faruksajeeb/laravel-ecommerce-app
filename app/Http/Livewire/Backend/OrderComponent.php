@@ -5,10 +5,15 @@ namespace App\Http\Livewire\Backend;
 use App\Lib\Webspice;
 use App\Models\Customer;
 use App\Models\Order;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrderExport;
+
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Component;
 use Livewire\WithPagination;
+use PDF;
 
 class OrderComponent extends Component
 {
@@ -90,6 +95,24 @@ class OrderComponent extends Component
             'columns' => Schema::getColumnListing($this->tableName),
             'orders' => $orders
         ]);
+    }
+
+    public function downloadOrderInvoice($id){
+        $id = Crypt::decryptString($id);
+        $this->order = Order::find($id);
+        
+        $data =[
+            'order' => $this->order
+        ];
+     
+        $pdfContent = PDF::loadView('livewire.backend.order.invoice', $data)->setPaper('a4', 'portrait')->output();   
+       
+        // $pdfContent->set_paper('A4', 'portrait');   
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            "order_invoice.pdf"
+       );      
+        // return $pdfContent->download('Order_invoice_'. time() . '.pdf'); 
     }
 
     public function orderDetail($id){

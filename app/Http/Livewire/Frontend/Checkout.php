@@ -156,7 +156,7 @@ class Checkout extends Component
                 'price' => $item->price,
                 'quantity' => $item->qty,
                 'size' => $item->options->size,
-                'color' => 'undefine',
+                'color' => $item->options->has('color') ? $item->options->color : 'white',
             );
         }
         OrderDetail::insert($orderDetailData);

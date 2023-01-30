@@ -8,6 +8,9 @@ use Cart;
 
 class Home extends Component
 {
+    protected $listeners = [
+        'refreshComponent' => '$refresh'
+    ];
     public function render()
     {
       
@@ -28,5 +31,23 @@ class Home extends Component
         $this->emit('added',"Item added");
         $this->emitTo('frontend.shopping-cart-icon','refreshComponent');
         // return redirect()->route('cart');
+    }
+
+    public function addToWishList($productId, $productName, $productPrice,$size,$productImage)
+    {
+        Cart::instance('wishlist')->add($productId, $productName, 1, $productPrice,['size'=>$size,'image'=>$productImage])->associate('\App\Models\Product');
+        $this->emit('added', "Item added to the wishlist");
+        $this->emitTo('frontend.wishlist-icon-component', 'refreshComponent');
+    }
+
+    public function removeFromWishList($product_id)
+    {
+        foreach (Cart::instance('wishlist')->content() as $item) :
+            if ($item->id == $product_id) :
+                Cart::instance('wishlist')->remove($item->rowId);
+                $this->emitTo('frontend.wishlist-icon-component', 'refreshComponent');
+                $this->emit('added', "Item removed from the wishlist");
+            endif;
+        endforeach;
     }
 }

@@ -21,6 +21,10 @@ class MyOrderDetailComponent extends Component
         $this->order = Order::find($id);
     }
 
+    public function wireReview(){
+        
+    }
+
     public function resetInput()
     {
         $this->order = null;

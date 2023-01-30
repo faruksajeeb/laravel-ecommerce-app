@@ -8,19 +8,23 @@ use Livewire\WithPagination;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Cart;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 // use Gloudemans\Shoppingcart\Facades\Cart;
 
-class SearchComponent extends Component
+class SearchByCategoryComponent extends Component
 {
     public $pageSize=12;
     public $orderBy = "Default Sorting";
+  
     public $q;
     public $searchTerm;
 
     public $categoryId;
+    public $subcategoryId;
     public $categoryName;
+    public $subcategoryName;
     public $minPrice = 0;
     public $maxPrice = 10000;
 
@@ -37,6 +41,7 @@ class SearchComponent extends Component
     {
         $this->categoryId = $categoryId;
     }
+
     public function subcategoryId($subcategoryId)
     {
         $this->subcategoryId = $subcategoryId;
@@ -50,9 +55,8 @@ class SearchComponent extends Component
         $this->minPrice = $minPrice;
     }
 
-    public function mount(){
-        $this->fill(request()->only('q'));
-        $this->searchTerm = '%'.$this->q.'%';
+    public function mount($categoryId){
+        $this->categoryId = Crypt::decryptString($categoryId);
     }
 
     public function changePageSize($size){

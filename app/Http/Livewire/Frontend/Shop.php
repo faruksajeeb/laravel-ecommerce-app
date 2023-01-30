@@ -6,20 +6,27 @@ use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Cart;
 // use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Shop extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public $pageSize = 12;
     public $orderBy = "Default Sorting";
     public $categoryId=NULL;
+    public $subcategoryId=NULL;
     public $minPrice = 0;
     public $maxPrice = 5000;
     public $categoryName;
+    public $subcategoryName;
 
     protected $listeners = [
         'categoryId',
+        'subcategoryId',
         'minPrice',
         'maxPrice',
         'refreshComponent' => '$refresh'
@@ -30,6 +37,10 @@ class Shop extends Component
     public function categoryId($categoryId)
     {
         $this->categoryId = $categoryId;
+    }
+    public function subcategoryId($subcategoryId)
+    {
+        $this->subcategoryId = $subcategoryId;
     }
     public function maxPrice($maxPrice)
     {
@@ -94,8 +105,8 @@ class Shop extends Component
     }
 
 
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap';
+
+    
     public function render()
     {
         $query = Product::select('*');
@@ -108,10 +119,14 @@ class Shop extends Component
             $query->orderBy('created_at', 'DESC');
         } else {
         }
-        if ($this->categoryId != null) {
+        if ($this->categoryId != null) {           
             $query->where('category_id', $this->categoryId);
             $category = Category::where('id', $this->categoryId)->first();
             $this->categoryName = $category->name;
+        }elseif($this->subcategoryId !=null){
+            $query->where('products.subcategory_id',$this->subcategoryId);
+            $subcategory = Subcategory::where('id',$this->subcategoryId)->first();
+            $this->subcategoryName = $subcategory->subcategory_name;
         }
         
         $query->whereBetween('sale_price', [$this->minPrice, $this->maxPrice]);
