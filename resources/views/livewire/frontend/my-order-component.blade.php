@@ -54,6 +54,7 @@
                     </div>
                 </div>
                 @livewire('frontend.my-order-detail-component')
+                
             </div>
         </div>
     </div>

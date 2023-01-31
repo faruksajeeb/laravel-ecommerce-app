@@ -117,8 +117,8 @@
                                     </div>
                                     <form wire:submit.prevent='store'>
                                         @csrf
-                                        <input type="hidden" wire:model='product_id' >
-                                        <div class="attr-detail attr-color mb-15">                                            
+                                        <input type="hidden" wire:model='product_id'>
+                                        <div class="attr-detail attr-color mb-15">
                                             <strong class="mr-10">Color</strong>
                                             <input type="hidden" name="" id="product_color" wire:model='color'>
                                             <ul class="list-filter color-filter" wire:ignore>
@@ -140,11 +140,13 @@
                                         </div>
                                         <div class="attr-detail attr-size">
                                             <strong class="mr-10">Size</strong>
-                                            <input type="hidden" name="" id="product_size" wire:model='size'>
-                                            <ul class="list-filter size-filter font-small"  wire:ignore>
+                                            <input type="hidden" name="" id="product_size"
+                                                wire:model='size'>
+                                            <ul class="list-filter size-filter font-small" wire:ignore>
                                                 <li><a href="#" class="size" data-size="XS">XS</a></li>
                                                 <li><a href="#" class="size" data-size="S">S</a></li>
-                                                <li class="active"><a href="#" class="size" data-size="M">M</a></li>
+                                                <li class="active"><a href="#" class="size"
+                                                        data-size="M">M</a></li>
                                                 <li><a href="#" class="size" data-size="L">L</a></li>
                                                 <li><a href="#" class="size" data-size="XL">XL</a></li>
                                                 <li><a href="#" class="size" data-size="XXL">XXL</a></li>
@@ -152,9 +154,10 @@
                                         </div>
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
-                                            
-                                            <input type="hidden" name="" id="product_quantity" wire:model='quantity'>
-                                            <div class="detail-qty border radius"  wire:ignore>
+
+                                            <input type="hidden" name="" id="product_quantity"
+                                                wire:model='quantity'>
+                                            <div class="detail-qty border radius" wire:ignore>
                                                 <a href="#" class="qty-down quantity"><i
                                                         class="fi-rs-angle-small-down"></i></a>
                                                 <span class="qty-val">1</span>
@@ -163,8 +166,7 @@
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart"
-                                                    {{-- wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }},'M','{{ $product->image }}')">Add --}}
-                                                    >Add
+                                                    {{-- wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }},'M','{{ $product->image }}')">Add --}}>Add
                                                     to
                                                     cart</button>
                                                 @php
@@ -213,7 +215,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab"
-                                        href="#Reviews">Reviews (3)</a>
+                                        href="#Reviews">Reviews </a>
                                 </li>
                             </ul>
                             <div class="tab-content shop_info_tab entry-main-content">
@@ -227,65 +229,7 @@
                                     {{ $product->description }}
                                 </div>
                                 <div class="tab-pane fade" id="Reviews">
-                                    <!--Comments-->
-                                    <div class="comments-area">
-                                        <div class="row">
-                                            <div class="col-lg-8">
-                                                <h4 class="mb-30">Customer questions & answers</h4>
-                                                ---
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <h4 class="mb-30">Customer reviews</h4>
-                                                ---
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--comment form-->
-                                    <div class="comment-form">
-                                        <h4 class="mb-15">Add a review</h4>
-                                        <div class="product-rate d-inline-block mb-30">
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-12">
-                                                <form class="form-contact comment_form" action="#"
-                                                    id="commentForm">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
-                                                                    placeholder="Write Comment"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <input class="form-control" name="name"
-                                                                    id="name" type="text" placeholder="Name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <input class="form-control" name="email"
-                                                                    id="email" type="email"
-                                                                    placeholder="Email">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <input class="form-control" name="website"
-                                                                    id="website" type="text"
-                                                                    placeholder="Website">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <button type="submit"
-                                                            class="button button-contactForm">Submit
-                                                            Review</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @livewire('frontend.review', ['productId' => $productId])
                                 </div>
                             </div>
                         </div>
@@ -308,17 +252,17 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.color').on('click', function(e) {
-                var colorValue = $(this).attr("data-color");               
+                var colorValue = $(this).attr("data-color");
                 @this.set('color', colorValue);
                 $('#product_color').val(colorValue);
             });
             $('.size').on('click', function(e) {
-                var sizeValue = $(this).attr("data-size");               
+                var sizeValue = $(this).attr("data-size");
                 @this.set('size', sizeValue);
                 $('#product_size').val(sizeValue);
             });
             $('.quantity').on('click', function(e) {
-                var qtyValue = $(".qty-val").text();               
+                var qtyValue = $(".qty-val").text();
                 @this.set('quantity', qtyValue);
                 $('#product_quantity').val(qtyValue);
             });

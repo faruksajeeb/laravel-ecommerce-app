@@ -43,10 +43,10 @@
                                                         alt="{{ $item->options->image}}"></td>
                                                 <td class="product-des product-name">
                                                     <h5 class="product-name"><a
-                                                            href="product-details.html">{{ $item->name }}</a></h5>
-                                                    <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy
+                                                            href="{{route('product-details',['productId'=>$item->id])}}">{{ $item->name }}</a></h5>
+                                                    {{-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy
                                                         magndapibus.
-                                                    </p>
+                                                    </p> --}}
                                                 </td>
                                                 <td class="price" data-title="Price"><span>৳ {{ $item->price }}
                                                     </span>

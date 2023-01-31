@@ -78,15 +78,17 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="index.html"><img src="{{ asset('frontend-assets/imgs/logo/logo.png') }}"
+                    <a href="{{ route('/')}}"><img src="{{ asset('frontend-assets/imgs/logo/logo.png') }}"
                             alt="logo"></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
-                    {{-- @livewire('frontend.browse-categories-component') --}}
+                    @livewire('frontend.browse-categories-component')
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                         <nav>
                             <ul>
-                                <li><a class="active" href="{{ route('/') }}"><i class="fi-rs-home" style="font-size:20px"></i> Home </a></li>
+                                <li><a class="active" href="{{ route('/') }}">
+                                    {{-- <i class="fi-rs-home" style="font-size:20px"></i> --}}
+                                     Home </a></li>
                                 <li><a href="{{ route('about') }}">About</a></li>
                                 <li><a href="{{ route('shop') }}">Shop</a></li>
                                 {{-- <li class="position-static"><a href="#">Our Collections <i

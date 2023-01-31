@@ -1,14 +1,14 @@
 @push('styles')
-<style>
-.wishlisted{
-    background-color: #F15412 !important;
-    border: 1px solid transparent !important; 
-}
-.wishlisted i{
-    color:#fff !important;
-}
-</style>
-    
+    <style>
+        .wishlisted {
+            background-color: #F15412 !important;
+            border: 1px solid transparent !important;
+        }
+
+        .wishlisted i {
+            color: #fff !important;
+        }
+    </style>
 @endpush
 <div>
     <div class="page-header breadcrumb-wrap">
@@ -27,9 +27,9 @@
                         <div class="col-lg-12 col-mg-6"></div>
                         <div class="col-lg-12 col-mg-6"></div>
                     </div>
-                    
-                    @livewire('frontend.filter-by-category',['route'=>Route::currentRouteName()])
-                    <!-- Fillter By Price -->                    
+
+                    @livewire('frontend.filter-by-category', ['route' => Route::currentRouteName()])
+                    <!-- Fillter By Price -->
                     @livewire('frontend.filter-by-price')
                     <!-- Product sidebar Widget -->
                     @livewire('frontend.new-products-component')
@@ -46,9 +46,9 @@
                     <div class="shop-product-fillter">
                         <div class="totall-product">
                             <p> We found <strong class="text-brand">{{ $products->total() }}</strong> items for you!
-                                {{ $categoryName ? 'from ' : '' }}<strong
-                                    class="text-brand">{{ $categoryId ? $categoryName : '' }}</strong>
-                                {{ $categoryName ? 'category ' : '' }}</p>
+                                {{ $categoryName || $subcategoryName ? 'from ' : '' }}<strong
+                                    class="text-brand">{{ $categoryId ? $categoryName : ($subcategoryId ? $subcategoryName : '') }}</strong>
+                                {{ $categoryName ? 'category ' : ($subcategoryName ? 'subcategory' : '') }}</p>
                         </div>
                         <div class="sort-by-product-area">
                             <div class="sort-by-cover mr-10">
@@ -85,13 +85,16 @@
                                 </div>
                                 <div class="sort-by-dropdown">
                                     <ul>
-                                        <li><a class="{{ $orderBy == 'Default Sorting' ? 'active' : '' }}" href="#"
+                                        <li><a class="{{ $orderBy == 'Default Sorting' ? 'active' : '' }}"
+                                                href="#"
                                                 wire:click.prevent='changeOrderBy("Default Sorting")'>Default
                                                 Sorting</a></li>
-                                        <li><a class="{{ $orderBy == 'Price: Low to High' ? 'active' : '' }}" href="#"
+                                        <li><a class="{{ $orderBy == 'Price: Low to High' ? 'active' : '' }}"
+                                                href="#"
                                                 wire:click.prevent='changeOrderBy("Price: Low to High")'>Price: Low to
                                                 High</a></li>
-                                        <li><a class="{{ $orderBy == 'Price: High to Low' ? 'active' : '' }}" href="#"
+                                        <li><a class="{{ $orderBy == 'Price: High to Low' ? 'active' : '' }}"
+                                                href="#"
                                                 wire:click.prevent='changeOrderBy("Price: High to Low")'>Price: High to
                                                 Low</a></li>
                                         <li><a class="{{ $orderBy == 'Release Date' ? 'active' : '' }}" href="#"
@@ -104,7 +107,9 @@
                     </div>
                     <div class="row product-grid-3">
                         @php
-                            $wishItems = Cart::instance('wishlist')->content()->pluck('id');
+                            $wishItems = Cart::instance('wishlist')
+                                ->content()
+                                ->pluck('id');
                         @endphp
                         @foreach ($products as $product)
                             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
@@ -114,18 +119,27 @@
                                             <a href="{{ route('product-details', ['productId' => $product->id]) }}">
                                                 <img class="default-img"
                                                     src="{{ asset('frontend-assets/imgs//products') }}/{{ $product->image }}"
-                                                    alt="{{$product->name}}-product-front" >
+                                                    alt="{{ $product->name }}-product-front">
                                                 <img class="hover-img"
                                                     src="{{ asset('frontend-assets/imgs//products') }}/{{ $product->image }}"
-                                                    alt="{{$product->name}}-product-back" >
+                                                    alt="{{ $product->name }}-product-back">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
                                             <a aria-label="Quick view" class="action-btn hover-up"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal">
                                                 <i class="fi-rs-search"></i></a>
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                href="#"><i class="fi-rs-heart"></i></a>
+                                            @if ($wishItems->contains($product->id))
+                                                <a aria-label="Remove from Wishlist"
+                                                    class="action-btn hover-up wishlisted" href="#"
+                                                    wire:click.prevent='removeFromWishList({{ $product->id }})'><i
+                                                        class="fi-rs-heart"></i></a>
+                                            @else
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up"
+                                                    href="#"
+                                                    wire:click.prevent='addToWishList({{ $product->id }},"{{ $product->name }}",{{ $product->sale_price }},"M","{{ $product->image }}")'><i
+                                                        class="fi-rs-heart"></i></a>
+                                            @endif
                                             <a aria-label="Compare" class="action-btn hover-up" href="#"><i
                                                     class="fi-rs-shuffle"></i></a>
                                         </div>
@@ -150,16 +164,20 @@
                                             <span class="old-price">৳ {{ $product->regular_price }}</span>
                                         </div>
                                         <div class="product-action-1 show">
-                                            @if($wishItems->contains($product->id))
-                                                <a aria-label="Remove from Wishlist" class="action-btn hover-up wishlisted"
-                                                href="#" wire:click.prevent='removeFromWishList({{$product->id}})'><i class="fi-rs-heart"></i></a>
+                                            @if ($wishItems->contains($product->id))
+                                                <a aria-label="Remove from Wishlist"
+                                                    class="action-btn hover-up wishlisted" href="#"
+                                                    wire:click.prevent='removeFromWishList({{ $product->id }})'><i
+                                                        class="fi-rs-heart"></i></a>
                                             @else
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                href="#" wire:click.prevent='addToWishList({{$product->id}},"{{$product->name}}",{{$product->sale_price}},"M","{{ $product->image }}")'><i class="fi-rs-heart"></i></a>
+                                                    href="#"
+                                                    wire:click.prevent='addToWishList({{ $product->id }},"{{ $product->name }}",{{ $product->sale_price }},"M","{{ $product->image }}")'><i
+                                                        class="fi-rs-heart"></i></a>
                                             @endif
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#"
-                                                    wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }},'M','{{ $product->image }}')"><i
-                                                        class="fi-rs-shopping-bag-add"></i></a>
+                                                wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }},'M','{{ $product->image }}')"><i
+                                                    class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -183,9 +201,8 @@
                             </nav> --}}
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
 </div>
-

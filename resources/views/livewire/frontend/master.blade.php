@@ -14,6 +14,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend-assets/imgs/theme/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('frontend-assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend-assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend-assets/css/font-awesome.min.css') }}">
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
     <style>

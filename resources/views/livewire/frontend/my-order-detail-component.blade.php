@@ -4,8 +4,6 @@
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form wire:submit.prevent="update" class="needs-validation" method="POST">
-                    @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-magnifying-glass-plus"></i>
                             Order Detail
@@ -52,15 +50,15 @@
                                     <td>{{ $order->line2 }}</td>
                                 </tr>
                             </table>
-                            <table class="table">
+                            <table class="table table-sm table-striped">
                                 <thead>
                                     <tr>
-                                        {{-- <th>ID</th> --}}
-                                        <th>Prouct Name</th>
-                                        <th>Quantity</th>
-                                        <th>Size</th>
-                                        <th>Color</th>
-                                        <th>Price</th>
+                                        <th  scope="col" >Image</th>
+                                        <th  scope="col" >Prouct Name</th>
+                                        <th  scope="col" >Quantity</th>
+                                        <th  scope="col" >Size</th>
+                                        <th  scope="col" >Color</th>
+                                        <th  scope="col"  class='text-end fw-bold'>Price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,34 +67,38 @@
                         foreach($order->orderDetails as $item):
                         ?>
                                     <tr>
-                                        <td>{{ $item->product->name }}</td>
+                                        <td  scope="row" width='30'><a href="{{ route('product-details', ['productId' => $item->product_id]) }}" ><img src="{{ asset('frontend-assets/imgs/products')}}/{{$item->product->image}}" width='30' height="30" alt=""></a></td>
+                                        <td><a href="{{ route('product-details', ['productId' => $item->product_id]) }}" >{{ $item->product->name }}</a></td>
                                         <td>{{ $item->quantity }}</td>
                                         <td>{{ $item->size }}</td>
                                         <td>{{ $item->color }}</td>
-                                        <td>{{ $item->price }}</td>
+                                        <td class='text-end fw-bold'>{{ $item->price }}</td>
+                                        @if (($order->status=='delivered') && ($item->rstatus==0))
+                                            <td><a href="{{ route('order-item-review',['orderItemId'=>$item->id]) }}" >Write Review</a></td>
+                                        @endif
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan='3'></td>
-                                        <td>Subtotal</td>
-                                        <td>{{ $order->subtotal }}</td>
+                                        <td  scope="row" colspan='4'></td>
+                                        <td class='fw-bold text-end'>Subtotal</td>
+                                        <td class='text-end fw-bold'>{{ $order->subtotal }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan='3'></td>
-                                        <td>Discount</td>
-                                        <td>{{ $order->discount }}</td>
+                                        <td  scope="row" colspan='4'></td>
+                                        <td class='fw-bold text-end'>Discount</td>
+                                        <td class='text-end fw-bold'>{{ $order->discount }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan='3'></td>
-                                        <td>Tax</td>
-                                        <td>{{ $order->tax }}</td>
+                                        <td  scope="row" colspan='4'></td>
+                                        <td class='fw-bold text-end'>Tax</td>
+                                        <td class='text-end fw-bold'>{{ $order->tax }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan='3'></td>
-                                        <td>Total</td>
-                                        <td>{{ $order->total }}</td>
+                                        <td  scope="row" colspan='4'></td>
+                                        <td class='fw-bold text-end'>Total</td>
+                                        <td class='text-end fw-bold'>{{ $order->total }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -107,7 +109,6 @@
                             wire:click.prevent='resetInput'><i class="fa fa-remove"></i> Close</button>
 
                     </div>
-                </form>
             </div>
         </div>
     </div>
