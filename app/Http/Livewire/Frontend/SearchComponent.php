@@ -20,6 +20,8 @@ class SearchComponent extends Component
     public $searchTerm;
 
     public $categoryId;
+    public $subcategoryId;
+    public $subcategoryName;
     public $categoryName;
     public $minPrice = 0;
     public $maxPrice = 10000;

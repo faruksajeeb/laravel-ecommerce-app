@@ -3,10 +3,8 @@
 namespace App\Http\Livewire\Frontend;
 
 use App\Models\Product;
-use App\Models\ReviewReply;
 use Livewire\Component;
 use Cart;
-use Illuminate\Support\Facades\DB;
 
 class ProductDetails extends Component
 {
@@ -19,23 +17,6 @@ class ProductDetails extends Component
     public $productName;
     public $productPrice;
     public $productImage;
-    public $reviews=[];
-    public $totalReview;
-    public $avgRatings;
-    public $avgRatingPercentage;
-    public $fiveStars = 0;
-    public $fourStars = 0;
-    public $threeStars = 0;
-    public $twoStars = 0;
-    public $oneStars = 0;
-    public $fiveStartPercenteage = 0;
-    public $fourStartPercenteage = 0;
-    public $threeStartPercenteage = 0;
-    public $twoStartPercenteage = 0;
-    public $oneStartPercenteage = 0;
-
-    public $review_reply='';
-    public $comments = [];
     public function mount($productId){
 
         // $this->post = Post::find($id);
@@ -51,29 +32,6 @@ class ProductDetails extends Component
 
     }
 
-    // public function updated($fields){
-    //     $this->validate($fields,[
-    //         'review_reply' => 'required'
-    //       ]);
-    // }
-
-    public function addReply($id)
-    {
-     
-      $this->validate([
-        'review_reply' => 'required'
-      ]);
-      
-      
-      $reviewReply = ReviewReply::create([
-        'review_id' => $id,
-        'replied_by' => 'admin',
-        'comment' => $this->review_reply
-      ]);
-    //   array_push($this->comments ,$reviewReply);
-      $this->comments->push($reviewReply);
-      $this->review_reply = '';
-    }
 
    
     // public function store($productId,$productName,$productPrice,$productSize=null,$productImage){
@@ -89,53 +47,11 @@ class ProductDetails extends Component
     
     public function render()
     {
-        $this->comments = ReviewReply::where('review_id',5)->get();
-        $this->reviews =DB::table('reviews')
-        ->join('order_details', 'reviews.order_item_id', '=', 'order_details.id')
-        ->join('customers', 'reviews.customer_id', '=', 'customers.id')
-        ->select('reviews.*','customers.name as customer_name')
-        ->where('order_details.product_id',$this->productId)
-        ->get();
-        $this->totalReview = count($this->reviews);
-        $totalRatings=0;
-        foreach($this->reviews as $item){
-            if($item->ratings==5){
-                $this->fiveStars +=1;
-            }elseif($item->ratings==4){
-                $this->fourStars +=1;
-            }elseif($item->ratings==3){
-                $this->threeStars +=1;
-            }elseif($item->ratings==2){
-                $this->twoStars +=1;
-            }elseif($item->ratings==1){
-                $this->oneStars +=1;
-            }
-            $totalRatings += $item->ratings;
-        }
-
-        $this->avgRatings = $totalRatings/$this->totalReview;
-        $this->avgRatingPercentage = $this->avgRatings*20; // total 100%
-
-        $this->fiveStartPercenteage = ($this->fiveStars/$this->totalReview)*100;
-        $this->fourStartPercenteage = ($this->fourStars/$this->totalReview)*100;
-        $this->threeStartPercenteage = ($this->threeStars/$this->totalReview)*100;
-        $this->twoStartPercenteage = ($this->twoStars/$this->totalReview)*100;
-        $this->oneStartPercenteage = ($this->oneStars/$this->totalReview)*100;
+        
 
         $product = Product::where('id',$this->productId)->first();
         return view('livewire.frontend.product-details',[
-            'product'=>$product,
-            'reviews' =>  $this->reviews,
-            'avgRatings' =>  $this->avgRatings,
-            'avgRatingPercentage' =>  $this->avgRatingPercentage,
-            'comments' =>  $this->comments,
-            'starPercentage' => [
-                'five' => $this->fiveStartPercenteage,
-                'four' => $this->fourStartPercenteage,
-                'three' => $this->threeStartPercenteage,
-                'two' => $this->twoStartPercenteage,
-                'one' => $this->oneStartPercenteage,
-            ],
+            'product'=>$product
             ])->extends('livewire.frontend.master');
     }
 

@@ -12,14 +12,14 @@ use Livewire\Component;
 class OrderItemReviewComponent extends Component
 {
     public $tableName = 'reviews';
-    // public $btnDisabled = 0;
+    public $btnDisabled = 0;
     public $productName;
     public $productId;
     public $productImage;
     public $orderItemId;
     public $orderDetail;
 
-    public $ratings;
+    public $ratings=5;
     public $comment;
 
     public function mount($orderItemId)
@@ -34,40 +34,50 @@ class OrderItemReviewComponent extends Component
         ])->extends('livewire.frontend.master');
     }
 
+    public function updated($fields){
+        $this->validateOnly($fields,[
+            'ratings' => 'required',
+            'comment' => 'required'
+        ]);
+    }
+
     public function saveReview()
     {
         $this->validate([
             'ratings' => 'required',
-            'comment' => [
-                'required',
-                Rule::unique($this->tableName)->where(function ($query) {
-                    return $query->where('order_item_id', $this->orderItemId)
-                        ->where('customer_id', Auth::guard('customer')->user()->id);
-                })
-            ],
+            'comment' => 'required'
         ]);
-        try {
-            // $this->btnDisabled = 1;
-            $review = new Review();
-            $review->ratings = $this->ratings;
-            $review->comment = $this->comment;
-            $review->order_item_id = $this->orderItemId;
-            $review->customer_id = Auth::guard('customer')->user()->id;
-            $review->save();
 
-            $orderDetail = OrderDetail::find($this->orderItemId);
-            $orderDetail->rstatus = true;
-            $orderDetail->save();
-            // $this->btnDisabled = 0;
-            // $this->resetInput();
-            $this->emit('added', 'Review added successfully!');
-        } catch (Exception $e) {
-            $this->emit('error', $e->getMessage());
+     
+        $exist = Review::where('customer_id', Auth::guard('customer')->user()->id)
+            ->where('order_item_id', $this->orderItemId)->get();
+        if (count($exist) > 0) {
+            $this->emit('error', "Review already exist on this order item.");
+        } else {
+            try {
+                $this->btnDisabled = 1;
+                $review = new Review();
+                $review->ratings = $this->ratings;
+                $review->comment = $this->comment;
+                $review->order_item_id = $this->orderItemId;
+                $review->customer_id = Auth::guard('customer')->user()->id;
+                $review->save();
+
+                $orderDetail = OrderDetail::find($this->orderItemId);
+                $orderDetail->rstatus = true;
+                $orderDetail->save();
+                $this->btnDisabled = 0;
+                $this->resetInput();
+                $this->emit('added', 'Review added successfully!');
+            } catch (Exception $e) {
+                $this->emit('error', $e->getMessage());
+            }
         }
     }
 
-    public function resetInput(){
-        $this->ratings='';
-        $this->comment='';
+    public function resetInput()
+    {
+        $this->ratings = '';
+        $this->comment = '';
     }
 }
