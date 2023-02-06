@@ -27,9 +27,11 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('zip_code')->nullable();
             $table->boolean('status')->default(1);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
+            $table->foreign('created_by')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }

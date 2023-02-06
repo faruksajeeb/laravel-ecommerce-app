@@ -21,9 +21,11 @@ return new class extends Migration
             $table->decimal('cart_value');
             $table->date('expiry_date');
             $table->boolean('status')->default(1);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

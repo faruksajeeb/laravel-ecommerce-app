@@ -22,9 +22,11 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('image');
             $table->boolean('status')->default(1);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

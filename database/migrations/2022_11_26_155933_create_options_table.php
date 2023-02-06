@@ -20,9 +20,11 @@ return new class extends Migration
             $table->string('option_value2')->nullable();
             $table->string('option_value3')->nullable();
             $table->tinyInteger('status')->default(1);
-            $table->integer('created_by');
-            $table->integer('updated_by');
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
