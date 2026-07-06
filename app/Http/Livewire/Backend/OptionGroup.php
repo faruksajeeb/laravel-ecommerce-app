@@ -113,6 +113,7 @@ class OptionGroup extends Component
             $optionGroup = new Option_group();
             $optionGroup->option_group_name = $this->option_group_name;
             $optionGroup->created_by = Auth::user()->id;
+            $optionGroup->updated_by = Auth::user()->id;
             $optionGroup->save();
 
             if ($optionGroup->id) {
@@ -136,7 +137,7 @@ class OptionGroup extends Component
                 // }
                 Cache::forget($this->table);
                 # Return Message
-                $this->emit('added', 'inserted');
+                $this->emit('success', 'inserted');
             }
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());

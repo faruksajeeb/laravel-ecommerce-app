@@ -1,43 +1,54 @@
 <header class="header-area header-style-1 header-height-2">
-    {{-- @livewire('frontend.header-top-component') --}}
+    @livewire('frontend.header-top-component')
     <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-    <a href="{{ route('/') }}" class="text-decoration-none d-inline-flex align-items-center text-nowrap tracking-tight group-logo">
-        
-        <span class="fs-3 fw-black text-pink-custom font-brand">
-            Girl's<span class="text-dark position-relative ms-1 d-inline-block">Eye<span class="position-absolute start-50 translate-middle-x bottom-0 bg-dark rounded-circle" style="width: 4px; height: 4px; margin-bottom: -2px;"></span></span>
-        </span>
+                    {{-- <a href="{{ route('/') }}"
+                        class="text-decoration-none d-inline-flex align-items-center text-nowrap tracking-tight group-logo">
 
-        <div class="eye-icon-wrapper ms-2 d-inline-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 32px; height: 32px; flex-shrink: 0;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-dark" viewBox="0 0 16 16">
-                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-            </svg>
-        </div>
-    </a>
-</div>
+                        <span class="fs-3 fw-black text-pink-custom font-brand">
+                            Store<span class="text-dark position-relative ms-1 d-inline-block">Name<span
+                                    class="position-absolute start-50 translate-middle-x bottom-0 bg-dark rounded-circle"
+                                    style="width: 4px; height: 4px; margin-bottom: -2px;"></span></span>
+                        </span>
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@900&display=swap');
-    
-    .font-brand {
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
-        letter-spacing: -0.04em !important;
-    }
-    .text-pink-custom {
-        color: #db2777 !important;
-    }
-    .fw-black {
-        font-weight: 900 !important;
-    }
-    .group-logo:hover .eye-icon-wrapper {
-        background-color: #fce7f3 !important;
-        transform: scale(1.05);
-        transition: all 0.2s ease;
-    }
-</style>
+                        <div class="eye-icon-wrapper ms-2 d-inline-flex align-items-center justify-content-center bg-light rounded-circle"
+                            style="width: 32px; height: 32px; flex-shrink: 0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="text-dark" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                <path
+                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                            </svg>
+                        </div>
+                    </a> --}}
+                    <a href="{{ route('/') }}"><img src="{{ asset('frontend-assets/imgs/logo/logo.png') }}" alt="logo"></a>
+                </div>
+
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@900&display=swap');
+
+                    .font-brand {
+                        font-family: 'Plus Jakarta Sans', sans-serif !important;
+                        letter-spacing: -0.04em !important;
+                    }
+
+                    .text-pink-custom {
+                        color: #db2777 !important;
+                    }
+
+                    .fw-black {
+                        font-weight: 900 !important;
+                    }
+
+                    .group-logo:hover .eye-icon-wrapper {
+                        background-color: #fce7f3 !important;
+                        transform: scale(1.05);
+                        transition: all 0.2s ease;
+                    }
+                </style>
                 <div class="header-right">
                     @livewire('frontend.header-search-component')
                     <div class="header-action-right">

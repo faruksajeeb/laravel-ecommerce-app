@@ -1,54 +1,52 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            @include('auth.logo')
         </x-slot>
 
-        <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" class="space-y-5">
             @csrf
 
-            <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label for="email" :value="__('Email')" class="text-slate-700 font-medium" />
 
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-text-input id="email" class="block mt-1 w-full border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" 
+                    type="email" name="email" :value="old('email')"
+                    required autofocus placeholder="you@example.com" />
 
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
+            <div>
+                <x-input-label for="password" :value="__('Password')" class="text-slate-700 font-medium" />
 
-                <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+                <x-text-input id="password" class="block mt-1 w-full border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" 
+                    type="password" name="password" required
+                    autocomplete="current-password" placeholder="••••••••" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            <div class="flex items-center justify-between mt-4">
+                <label for="remember_me" class="inline-flex items-center cursor-pointer">
+                    <input id="remember_me" type="checkbox"
+                        class="rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        name="remember">
+                    <span class="ml-2 text-sm text-slate-600">{{ __('Remember me') }}</span>
                 </label>
-            </div>
 
-            <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                    <a class="underline text-sm text-slate-500 hover:text-indigo-600 transition-colors"
+                        href="{{ route('password.request') }}">
+                        {{ __('Forgot password?') }}
                     </a>
                 @endif
+            </div>
 
-                <x-primary-button class="ml-3">
+            <div class="mt-6">
+                <x-primary-button class="w-full justify-center py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-md shadow-sm transition duration-150 ease-in-out">
                     {{ __('Log in') }}
                 </x-primary-button>
             </div>

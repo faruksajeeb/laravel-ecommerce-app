@@ -150,12 +150,12 @@
         });
 
         function toggleMenu() {
-            // Look for the sidebar ID we used in the new design
-            let navigation = document.getElementById("sidebar") || document.querySelector(".navigation");
+            let sidebar = document.getElementById("sidebar");
+            let navigation = document.querySelector(".navigation");
             let main = document.querySelector(".main");
-            let toggle = document.querySelector(".btn-light"); // Targets the new rounded button
+            let toggle = document.querySelector(".btn-light");
 
-            // Fallback checks to prevent JS errors if an element is missing
+            if (sidebar) sidebar.classList.toggle('active');
             if (navigation) navigation.classList.toggle('active');
             if (main) main.classList.toggle('active');
             if (toggle) toggle.classList.toggle('active');

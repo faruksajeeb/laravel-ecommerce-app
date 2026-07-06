@@ -130,7 +130,7 @@
                                             endif;
                                         @endphp
                                         <td><img src="{{ asset('frontend-assets/imgs/products') }}/{{ $file }}"
-                                                width="50" height="50" alt="{{ $val->name }}"></td>
+                                                width="50" height="50" alt="{{ $val->name }}" style="height: 50px!important; width: 50px;"></td>
                                         <td>{{ $val->name }}</td>
                                         <td>{{ $val->slug }}</td>
                                         <td>{{ $val->category ? $val->category->name : '' }}</td>
@@ -146,7 +146,7 @@
                                         </td>
                                         <td>{{ $val->created_at }}</td>
                                         <td>{{ $val->updated_at }}</td>
-                                        <td>
+                                        <td class="text-nowrap">
                                             <button class="btn btn-sm btn-success me-1 py-1 mt-1 "
                                                 wire:click.prevent="edit('{{ Crypt::encryptString($val->id) }}')"
                                                 data-bs-toggle="modal" {{-- wire:click.prevent="edit({{ '553453453453454535SDD' }})" data-bs-toggle="modal" --}} {{-- wire:click.prevent="edit({{$val->id}})" data-bs-toggle="modal" --}}

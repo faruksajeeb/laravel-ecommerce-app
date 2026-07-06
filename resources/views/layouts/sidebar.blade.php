@@ -5,9 +5,16 @@
                 <ul class="p-0 brand-name">
                     <li class="">
                         <a href="{{ route('dashboard') }}" class="bg-white ">
-                            <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
                             <span class="title">
-                                <h5 class=" py-4">{{ $company_settings?->company_name }}</h5>
+                                <h5 class="py-2 d-inline-flex align-items-center gap-2 m-0">
+                                    <span class="bg-primary text-white fw-black rounded-3 px-2.5 py-1 text-lowercase shadow-sm" 
+                                        style="width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                        {{ substr(env('APP_NAME'), 0, 1) }}
+                                    </span>
+                                    <span class="fw-bold text-dark tracking-tight fs-4">
+                                        {{ substr(env('APP_NAME'), 1) }}
+                                    </span>
+                                </h5>
                             </span>
                         </a>
                     </li>
@@ -20,12 +27,17 @@
                 @if (Auth::guard('web')->user()->can('option_group.view') ||
                     Auth::guard('web')->user()->can('option.view'))
                     <li>
-                        <a href="#master_submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
+                        <a href="#master_submenu1"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#master_submenu1"
+                           aria-controls="master_submenu1"
+                           aria-expanded="{{ Route::is('option-groups') || Route::is('options') || Route::is('categories') || Route::is('subcategories') || Route::is('coupons') ? 'true' : 'false' }}"
+                           class="nav-link ps-1 align-middle">
                             <span class="icon"><i class="fa-solid fa-list"></i></span>
                             <span class="ms-1 d-sm-inline title ">Master</span>
                             <i class="icon fa-solid fa-angle-right text-right"></i>
                         </a>
-                        <ul class="collapse nav flex-column ms-3 ps-3 {{ Route::is('users.index') || Route::is('users.create') || Route::is('roles.index') || Route::is('roles.create') ? 'show' : '' }}"
+                        <ul class="collapse nav flex-column ms-3 ps-3 {{ Route::is('option-groups') || Route::is('options') || Route::is('categories') || Route::is('subcategories') || Route::is('coupons') ? 'show' : '' }}"
                             id="master_submenu1" data-bs-parent="#menu">
                             <li class="{{ Route::is('option-groups') ? 'active' : '' }}">
                                 <a href="{{ url('option-groups') }}" class="nav-link px-2"> <span class="d-sm-inline"><i
@@ -54,7 +66,7 @@
                     <a  href="{{ route('sliders') }}" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-solid fa-images"></i></span>
                         <span class="ms-1 d-sm-inline title ">Sliders</span>
-                        {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
+                        <i class="icon fa-solid fa-angle-right text-right"></i>
                     </a>
                 </li>
                
@@ -62,11 +74,11 @@
                     <a  href="{{ route('products') }}" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-brands fa-product-hunt"></i></span>
                         <span class="ms-1 d-sm-inline title ">Products</span>
-                        {{-- <i class="icon fa-solid fa-angle-right text-right"></i> --}}
+                        <i class="icon fa-solid fa-angle-right text-right"></i>
                     </a>
                 </li>
                
-                {{-- <li class="{{ Route::is('orders') ? 'active' : '' }}">
+                <li class="{{ Route::is('orders') ? 'active' : '' }}">
                     <a  href="{{ route('orders') }}" class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-solid fa-box-open"></i></span>
                         <span class="ms-1 d-sm-inline title ">Orders</span>
@@ -79,13 +91,18 @@
                         <span class="ms-1 d-sm-inline title ">Customers</span>
                         <i class="icon fa-solid fa-angle-right text-right"></i>
                     </a>
-                </li> --}}
+                </li>
                 @if (Auth::guard('web')->user()->can('user.view') ||
                     Auth::guard('web')->user()->can('user.create') ||
                     Auth::guard('web')->user()->can('role.view') ||
                     Auth::guard('web')->user()->can('role.create'))
                     <li>
-                        <a href="#user_submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
+                        <a href="#user_submenu1"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#user_submenu1"
+                           aria-controls="user_submenu1"
+                           aria-expanded="{{ Route::is('users.index') || Route::is('users.create') || Route::is('roles.index') || Route::is('roles.create') ? 'true' : 'false' }}"
+                           class="nav-link ps-1 align-middle">
                             <span class="icon"><i class="fa-solid fa-users"></i></span>
                             <span class="ms-1 d-sm-inline title ">Users</span>
                             <i class="icon fa-solid fa-angle-right text-right"></i>
@@ -128,7 +145,12 @@
                 @endif
               
                 <li>
-                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link ps-1 align-middle">
+                    <a href="#submenu1"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#submenu1"
+                       aria-controls="submenu1"
+                       aria-expanded="{{ Route::is('company-setting') || Route::is('basic-setting') || Route::is('email-setting') || Route::is('theme-setting') || Route::is('invoice-setting') || Route::is('approval-setting') || Route::is('salary-setting') || Route::is('notification-setting') || Route::is('toxbox-setting') || Route::is('cron-setting') ? 'true' : 'false' }}"
+                       class="nav-link ps-1 align-middle">
                         <span class="icon"><i class="fa-solid fa-gear"></i></span>
                         <span class="ms-1 d-sm-inline title ">Settings</span>
                         <i class="icon fa-solid fa-angle-right text-right"></i>
@@ -136,15 +158,15 @@
                     <ul class="collapse nav flex-column ms-3 ps-3 
                     {{ Route::is('company-setting') ||
                     Route::is('basic-setting') 
-                    // ||
-                    // Route::is('email-setting') ||
-                    // Route::is('theme-setting') ||
-                    // Route::is('invoice-setting') ||
-                    // Route::is('approval-setting') ||
-                    // Route::is('salary-setting') ||
-                    // Route::is('notification-setting') ||
-                    // Route::is('toxbox-setting') ||
-                    // Route::is('cron-setting')
+                    ||
+                    Route::is('email-setting') ||
+                    Route::is('theme-setting') ||
+                    Route::is('invoice-setting') ||
+                    Route::is('approval-setting') ||
+                    Route::is('salary-setting') ||
+                    Route::is('notification-setting') ||
+                    Route::is('toxbox-setting') ||
+                    Route::is('cron-setting')
                         ? 'show'
                         : '' }}"
                         id="submenu1" data-bs-parent="#menu">
@@ -163,7 +185,7 @@
                                         Settings</span></a>
                             </li>
                         @endcan
-                        {{-- @can('theme.setting')
+                        @can('theme.setting')
                             <li class="{{ Route::is('theme-setting') ? 'active' : '' }}">
                                 <a href="{{ route('theme-setting') }}" class="nav-link px-2"><i
                                         class="fa-solid fa-image"></i> <span class="d-sm-inline ps-1 mb-1"> Theme
@@ -226,7 +248,7 @@
                                         class="fa-solid fa-rocket"></i> <span class="d-sm-inline ps-1 mb-1">Cron
                                         Settings</span></a>
                             </li>
-                        @endcan --}}
+                        @endcan
                     </ul>
                 </li>
 

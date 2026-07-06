@@ -4,17 +4,17 @@
     </x-slot>
     @push('style')
         <style>
-.card-box .card .numbers{
-    font-size:405px!important;
-}
-            </style>
+            .card-box .card .numbers {
+                font-size: 405px !important;
+            }
+        </style>
     @endpush
     @can('dashboard.view')
         <div class="card-box p-1">
             <div class="card mx-1">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers"><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{$totalRevenue}}</div>
+                        <div class="numbers"><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ $totalRevenue }}</div>
                         <div class="card-name">Total Revenue</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers"> {{$totalSales}}</div>
+                        <div class="numbers"> {{ $totalSales }}</div>
                         <div class="card-name">Total Sales</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers"><i class="fa-solid fa-bangladeshi-taka-sign"></i>  {{$todayRevenue}}</div>
+                        <div class="numbers"><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ $todayRevenue }}</div>
                         <div class="card-name">Today Revenue</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="row ">
                     <div class="col-md-8">
-                        <div class="numbers"> {{$todaySales}}</div>
+                        <div class="numbers"> {{ $todaySales }}</div>
                         <div class="card-name">Today Sales</div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center justify-content-center border-start">
@@ -166,26 +166,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($orders as $k=>$order)                                    
-                                    <tr>
-                                        {{-- <td>{{$k+1}}</td> --}}
-                                        <td class="text-center">{{ $order->id }}</td>
-                                        <td>{{ $order->first_name.' '.$order->last_name }}</td>
-                                        <td class="text-center"><i class="fa-solid fa-mobile-retro"></i> {{ $order->mobile }}</td>
-                                        <td class="text-center"><i class="fa-solid fa-envelope"></i> {{ $order->email }}</td>
-                                        <td class="text-end"><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ $order->total }}</td>
-                                        <td class="text-center"><i class="fa-solid fa-calander"></i> {{ $order->created_at }}</td>
-                                        <td class="text-center"><i class="fa-solid fa-calander"></i> {!! App\Lib\Webspice::textStatus($order->status) !!}</td>
-                                    </tr>
-                                        
+                                    @foreach ($orders as $k => $order)
+                                        <tr>
+                                            {{-- <td>{{$k+1}}</td> --}}
+                                            <td class="text-center">{{ $order->id }}</td>
+                                            <td>{{ $order->first_name . ' ' . $order->last_name }}</td>
+                                            <td class="text-center"><i class="fa-solid fa-mobile-retro"></i>
+                                                {{ $order->mobile }}</td>
+                                            <td class="text-center"><i class="fa-solid fa-envelope"></i> {{ $order->email }}
+                                            </td>
+                                            <td class="text-end"><i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                                                {{ $order->total }}</td>
+                                            <td class="text-center"><i class="fa-solid fa-calander"></i>
+                                                {{ $order->created_at }}</td>
+                                            <td class="text-center"><i class="fa-solid fa-calander"></i>
+                                                {!! App\Lib\Webspice::textStatus($order->status) !!}</td>
+                                        </tr>
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>            
+        </div>
     @endcan
 </x-app-layout>

@@ -10,7 +10,7 @@
     <section class="pt-50 pb-50">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8 col-lg-10 m-auto">
+                <div class="col-xl-6 col-lg-6 m-auto">
                     <div class="contact-from-area padding-20-row-col wow FadeInUp">
                         <h3 class="mb-10 text-center">Drop Us a Line</h3>
                         <p class="text-muted mb-30 text-center font-sm">Lorem ipsum dolor sit amet consectetur.</p>
@@ -68,6 +68,10 @@
                             </div>
                         </form>
                         <p class="form-messege"></p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="contact-map contact-bg bg-img" style="background-image: url({{ asset('frontend-assets/imgs/page/contact-1.png') }})">
                     </div>
                 </div>
             </div>

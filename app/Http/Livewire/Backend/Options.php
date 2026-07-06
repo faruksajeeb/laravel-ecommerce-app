@@ -137,6 +137,7 @@ class Options extends Component
             $option->option_value2 = $this->option_value2;
             $option->option_value3 = $this->option_value3;
             $option->created_by = Auth::user()->id;
+            $option->updated_by = Auth::user()->id;
             $option->save();
 
             if ($option->id) {
