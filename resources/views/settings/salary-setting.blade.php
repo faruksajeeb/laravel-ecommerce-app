@@ -2,191 +2,177 @@
     <x-slot name="title">
         Salary Settings
     </x-slot>
-    <div class="content container-fluid">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
 
-                <div class="page-header py-3">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3 class="page-title">Salary Settings</h3>
-                        </div>
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+
+                <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                    <div>
+                        <h2 class="h4 mb-1 fw-bold text-dark">Salary Settings</h2>
+                        <p class="text-muted small mb-0">Manage calculation variables, allowances, statutory provisions, and tax configurations.</p>
                     </div>
                 </div>
 
-                <form>
+                <div class="card border-0 shadow-sm rounded-3">
+                    <div class="card-body p-4 p-md-5">
 
-                    <div class="settings-widget">
-                        <div class="h3 card-title with-switch">
-                            DA and HRA
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch_hra"
-                                    checked>
-                                <label class="onoffswitch-label" for="switch_hra">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>DA (%)</label>
-                                    <input type="text" class="form-control">
+                        <form action="#" method="POST" class="needs-validation" novalidate>
+                            @csrf
+                            
+                            <div class="mb-4 pb-4 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="fs-5 fw-bold text-dark mb-0">DA and HRA</h3>
+                                    <div class="form-check form-switch fs-5">
+                                        <input class="form-check-input" type="checkbox" name="allowances_status" id="switch_hra" checked>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-item">
+                                            <label class="form-label fw-semibold text-secondary small">DA (%)</label>
+                                            <input type="text" class="form-control" placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-item">
+                                            <label class="form-label fw-semibold text-secondary small">HRA (%)</label>
+                                            <input type="text" class="form-control" placeholder="0.00">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>HRA (%)</label>
-                                    <input class="form-control" type="text">
+
+                            <div class="mb-4 pb-4 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="fs-5 fw-bold text-dark mb-0">Provident Fund Settings</h3>
+                                    <div class="form-check form-switch fs-5">
+                                        <input class="form-check-input" type="checkbox" name="pf_status" id="switch_pf" checked>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-item">
+                                            <label class="form-label fw-semibold text-secondary small">Employee Share (%)</label>
+                                            <input type="text" class="form-control" placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-item">
+                                            <label class="form-label fw-semibold text-secondary small">Organization Share (%)</label>
+                                            <input type="text" class="form-control" placeholder="0.00">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="mb-4 pb-4 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="fs-5 fw-bold text-dark mb-0">ESI Settings</h3>
+                                    <div class="form-check form-switch fs-5">
+                                        <input class="form-check-input" type="checkbox" name="esi_status" id="switch_esi">
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-item">
+                                            <label class="form-label fw-semibold text-secondary small">Employee Share (%)</label>
+                                            <input type="text" class="form-control" placeholder="0.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-item">
+                                            <label class="form-label fw-semibold text-secondary small">Organization Share (%)</label>
+                                            <input type="text" class="form-control" placeholder="0.00">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h3 class="fs-5 fw-bold text-dark mb-0">TDS Settings</h3>
+                                        <span class="badge bg-light text-secondary border fw-normal">Annual Salary</span>
+                                    </div>
+                                    <div class="form-check form-switch fs-5">
+                                        <input class="form-check-input" type="checkbox" name="tds_status" id="switch_tds">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="row g-2 align-items-end">
+                                        <div class="col-sm-4">
+                                            <div class="form-item">
+                                                <label class="form-label fw-semibold text-secondary small mb-1">Salary From</label>
+                                                <input class="form-control" type="text" placeholder="Min Value">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-item">
+                                                <label class="form-label fw-semibold text-secondary small mb-1">Salary To</label>
+                                                <input class="form-control" type="text" placeholder="Max Value">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-item">
+                                                <label class="form-label fw-semibold text-secondary small mb-1">%</label>
+                                                <input class="form-control" type="text" placeholder="Rate">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button class="btn btn-outline-danger w-100" type="button" title="Delete Row">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-2 align-items-end">
+                                        <div class="col-sm-4">
+                                            <div class="form-item">
+                                                <label class="form-label d-sm-none fw-semibold text-secondary small mb-1">Salary From</label>
+                                                <input class="form-control" type="text" placeholder="Min Value">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-item">
+                                                <label class="form-label d-sm-none fw-semibold text-secondary small mb-1">Salary To</label>
+                                                <input class="form-control" type="text" placeholder="Max Value">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-item">
+                                                <label class="form-label d-sm-none fw-semibold text-secondary small mb-1">%</label>
+                                                <input class="form-control" type="text" placeholder="Rate">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button class="btn btn-outline-danger w-100" type="button" title="Delete Row">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2 ms-auto">
+                                            <button class="btn btn-outline-primary w-100" type="button" title="Add Rule">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 pt-3 border-top d-flex justify-content-end">
+                                <button type="button" class="btn btn-light me-2 px-4 rounded-3">Cancel</button>
+                                <button type="submit" class="btn btn-primary px-4 rounded-3 shadow-sm fw-medium">Save Changes</button>
+                            </div>
+                        </form>
+
                     </div>
+                </div>
 
-
-                    <div class="settings-widget">
-                        <div class="h3 card-title with-switch">
-                            Provident Fund Settings
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch_pf"
-                                    checked>
-                                <label class="onoffswitch-label" for="switch_pf">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Employee Share (%)</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Organization Share (%)</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="settings-widget">
-                        <div class="h3 card-title with-switch">
-                            ESI Settings
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch_esi">
-                                <label class="onoffswitch-label" for="switch_esi">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Employee Share (%)</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Organization Share (%)</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="settings-widget">
-                        <div class="h3 card-title with-switch">
-                            TDS&nbsp; <small class="form-text text-muted">Annual Salary</small>
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch_tds">
-                                <label class="onoffswitch-label" for="switch_tds">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row row-sm">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Salary From</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Salary To</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>%</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="d-none d-sm-block">&nbsp;</label>
-                                    <button class="btn btn-danger w-100 set-btn" type="button"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-sm">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Salary From</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Salary To</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>%</label>
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="d-none d-sm-block">&nbsp;</label>
-                                    <button class="btn btn-danger w-100 set-btn" type="button"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-sm">
-                            <div class="col-sm-2 ms-auto">
-                                <div class="form-group">
-                                    <button class="btn btn-primary w-100" type="button"><i
-                                            class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="submit-section">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <button class="btn btn-lg btn-outline-secondary submit-btn rounded-pill">Save
-                                Changes</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-
 </x-app-layout>

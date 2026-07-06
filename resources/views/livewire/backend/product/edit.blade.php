@@ -1,258 +1,333 @@
-<!-- Modal -->
-<div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+@push('styles')
+    <style>
+        /* Modal depth and shape */
+        .modal-content {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Section headers */
+        .section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--bs-primary);
+            border-bottom: 2px solid var(--bs-primary);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Modern File Upload Input */
+        .custom-file-upload {
+            border: 2px dashed #dee2e6;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .custom-file-upload:hover {
+            border-color: var(--bs-primary);
+            background: #f1f4ff;
+        }
+
+        /* Image Preview Cards */
+        .preview-card {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* CKEditor Z-index fix */
+        .ck-editor__animated-bottom {
+            z-index: 1060 !important;
+        }
+
+        /* Force layout engine to allow vertical page flow when modal is open */
+        body.modal-open,
+        .modal-open .wrapper,
+        .modal-open main {
+            overflow: visible !important;
+            height: auto !important;
+        }
+
+        /* Target the inner container body of the product popup wrapper */
+        #editModal .modal-body {
+            max-height: calc(100vh - 210px) !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #editModal .modal-content {
+            max-height: calc(100vh - 2rem) !important;
+        }
+    </style>
+@endpush
+
+<div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editProductModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
+            <div class="modal-header px-4 py-3 bg-white border-bottom-0">
+                <div class="d-flex align-items-center">
+                    <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-3">
+                        <i class="fa-solid fa-pen-to-square text-warning fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold" id="editProductModalLabel">Edit Product</h5>
+                        <p class="text-muted small mb-0">Update the details for this product in your catalog.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="resetInputFields()"></button>
+            </div>
+
             <form wire:submit.prevent="update" class="needs-validation" method="POST">
                 @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Edit Product
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-
-                    @if (session()->has('message'))
-                        <div class="alert alert-danger">{{ session('message') }}</div>
+                <div class="modal-body px-4 pb-4">
+                    @if ($errors->any())
+                        <div class="alert alert-danger border-0 shadow-sm d-flex align-items-center">
+                            <i class="fa-solid fa-circle-exclamation me-2"></i>
+                            Please review the highlighted fields and try again.
+                        </div>
                     @endif
 
-                    <div class="row my-1">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Product Name <span class="text-danger">*</span></label>
-                                <input name="name" wire:model="name" wire:keyup='generateSlug'
-                                    class="form-control @error('name') is-invalid @enderror" type="text"
-                                    value="" placeholder="Enter product name" required>
-                                @error('name')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Product Slug <span class="text-danger">*</span></label>
-                                <input name="slug" wire:model='slug'
-                                    class="form-control slug  @error('name') is-invalid @enderror" readonly
-                                    value="" type="text" required>
-                                @error('slug')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Category <span class="text-danger">*</span></label>
-                                <select name="SelectedCategory" wire:model='SelectedCategory'
-                                    class="form-select  SelectedCategory  @error('SelectedCategory') is-invalid @enderror">
-                                    <option value="">--Choose a category--</option>
-                                    @foreach ($categories as $val)
-                                        <option value="{{ $val->id }}">{{ $val->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('SelectedCategory')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            @if (!is_null($SelectedCategory))
-                                <div class="form-group">
-                                    <label>Subcategory <span class="text-danger">*</span></label>
-                                    <select name="subcategory_id" wire:model='subcategory_id'
-                                        placeholder='Select a subcategory'
-                                        class="form-select   subcategory_id  @error('subcategory_id') is-invalid @enderror">
-                                        <option value="">--Choose a Subcategory--</option>
-                                        @foreach ($subcategories as $val)
-                                            <option value="{{ $val->id }}">{{ $val->subcategory_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('subcategory_id')
-                                        <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>SKU <span class="text-danger">*</span></label>
-                                <input name="SKU" wire:model="SKU"
-                                    class="form-control @error('SKU') is-invalid @enderror" type="text"
-                                    value="" placeholder="Enter product SKU" required>
-                                @error('SKU')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Initial Quantity <span class="text-danger">*</span></label>
-                                <input name="quantity" wire:model='quantity'
-                                    class="form-control quantity  @error('quantity') is-invalid @enderror"
-                                    value="" type="text" placeholder="Enter initial qty" required>
-                                @error('quantity')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Regular Price <span class="text-danger">*</span></label>
-                                <input name="regular_price" wire:model="regular_price"
-                                    class="form-control regular_price @error('regular_price') is-invalid @enderror"
-                                    type="text" value="" placeholder="Enter regular price" required>
+                    <div class="row g-4">
+                        <div class="col-lg-7">
+                            <div class="p-3 border rounded-4 mb-4">
+                                <span class="section-title">General Information</span>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold">Product Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" wire:model.live="name" wire:keyup="generateSlug"
+                                            class="form-control form-control-lg @error('name') is-invalid @enderror"
+                                            placeholder="Enter product name...">
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                @error('regular_price')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Sale Price <span class="text-danger">*</span></label>
-                                <input name="sale_price" wire:model='sale_price'
-                                    class="form-control sale_price  @error('sale_price') is-invalid @enderror"
-                                    value="" type="text" placeholder="Enter sale price" required>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Slug (Auto-generated)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="fa-solid fa-link"></i></span>
+                                            <input type="text" wire:model="slug" class="form-control bg-light" readonly>
+                                        </div>
+                                    </div>
 
-                                @error('sale_price')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Product Image <span class="text-danger"></span></label>
-                                <input name="newImage" id="product_image" wire:model="newImage"
-                                    class="form-control image @error('newImage') is-invalid @enderror" type="file">
-                                @if ($newImage)
-                                    <img src="{{ $newImage->temporaryUrl() }}" width="100" alt="product image" />
-                                @elseif ($oldImage)
-                                    <img src="{{ asset('frontend-assets/imgs/products/' . $oldImage) }}"
-                                        width="80" height="80" alt="{{ $name }}">
-                                @endif
-                                {{-- <img id="product_image_preview" src="uploads/{{ $image ? $image : old('image') }}"
-                                    class="img-fluid" width="16" height="16" alt=""> --}}
-                                @error('newImage')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Stock <span class="text-danger">*</span></label>
-                                <select name="stock_status" wire:model='stock_status'
-                                    placeholder='Select a stock_status'
-                                    class="form-select   stock_status  @error('stock_status') is-invalid @enderror"
-                                    required>
-                                    <option value=""> Select Status</option>
-                                    <option value="instock"> In Stock</option>
-                                    <option value="outofstock"> Out of stock</option>
-                                </select>
-                                @error('stock_status')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my=-1">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Product Gallery <span class="text-danger"></span></label>
-                                <input name="newImages" id="product_image" wire:model="newImages"
-                                    class="form-control image @error('newImages') is-invalid @enderror"
-                                    type="file" multiple>
-                                @if ($newImages)
-                                    @foreach ($newImages as $newImage)
-                                        @if ($newImage)
-                                            <img src="{{ $newImage->temporaryUrl() }}" width="80" height="80"
-                                                alt="product image" />
-                                        @endif
-                                    @endforeach
-                                @else
-                                    @if ($oldImages)
-                                        @foreach ($oldImages as $oldImage)
-                                            @if ($oldImage)
-                                                <img src="{{ asset('frontend-assets/imgs/products') }}/{{ $oldImage }}"
-                                                    width="80" height="80" alt="{{ $name }}" class="">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Category <span
+                                                class="text-danger">*</span></label>
+                                        <select wire:model.live="SelectedCategory"
+                                            class="form-select @error('SelectedCategory') is-invalid @enderror">
+                                            <option value="">Choose Category</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Subcategory</label>
+                                        <select wire:model.live="subcategory_id" class="form-select"
+                                            {{ is_null($SelectedCategory) ? 'disabled' : '' }}>
+                                            <option value="">Choose Subcategory</option>
+                                            @if ($subcategories)
+                                                @foreach ($subcategories as $sub)
+                                                    <option value="{{ $sub->id }}">{{ $sub->subcategory_name }}</option>
+                                                @endforeach
                                             @endif
-                                        @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Featured</label>
+                                        <select wire:model="featured" class="form-select">
+                                            <option value="0">No, Standard</option>
+                                            <option value="1">Yes, Featured</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3 border rounded-4">
+                                <span class="section-title">Pricing & Inventory</span>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">SKU <span class="text-danger">*</span></label>
+                                        <input type="text" wire:model="SKU"
+                                            class="form-control @error('SKU') is-invalid @enderror"
+                                            placeholder="e.g. WH-01">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">Quantity <span class="text-danger">*</span></label>
+                                        <input type="number" wire:model="quantity"
+                                            class="form-control @error('quantity') is-invalid @enderror"
+                                            placeholder="0">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">Stock Status</label>
+                                        <select wire:model="stock_status" class="form-select">
+                                            <option value="instock">In Stock</option>
+                                            <option value="outofstock">Out of Stock</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Regular Price ($) <span class="text-danger">*</span></label>
+                                        <input type="text" wire:model="regular_price"
+                                            class="form-control @error('regular_price') is-invalid @enderror"
+                                            placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Sale Price ($)</label>
+                                        <input type="text" wire:model="sale_price"
+                                            class="form-control border-primary bg-primary bg-opacity-10 text-primary fw-bold"
+                                            placeholder="0.00">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="p-3 border rounded-4 mb-4">
+                                <span class="section-title">Product Media</span>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold small">Main Thumbnail</label>
+                                    <div class="custom-file-upload mb-2"
+                                        onclick="document.getElementById('editMainImage').click()">
+                                        <i class="fa-solid fa-cloud-arrow-up fs-2 text-muted mb-2"></i>
+                                        <p class="mb-0 small">Click to upload main image</p>
+                                        <input type="file" id="editMainImage" wire:model="newImage" class="d-none">
+                                    </div>
+                                    @if ($newImage)
+                                        <div class="preview-card shadow-sm"><img src="{{ $newImage->temporaryUrl() }}"></div>
+                                    @elseif ($oldImage)
+                                        <div class="preview-card shadow-sm"><img src="{{ asset('frontend-assets/imgs/products/' . $oldImage) }}" alt="{{ $name }}"></div>
                                     @endif
-                                @endif
-                                {{-- <img id="product_image_preview" src="uploads/{{ $image ? $image : old('image') }}"
-                                    class="img-fluid" width="16" height="16" alt=""> --}}
-                                @error('newImages')
-                                    <div class="invalid-feedback error_msg">{{ $message }}</div>
-                                @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-secondary small">Media Carousel Gallery</label>
+                                    <div class="custom-file-upload mb-2"
+                                        onclick="document.getElementById('editGalleryImages').click()">
+                                        <i class="fa-solid fa-images fs-2 text-muted mb-2"></i>
+                                        <p class="mb-0 small">Click to upload multiple images</p>
+                                        <input type="file" id="editGalleryImages" wire:model="newImages" multiple
+                                            class="d-none">
+                                    </div>
+
+                                    <div wire:loading wire:target="newImages" class="text-primary small mb-2">
+                                        <i class="fa-solid fa-spinner fa-spin me-1"></i> Processing gallery assets...
+                                    </div>
+
+                                    @if (!empty($newImages) && is_array($newImages))
+                                        <div class="d-flex flex-wrap gap-2 image-preview-container mt-2">
+                                            @foreach ($newImages as $index => $imgFile)
+                                                <div class="preview-card shadow-sm" wire:key="edit-gallery-preview-{{ $index }}">
+                                                    @if (method_exists($imgFile, 'temporaryUrl'))
+                                                        <img src="{{ $imgFile->temporaryUrl() }}" width="90" height="90"
+                                                            class="img-thumbnail" alt="gallery item preview" />
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @elseif (!empty($oldImages))
+                                        <div class="d-flex flex-wrap gap-2 image-preview-container mt-2">
+                                            @foreach ($oldImages as $index => $oldImgFile)
+                                                @if ($oldImgFile)
+                                                    <div class="preview-card shadow-sm" wire:key="edit-old-gallery-{{ $index }}">
+                                                        <img src="{{ asset('frontend-assets/imgs/products/' . $oldImgFile) }}" width="90"
+                                                            height="90" class="img-thumbnail" alt="gallery item preview" />
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="p-3 border rounded-4">
+                                <span class="section-title">Summary</span>
+                                <textarea wire:model="short_description" class="form-control" rows="4"
+                                    placeholder="Brief overview for search results..."></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-12">
-                            <label for="">Featured: <span class="text-danger">*</span></label>
-                            <select name="featured" wire:model='featured' placeholder='Select a featured'
-                                class="form-select   featured  @error('featured') is-invalid @enderror" required>
-                                <option value=""> Select Featured </option>
-                                <option value="1"> Yes</option>
-                                <option value="0"> No</option>
-                            </select>
-                            @error('featured')
-                                <div class="invalid-feedback error_msg">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Short Description:</label>
-                                <textarea name="short_description" id="short_description" wire:model='short_description' cols="30"
-                                    rows="3" class="form-control"></textarea>
+
+                        <div class="col-12">
+                            <div class="p-3 border rounded-4">
+                                <span class="section-title">Full Product Description</span>
+                                <div wire:ignore>
+                                    <textarea id="editor-edit" wire:model="description" rows="10"></textarea>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-12">
-                            <label for="">Description:</label>
-                            <textarea name="description" id="description" wire:model='description' cols="30" rows="5"
-                                class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        wire:click="resetInputFields()"><i class="fa fa-remove"></i> Close</button>
 
-
-                    <button type="button" class="btn btn-warning" wire:click="resetInputFields()"><i
-                            class="fa fa-refresh"></i> Reset</button>
-                    <button type="submit" class="btn btn-primary" {{ $flag == 1 ? 'disabled' : '' }}><i
-                            class="fa fa-save"></i> Save Changes</button>
+                <div class="modal-footer bg-light px-4 py-3 border-top-0 rounded-bottom-4">
+                    <button type="button" class="btn btn-link text-decoration-none text-muted fw-semibold me-auto"
+                        data-bs-dismiss="modal" wire:click="resetInputFields()">Cancel</button>
+                    <button type="button" class="btn btn-outline-warning px-4 fw-semibold"
+                        wire:click="resetInputFields()"><i class="fa-solid fa-arrow-rotate-left me-2"></i>Reset</button>
+                    <button type="submit" class="btn btn-primary px-5 fw-bold shadow-sm"
+                        {{ isset($flag) && $flag == 1 ? 'disabled' : '' }}>
+                        <i class="fa-solid fa-save me-2"></i>Save Changes
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#editModal').on('shown.bs.modal', function(e) {
+        let editEditorInstance = null;
 
-            });
+        function initEditProductEditor() {
+            const editorElement = document.getElementById('editor-edit');
+            if (!editorElement || typeof ClassicEditor === 'undefined') {
+                return;
+            }
+
+            if (editEditorInstance) {
+                editEditorInstance.destroy().catch(() => {});
+            }
+
+            ClassicEditor
+                .create(editorElement)
+                .then(editor => {
+                    editEditorInstance = editor;
+                    editor.model.document.on('change:data', () => {
+                        @this.set('description', editor.getData());
+                    });
+                })
+                .catch(error => {
+                    console.error('Edit CKEditor init failed:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', initEditProductEditor);
+        document.addEventListener('livewire:load', initEditProductEditor);
+        document.addEventListener('shown.bs.modal', function (event) {
+            if (event.target.id === 'editModal') {
+                setTimeout(initEditProductEditor, 200);
+            }
         });
-        // product_image.onchange = evt => {
-        //     const [file] = product_image.files
-        //     if (file) {
-        //         product_image_preview.src = URL.createObjectURL(file)
-        //     }
-        // }
     </script>
 @endpush

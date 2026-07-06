@@ -20,6 +20,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\ValidationException;
 
 use App\Models\Category;
 use App\Models\Subcategory;
@@ -55,7 +56,7 @@ class ProductComponent extends Component
     public $image;
     public $newImage;
     public $oldImage;
-    public $images;
+    public $images = [];
 
     public $oldImages;
     public $newImages;
@@ -77,8 +78,11 @@ class ProductComponent extends Component
     }
     public function updatedSelectedCategory($SelectedCategory)
     {
+        $this->subcategory_id = null;
         if (!is_null($SelectedCategory)) {
             $this->subcategories = Subcategory::where('category_id', $SelectedCategory)->get();
+        } else {
+            $this->subcategories = collect();
         }
     }
 
@@ -104,27 +108,28 @@ class ProductComponent extends Component
         $this->resetPage();
     }
 
-    public function updated($fields){
-        $this->validateOnly($fields,[
+    public function updated($fields)
+    {
+        $this->validateOnly($fields, [
             'name' => 'required|min:3|max:50',
-            'slug' => 'required',
-            'SKU' => 'required',
-            'quantity' => 'required',
-            'regular_price' => 'required',
-            'sale_price' => 'required',
-            'image' => 'required|mimes:jpeg,png',
-            'stock_status' => 'required',
-            'featured' => 'required',
-            'SelectedCategory' => 'required'
+            'slug' => 'nullable|string|max:100',
+            'SKU' => 'required|string|max:100',
+            'quantity' => 'required|integer|min:0',
+            'regular_price' => 'required|numeric|min:0',
+            'sale_price' => 'nullable|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png',
+            'stock_status' => 'required|in:instock,outofstock',
+            'featured' => 'required|in:0,1',
+            'SelectedCategory' => 'required|exists:categories,id'
         ]);
-        if($this->newImage){
-            $this->validateOnly($fields,[
-                'newImage' => 'required|mimes:jpeg,png'
+        if ($this->newImage) {
+            $this->validateOnly($fields, [
+                'newImage' => 'required|image|mimes:jpeg,png'
             ]);
         }
-        if($this->newImages){
-            $this->validateOnly($fields,[
-                'newImages.*' => 'mimes:jpeg,png'
+        if ($this->newImages) {
+            $this->validateOnly($fields, [
+                'newImages.*' => 'image|mimes:jpeg,png'
             ]);
         }
     }
@@ -193,35 +198,30 @@ class ProductComponent extends Component
     }
     public function store()
     {
+        $this->subcategory_id = $this->subcategory_id ?: null;
+        $this->sale_price = $this->sale_price ?: null;
 
-        # Validate form data
-        $this->validate([
-            'name' => 'required|min:3|max:50',
-            'slug' => 'required',
-            'SKU' => 'required',
-            'quantity' => 'required',
-            'regular_price' => 'required',
-            'sale_price' => 'required',
-            'image' => 'required|mimes:jpeg,png',
-            'stock_status' => 'required',
-            'featured' => 'required',
-            'SelectedCategory' => 'required',
-            'subcategory_id' =>  [
-                'required',
-                Rule::unique($this->tableName)->where(function ($query) {
-                    return $query->where('category_id', $this->SelectedCategory)
-                        ->where('subcategory_id', $this->subcategory_id)
-                        ->where('name', $this->name);
-                })
-            ],
-            'images.*' => 'mimes:jpeg,png',
-        ]);
         try {
-            # Save form data
+            $this->validate([
+                'name' => 'required|min:3|max:50',
+                'slug' => 'nullable|string|max:100',
+                'SKU' => 'required|string|max:100',
+                'quantity' => 'required|integer|min:0',
+                'regular_price' => 'required|numeric|min:0',
+                'sale_price' => 'nullable|numeric|min:0',
+                'image' => 'nullable|image|mimes:jpeg,png',
+                'stock_status' => 'required|in:instock,outofstock',
+                'featured' => 'required|in:0,1',
+                'SelectedCategory' => 'required|exists:categories,id',
+                'subcategory_id' => ['nullable', 'exists:subcategories,id'],
+                'images' => 'nullable|array',
+                'images.*' => 'image|mimes:jpeg,png',
+            ]);
+
             $this->flag = 1;
             $product = new Product();
-            $product->name = $this->name;
-            $product->slug = $this->slug;
+            $product->name = trim($this->name);
+            $product->slug = $this->slug ?: Str::slug($this->name, '-');
             $product->short_description = $this->short_description;
             $product->description = $this->description;
             $product->regular_price = $this->regular_price;
@@ -230,41 +230,39 @@ class ProductComponent extends Component
             $product->stock_status = $this->stock_status;
             $product->featured = $this->featured;
             $product->quantity = $this->quantity;
-
             $product->category_id = $this->SelectedCategory;
             $product->subcategory_id = $this->subcategory_id;
             $product->created_by = Auth::user()->id;
-            $imageName = '';
+
             Storage::disk('local')->makeDirectory('products');
-            if ($this->image != NULL) {
-                #custom file name
-                $imageName = Carbon::now()->timestamp . "-product." . $this->image->extension();
+            if ($this->image != null) {
+                $imageName = Carbon::now()->timestamp . '-product.' . $this->image->extension();
                 $this->image->storeAs('products', $imageName, 'local');
                 $product->image = $imageName;
             }
+
             $images = [];
-            if ($this->images != NULL) {
+            if (!empty($this->images) && is_array($this->images)) {
                 foreach ($this->images as $key => $image) {
-                    $galleryName = Carbon::now()->timestamp . '-' . $key . "-product." . $image->extension();
+                    $galleryName = Carbon::now()->timestamp . '-' . $key . '-product.' . $image->extension();
                     $image->storeAs('products', $galleryName, 'local');
                     $images[] = $galleryName;
                 }
                 $product->images = implode(',', $images);
             }
+
             $product->save();
 
-
             if ($product->id) {
-                # Reset form
                 $this->resetInputFields();
-                # Write Log
                 Webspice::log($this->tableName, $this->ids, 'INSERT');
-                # Cache Update
                 Cache::forget($this->tableName);
-                $this->emit('success', 'inserted');
+                $this->emit('success', 'success', 'Product created successfully.');
             }
+        } catch (ValidationException $e) {
+            $this->emit('error', 'error', $e->validator->errors()->first());
         } catch (\Exception $e) {
-            $this->emit('error', $e->getMessage());
+            $this->emit('error', 'error', 'Unable to create product. ' . $e->getMessage());
         }
 
         $this->flag = 0;
@@ -431,7 +429,7 @@ class ProductComponent extends Component
         $this->resetErrorBag();
         $this->ids = '';
         $this->SelectedCategory = '';
-        $this->subcategory_id = '';
+        $this->subcategory_id = null;
         $this->name = '';
         $this->slug = '';
         $this->short_description = '';
@@ -439,13 +437,13 @@ class ProductComponent extends Component
         $this->regular_price = '';
         $this->sale_price = '';
         $this->SKU = '';
-        $this->stock_status = '';
-        $this->featured = '';
+        $this->stock_status = 'instock';
+        $this->featured = '0';
         $this->quantity = '';
-        $this->image = '';
-        $this->newImage = '';
+        $this->image = null;
+        $this->newImage = null;
         $this->oldImage = '';
-        $this->images = '';
-        $this->oldImages = '';
+        $this->images = [];
+        $this->oldImages = [];
     }
 }

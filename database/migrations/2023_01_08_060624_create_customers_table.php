@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('shipping_address')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('created_by')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('updated_by')->references('id')->on('customers')->onDelete('cascade');

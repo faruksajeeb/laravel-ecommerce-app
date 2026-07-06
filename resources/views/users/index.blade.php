@@ -96,19 +96,39 @@
                                            
                                         </td>
                                         <td width="30%">
-                                            * User can access assigned role permissions. <br/>
-                                            @if (count($val->permissions)>0)
-                                                and also access below permissions too.
-                                                @foreach ($val->permissions as $permission)
-                                                <span class="badge bg-info text-dark">{{ $permission->name }}</span>
-                                                {{-- <br /> --}}
-                                            @endforeach
-                                            <br/>
-                                            @endif
+                                            <div class="accordion accordion-flush" id="permission-accordion-{{ $val->id }}">
+                                                <div class="accordion-item border-0">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed p-0 shadow-none bg-transparent text-start"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#permission-panel-{{ $val->id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="permission-panel-{{ $val->id }}">
+                                                            <span class="fw-semibold">View permissions</span>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="permission-panel-{{ $val->id }}"
+                                                        class="accordion-collapse collapse"
+                                                        data-bs-parent="#permission-accordion-{{ $val->id }}">
+                                                        <div class="accordion-body px-0 py-2">
+                                                            <div class="small text-muted mb-2">User can access assigned role permissions.</div>
+                                                            @if (count($val->permissions) > 0)
+                                                                <div class="small text-muted mb-2">And also access the permissions below.</div>
+                                                                @foreach ($val->permissions as $permission)
+                                                                    <span class="badge bg-info text-dark mb-1">{{ $permission->name }}</span>
+                                                                @endforeach
+                                                            @else
+                                                                <span class="text-muted small">No extra permissions assigned</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>{{ $val->created_at }}</td>
                                         <td>{{ $val->updated_at }}</td>
-                                        <td>
+                                        <td class="text-nowrap">
 
                                             @if($loggedUser && $loggedUser->can('user.edit'))
                                                 <a href="{{ route('users.edit', Crypt::encryptString($val->id)) }}"
