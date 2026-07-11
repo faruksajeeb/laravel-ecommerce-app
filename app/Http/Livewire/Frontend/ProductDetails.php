@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Frontend;
 
 use App\Models\Product;
+use App\Models\Review;
 use Livewire\Component;
 use Cart;
 
@@ -50,8 +51,17 @@ class ProductDetails extends Component
         
 
         $product = Product::where('id',$this->productId)->first();
+
+        $reviews = Review::where('product_id', $this->productId)
+            ->where('status', 1)
+            ->get();
+        $avgRating = $reviews->avg('ratings') ?? 0;
+        $totalReviews = $reviews->count();
+
         return view('livewire.frontend.product-details',[
-            'product'=>$product
+            'product'=>$product,
+            'avgRating'=>$avgRating,
+            'totalReviews'=>$totalReviews
             ])->extends('livewire.frontend.master');
     }
 
@@ -69,6 +79,36 @@ class ProductDetails extends Component
                 Cart::instance('wishlist')->remove($item->rowId);
                 $this->emitTo('frontend.wishlist-icon-component', 'refreshComponent');
                 $this->emit('added', "Item removed from the wishlist");
+            endif;
+        endforeach;
+    }
+
+    public function addToCompare($productId, $productName, $productPrice, $productImage)
+    {
+        $exists = Cart::instance('compare')->search(function ($cartItem) use ($productId) {
+            return $cartItem->id == $productId;
+        });
+        if ($exists->isNotEmpty()) {
+            $this->emit('added', "Item already in compare list");
+            return;
+        }
+        if (Cart::instance('compare')->count() >= 4) {
+            $this->emit('error', "You can compare up to 4 products");
+            return;
+        }
+        Cart::instance('compare')->add($productId, $productName, 1, $productPrice, ['image' => $productImage])
+            ->associate('\App\Models\Product');
+        $this->emit('added', "Item added to compare");
+        $this->emitTo('frontend.compare-icon-component', 'refreshComponent');
+    }
+
+    public function removeFromCompare($product_id)
+    {
+        foreach (Cart::instance('compare')->content() as $item) :
+            if ($item->id == $product_id) :
+                Cart::instance('compare')->remove($item->rowId);
+                $this->emitTo('frontend.compare-icon-component', 'refreshComponent');
+                $this->emit('added', "Item removed from compare");
             endif;
         endforeach;
     }

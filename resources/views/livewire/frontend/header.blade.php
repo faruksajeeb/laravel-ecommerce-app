@@ -54,6 +54,7 @@
                     <div class="header-action-right">
                         <div class="header-action-2">
                             @livewire('frontend.wishlist-icon-component')
+                            @livewire('frontend.compare-icon-component')
                             {{-- @include('front-end.shopping-cart-icon') --}}
                             @livewire('frontend.shopping-cart-icon')
                         </div>

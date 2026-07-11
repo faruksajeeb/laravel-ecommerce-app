@@ -17,7 +17,7 @@
                             <strong>Phone: </strong>+1 0000-000-000
                         </p>
                         <p class="wow fadeIn animated">
-                            <strong>Email: </strong>contact@surfsidemedia.in
+                            <strong>Email: </strong>contact@sajeeb.in
                         </p>
                         <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
                         <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">

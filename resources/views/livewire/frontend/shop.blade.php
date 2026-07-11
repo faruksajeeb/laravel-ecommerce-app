@@ -148,7 +148,8 @@
                                                     wire:click.prevent='addToWishList({{ $product->id }},"{{ $product->name }}",{{ $product->sale_price }},"M","{{ $product->image }}")'><i
                                                         class="fi-rs-heart"></i></a>
                                             @endif
-                                            <a aria-label="Compare" class="action-btn hover-up" href="#"><i
+                                            <a aria-label="Compare" class="action-btn hover-up" href="#"
+                                                wire:click.prevent='addToCompare({{ $product->id }},"{{ $product->name }}",{{ $product->sale_price }},"{{ $product->image }}")'><i
                                                     class="fi-rs-shuffle"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">

@@ -19,16 +19,22 @@
         <div class="container">
             <div class="row product-grid-3">
                 @foreach (Cart::instance('wishlist')->content() as $item)
+                    @php
+                        $wishImage = $item->options->image;
+                        if (empty($wishImage) || $wishImage == '[]' || !file_exists(public_path('frontend-assets/imgs/products/' . $wishImage))) {
+                            $wishImage = 'product-image-avatar.png';
+                        }
+                    @endphp
                     <div class="col-lg-3 col-md-3 col-6 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     <a href="{{ route('product-details', ['productId' => $item->model->id]) }}">
                                         <img class="default-img"
-                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $item->options->image }}"
+                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $wishImage }}"
                                             alt="">
                                         <img class="hover-img"
-                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $item->options->image }}"
+                                            src="{{ asset('frontend-assets/imgs/products') }}/{{ $wishImage }}"
                                             alt="">
                                     </a>
                                 </div>
@@ -38,7 +44,8 @@
                                         <i class="fi-rs-search"></i></a>
                                     <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i
                                             class="fi-rs-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i
+                                    <a aria-label="Compare" class="action-btn hover-up" href="#"
+                                        wire:click.prevent='addToCompare({{ $item->model->id }},"{{ $item->model->name }}",{{ $item->model->sale_price }},"{{ $item->options->image }}")'><i
                                             class="fi-rs-shuffle"></i></a>
                                 </div>
                                 <div class="product-badges product-badges-position product-badges-mrg">

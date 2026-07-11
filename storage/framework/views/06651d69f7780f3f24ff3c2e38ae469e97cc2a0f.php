@@ -1,5 +1,5 @@
 <div>
-    @push('styles')
+    <?php $__env->startPush('styles'); ?>
         <style>
             .wishlisted {
                 background-color: #F15412 !important;
@@ -17,10 +17,24 @@
                 object-fit: cover;
             }
         </style>
-    @endpush
-    @livewire('frontend.slider-component')
+    <?php $__env->stopPush(); ?>
+    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.slider-component')->html();
+} elseif ($_instance->childHasBeenRendered('l287133153-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l287133153-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l287133153-0');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l287133153-0');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.slider-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l287133153-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
 
-    {{-- @livewire('frontend.featured-component') --}}
+    
     <section class="product-tabs section-padding position-relative wow fadeIn animated">
         <div class="bg-square"></div>
         <div class="container">
@@ -48,44 +62,44 @@
                 <!--En tab one (Featured)-->
                 <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                     <div class="row product-grid-4">
-                        @php
+                        <?php
                             $wishItems = Cart::instance('wishlist')->content()->pluck('id');
-                        @endphp
-                        @foreach ($feature_products as $feature_product)
-                            @php
+                        ?>
+                        <?php $__currentLoopData = $feature_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $featureImage = $feature_product->image ?: 'product-image-avatar.png';
-                            @endphp
+                            ?>
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a
-                                                href="{{ route('product-details', ['productId' => $feature_product->id]) }}">
+                                                href="<?php echo e(route('product-details', ['productId' => $feature_product->id])); ?>">
                                                 <img class="default-img"
-                                                    src="{{ asset('frontend-assets/imgs/products/' . $featureImage) }}"
-                                                    alt="{{ $feature_product->name }}">
+                                                    src="<?php echo e(asset('frontend-assets/imgs/products/' . $featureImage)); ?>"
+                                                    alt="<?php echo e($feature_product->name); ?>">
                                                 <img class="hover-img"
-                                                    src="{{ asset('frontend-assets/imgs/products/' . $featureImage) }}"
-                                                    alt="{{ $feature_product->name }}">
+                                                    src="<?php echo e(asset('frontend-assets/imgs/products/' . $featureImage)); ?>"
+                                                    alt="<?php echo e($feature_product->name); ?>">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
                                             <a aria-label="Quick view" class="action-btn hover-up"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
                                                     class="fi-rs-eye"></i></a>
-                                            @if ($wishItems->contains($feature_product->id))
+                                            <?php if($wishItems->contains($feature_product->id)): ?>
                                                 <a aria-label="Remove from Wishlist"
                                                     class="action-btn hover-up wishlisted" href="#"
-                                                    wire:click.prevent='removeFromWishList({{ $feature_product->id }})'><i
+                                                    wire:click.prevent='removeFromWishList(<?php echo e($feature_product->id); ?>)'><i
                                                         class="fi-rs-heart"></i></a>
-                                            @else
+                                            <?php else: ?>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                     href="#"
-                                                    wire:click.prevent='addToWishList({{ $feature_product->id }},"{{ $feature_product->name }}",{{ $feature_product->sale_price }},"M","{{ $featureImage }}")'><i
+                                                    wire:click.prevent='addToWishList(<?php echo e($feature_product->id); ?>,"<?php echo e($feature_product->name); ?>",<?php echo e($feature_product->sale_price); ?>,"M","<?php echo e($featureImage); ?>")'><i
                                                         class="fi-rs-heart"></i></a>
-                                            @endif
+                                            <?php endif; ?>
                                             <a aria-label="Compare" class="action-btn hover-up" href="#"
-                                                wire:click.prevent='addToCompare({{ $feature_product->id }},"{{ $feature_product->name }}",{{ $feature_product->sale_price }},"{{ $featureImage }}")'><i
+                                                wire:click.prevent='addToCompare(<?php echo e($feature_product->id); ?>,"<?php echo e($feature_product->name); ?>",<?php echo e($feature_product->sale_price); ?>,"<?php echo e($featureImage); ?>")'><i
                                                     class="fi-rs-shuffle"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
@@ -97,7 +111,7 @@
                                             <a href="#">Clothing</a>
                                         </div>
                                         <h2><a
-                                                href="{{ route('product-details', ['productId' => $feature_product->id]) }}">Colorful
+                                                href="<?php echo e(route('product-details', ['productId' => $feature_product->id])); ?>">Colorful
                                                 Pattern Shirts</a></h2>
                                         <div class="rating-result" title="90%">
                                             <span>
@@ -105,59 +119,59 @@
                                             </span>
                                         </div>
                                         <div class="product-price">
-                                            <span>৳ {{ $feature_product->sale_price }} </span>
-                                            <span class="old-price">৳ {{ $feature_product->regular_price }}</span>
+                                            <span>৳ <?php echo e($feature_product->sale_price); ?> </span>
+                                            <span class="old-price">৳ <?php echo e($feature_product->regular_price); ?></span>
                                         </div>
                                         <div class="product-action-1 show">
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#"
-                                                wire:click.prevent="store({{ $feature_product->id }},'{{ $feature_product->name }}',{{ $feature_product->sale_price }},'M','{{ $featureImage }}')"><i
+                                                wire:click.prevent="store(<?php echo e($feature_product->id); ?>,'<?php echo e($feature_product->name); ?>',<?php echo e($feature_product->sale_price); ?>,'M','<?php echo e($featureImage); ?>')"><i
                                                     class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                     <!--End product-grid-4-->
                 </div>
                 <!--En tab Two (Popular)-->
                 <div class="tab-pane fade" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
                     <div class="row product-grid-4">
-                        @foreach ($popular_products as $popular_product)
-                            @php
+                        <?php $__currentLoopData = $popular_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $popular_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $popularImage = $popular_product->image ?: 'product-image-avatar.png';
-                            @endphp
+                            ?>
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a
-                                                href="{{ route('product-details', ['productId' => $popular_product->id]) }}">
+                                                href="<?php echo e(route('product-details', ['productId' => $popular_product->id])); ?>">
                                                 <img class="default-img"
-                                                    src="{{ asset('frontend-assets/imgs/products/' . $popularImage) }}"
-                                                    alt="{{ $popular_product->name }}">
+                                                    src="<?php echo e(asset('frontend-assets/imgs/products/' . $popularImage)); ?>"
+                                                    alt="<?php echo e($popular_product->name); ?>">
                                                 <img class="hover-img"
-                                                    src="{{ asset('frontend-assets/imgs/products/' . $popularImage) }}"
-                                                    alt="{{ $popular_product->name }}">
+                                                    src="<?php echo e(asset('frontend-assets/imgs/products/' . $popularImage)); ?>"
+                                                    alt="<?php echo e($popular_product->name); ?>">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
                                             <a aria-label="Quick view" class="action-btn hover-up"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
                                                     class="fi-rs-eye"></i></a>
-                                            @if ($wishItems->contains($popular_product->id))
+                                            <?php if($wishItems->contains($popular_product->id)): ?>
                                                 <a aria-label="Remove from Wishlist"
                                                     class="action-btn hover-up wishlisted" href="#"
-                                                    wire:click.prevent='removeFromWishList({{ $popular_product->id }})'><i
+                                                    wire:click.prevent='removeFromWishList(<?php echo e($popular_product->id); ?>)'><i
                                                         class="fi-rs-heart"></i></a>
-                                            @else
+                                            <?php else: ?>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                     href="#"
-                                                    wire:click.prevent='addToWishList({{ $popular_product->id }},"{{ $popular_product->name }}",{{ $popular_product->sale_price }},"M","{{ $popularImage }}")'><i
+                                                    wire:click.prevent='addToWishList(<?php echo e($popular_product->id); ?>,"<?php echo e($popular_product->name); ?>",<?php echo e($popular_product->sale_price); ?>,"M","<?php echo e($popularImage); ?>")'><i
                                                         class="fi-rs-heart"></i></a>
-                                            @endif
+                                            <?php endif; ?>
                                             <a aria-label="Compare" class="action-btn hover-up" href="#"
-                                                wire:click.prevent='addToCompare({{ $popular_product->id }},"{{ $popular_product->name }}",{{ $popular_product->sale_price }},"{{ $popularImage }}")'><i
+                                                wire:click.prevent='addToCompare(<?php echo e($popular_product->id); ?>,"<?php echo e($popular_product->name); ?>",<?php echo e($popular_product->sale_price); ?>,"<?php echo e($popularImage); ?>")'><i
                                                     class="fi-rs-shuffle"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
@@ -169,7 +183,7 @@
                                             <a href="#">Music</a>
                                         </div>
                                         <h2><a
-                                                href="{{ route('product-details', ['productId' => $popular_product->id]) }}">Donec
+                                                href="<?php echo e(route('product-details', ['productId' => $popular_product->id])); ?>">Donec
                                                 ut nisl rutrum</a></h2>
                                         <div class="rating-result" title="90%">
                                             <span>
@@ -177,18 +191,18 @@
                                             </span>
                                         </div>
                                         <div class="product-price">
-                                            <span>৳ {{ $popular_product->sale_price }} </span>
-                                            <span class="old-price">৳ {{ $popular_product->regular_price }}</span>
+                                            <span>৳ <?php echo e($popular_product->sale_price); ?> </span>
+                                            <span class="old-price">৳ <?php echo e($popular_product->regular_price); ?></span>
                                         </div>
                                         <div class="product-action-1 show">
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#"
-                                                wire:click.prevent="store({{ $popular_product->id }},'{{ $popular_product->name }}',{{ $popular_product->sale_price }},'M','{{ $popularImage }}')"><i
+                                                wire:click.prevent="store(<?php echo e($popular_product->id); ?>,'<?php echo e($popular_product->name); ?>',<?php echo e($popular_product->sale_price); ?>,'M','<?php echo e($popularImage); ?>')"><i
                                                     class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </div>
                     <!--End product-grid-4-->
@@ -197,41 +211,41 @@
                 <div class="tab-pane fade" id="tab-three" role="tabpanel" aria-labelledby="tab-three">
                     <div class="row product-grid-4">
 
-                        @foreach ($new_products as $new_product)
-                            @php
+                        <?php $__currentLoopData = $new_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $new_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $newImage = $new_product->image ?: 'product-image-avatar.png';
-                            @endphp
+                            ?>
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a
-                                                href="{{ route('product-details', ['productId' => $new_product->id]) }}">
+                                                href="<?php echo e(route('product-details', ['productId' => $new_product->id])); ?>">
                                                 <img class="default-img"
-                                                    src="{{ asset('frontend-assets/imgs/products/' . $newImage) }}"
-                                                    alt="{{ $new_product->name }}">
+                                                    src="<?php echo e(asset('frontend-assets/imgs/products/' . $newImage)); ?>"
+                                                    alt="<?php echo e($new_product->name); ?>">
                                                 <img class="hover-img"
-                                                    src="{{ asset('frontend-assets/imgs/products/' . $newImage) }}"
-                                                    alt="{{ $new_product->name }}">
+                                                    src="<?php echo e(asset('frontend-assets/imgs/products/' . $newImage)); ?>"
+                                                    alt="<?php echo e($new_product->name); ?>">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
                                             <a aria-label="Quick view" class="action-btn hover-up"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
                                                     class="fi-rs-eye"></i></a>
-                                            @if ($wishItems->contains($new_product->id))
+                                            <?php if($wishItems->contains($new_product->id)): ?>
                                                 <a aria-label="Remove from Wishlist"
                                                     class="action-btn hover-up wishlisted" href="#"
-                                                    wire:click.prevent='removeFromWishList({{ $new_product->id }})'><i
+                                                    wire:click.prevent='removeFromWishList(<?php echo e($new_product->id); ?>)'><i
                                                         class="fi-rs-heart"></i></a>
-                                            @else
+                                            <?php else: ?>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                     href="#"
-                                                    wire:click.prevent='addToWishList({{ $new_product->id }},"{{ $new_product->name }}",{{ $new_product->sale_price }},"M","{{ $newImage }}")'><i
+                                                    wire:click.prevent='addToWishList(<?php echo e($new_product->id); ?>,"<?php echo e($new_product->name); ?>",<?php echo e($new_product->sale_price); ?>,"M","<?php echo e($newImage); ?>")'><i
                                                         class="fi-rs-heart"></i></a>
-                                            @endif
+                                            <?php endif; ?>
                                             <a aria-label="Compare" class="action-btn hover-up" href="#"
-                                                wire:click.prevent='addToCompare({{ $new_product->id }},"{{ $new_product->name }}",{{ $new_product->sale_price }},"{{ $newImage }}")'><i
+                                                wire:click.prevent='addToCompare(<?php echo e($new_product->id); ?>,"<?php echo e($new_product->name); ?>",<?php echo e($new_product->sale_price); ?>,"<?php echo e($newImage); ?>")'><i
                                                     class="fi-rs-shuffle"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
@@ -243,7 +257,7 @@
                                             <a href="#">Donec </a>
                                         </div>
                                         <h2><a
-                                                href="{{ route('product-details', ['productId' => $new_product->id]) }}">{{ $new_product->name }}</a>
+                                                href="<?php echo e(route('product-details', ['productId' => $new_product->id])); ?>"><?php echo e($new_product->name); ?></a>
                                         </h2>
                                         <div class="rating-result" title="90%">
                                             <span>
@@ -251,18 +265,18 @@
                                             </span>
                                         </div>
                                         <div class="product-price">
-                                            <span>৳ {{ $new_product->sale_price }} </span>
-                                            <span class="old-price">৳ {{ $new_product->regular_price }}</span>
+                                            <span>৳ <?php echo e($new_product->sale_price); ?> </span>
+                                            <span class="old-price">৳ <?php echo e($new_product->regular_price); ?></span>
                                         </div>
                                         <div class="product-action-1 show">
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#"
-                                                wire:click.prevent="store({{ $new_product->id }},'{{ $new_product->name }}',{{ $new_product->sale_price }},'M','{{ $newImage }}')"><i
+                                                wire:click.prevent="store(<?php echo e($new_product->id); ?>,'<?php echo e($new_product->name); ?>',<?php echo e($new_product->sale_price); ?>,'M','<?php echo e($newImage); ?>')"><i
                                                     class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                     <!--End product-grid-4-->
                 </div>
@@ -272,12 +286,41 @@
         </div>
     </section>
     <section class="banner-2 section-padding pb-0">
-        {{-- @livewire('frontend.repair-services-component') --}}
+        
     </section>
-    @livewire('frontend.popular-categories-component')
-    {{-- @livewire('frontend.offer-component') --}}
+    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.popular-categories-component')->html();
+} elseif ($_instance->childHasBeenRendered('l287133153-1')) {
+    $componentId = $_instance->getRenderedChildComponentId('l287133153-1');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l287133153-1');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l287133153-1');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.popular-categories-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l287133153-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+    
     <section class="section-padding">
-        @livewire('frontend.new-arrivals-component')
+        <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.new-arrivals-component')->html();
+} elseif ($_instance->childHasBeenRendered('l287133153-2')) {
+    $componentId = $_instance->getRenderedChildComponentId('l287133153-2');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l287133153-2');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l287133153-2');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.new-arrivals-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l287133153-2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
     </section>
-    {{-- @livewire('frontend.featured-brands-component')     --}}
+    
 </div>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/home.blade.php ENDPATH**/ ?>

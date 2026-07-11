@@ -30,6 +30,7 @@ use App\Http\Livewire\Frontend\About;
 use App\Http\Livewire\Frontend\ContactComponent;
 use App\Http\Livewire\Frontend\SearchComponent;
 use App\Http\Livewire\Frontend\WishlistComponent;
+use App\Http\Livewire\Frontend\CompareComponent;
 use App\Http\Livewire\Frontend\ThankYouComponent;
 use App\Http\Livewire\Frontend\MyAccountComponent;
 use App\Http\Livewire\Frontend\MyOrderComponent;
@@ -62,6 +63,7 @@ Route::get('/search-by-subcategory/{subcategoryId}', SearchBySubcategoryComponen
 Route::get('/product-details/{productId}', ProductDetails::class)->name('product-details'); 
 Route::get('/cart',ShoppingCart::class)->name('cart'); 
 Route::get('/wishlist',WishlistComponent::class)->name('wishlist'); 
+Route::get('/compare',CompareComponent::class)->name('compare'); 
 
 
 Route::get('/customer-login',CustomerLogin::class)->name('customer-login'); 

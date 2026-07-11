@@ -9,7 +9,7 @@
                     $subCategories = App\Models\Subcategory::where('category_id',$category->id)->where('status',1)->get();
                 @endphp
                 <li class="{{ (count($subCategories)>0) ? 'has-children': '' }}">
-                        <a href="{{ route('search-by-category',['categoryId'=>Crypt::encryptString($category->id)]) }}" ><i class="surfsidemedia-font-dress"></i>{{ $category->name}}</a>
+                        <a href="{{ route('search-by-category',['categoryId'=>Crypt::encryptString($category->id)]) }}" ><i class="sajeeb-font-dress"></i>{{ $category->name}}</a>
                         {{-- <a href="#" wire:click.prevent='filterByCategory({{$category->id}})' ><i class="sajeeb-font-dress"></i>{{ $category->name}}</a> --}}
                        
                         @if (count($subCategories)>0)
@@ -77,7 +77,7 @@
                 @endforeach
            
             {{-- <li class="has-children">
-                <a href="shop.html"><i class="surfsidemedia-font-tshirt"></i>Men's
+                <a href="shop.html"><i class="sajeeb-font-tshirt"></i>Men's
                     Clothing</a>
                 <div class="dropdown-menu">
                     <ul class="mega-menu d-lg-flex">
@@ -142,17 +142,17 @@
                 </div>
             </li> --}}
             
-            {{-- <li><a href="shop.html"><i class="surfsidemedia-font-kite"></i>Outdoor fun</a> --}}
+            {{-- <li><a href="shop.html"><i class="sajeeb-font-kite"></i>Outdoor fun</a> --}}
             </li>
             {{-- <li>
                 <ul class="more_slide_open" style="display: none;">
-                    <li><a href="shop.html"><i class="surfsidemedia-font-desktop"></i>Beauty,
+                    <li><a href="shop.html"><i class="sajeeb-font-desktop"></i>Beauty,
                             Health</a></li>
-                    <li><a href="shop.html"><i class="surfsidemedia-font-cpu"></i>Bags and
+                    <li><a href="shop.html"><i class="sajeeb-font-cpu"></i>Bags and
                             Shoes</a></li>
-                    <li><a href="shop.html"><i class="surfsidemedia-font-diamond"></i>Consumer
+                    <li><a href="shop.html"><i class="sajeeb-font-diamond"></i>Consumer
                             Electronics</a></li>
-                    <li><a href="shop.html"><i class="surfsidemedia-font-home"></i>Automobiles
+                    <li><a href="shop.html"><i class="sajeeb-font-home"></i>Automobiles
                             & Motorcycles</a></li>
                 </ul>
             </li> --}}

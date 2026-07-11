@@ -11,13 +11,13 @@
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend-assets/imgs/theme/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend-assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend-assets/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend-assets/css/font-awesome.min.css') }}">
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('frontend-assets/imgs/theme/favicon.ico')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('frontend-assets/css/main.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('frontend-assets/css/custom.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('frontend-assets/css/font-awesome.min.css')); ?>">
+    <script src="<?php echo e(asset('plugins/sweetalert2/sweetalert2.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('plugins/sweetalert2/sweetalert2.min.css')); ?>">
     <style>
         .pagination>li>a:focus,
         .pagination>li>a:hover,
@@ -29,18 +29,19 @@
             border-color: #ddd;
         }
     </style>
-      @stack('styles')
-    @livewireStyles
+      <?php echo $__env->yieldPushContent('styles'); ?>
+    <?php echo \Livewire\Livewire::styles(); ?>
+
 </head>
 
 
 <body>
-    @include('livewire.frontend.header')
+    <?php echo $__env->make('livewire.frontend.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <div class="mobile-header-active mobile-header-wrapper-style">
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="{{ asset('frontend-assets/imgs/logo/logo.png') }}"
+                    <a href="index.html"><img src="<?php echo e(asset('frontend-assets/imgs/logo/logo.png')); ?>"
                             alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
@@ -152,52 +153,53 @@
                 </div>
                 <div class="mobile-social-icon">
                     <h5 class="mb-15 text-grey-4">Follow Us</h5>
-                    <a href="#"><img src="{{ asset('frontend-assets/imgs/theme/icons/icon-facebook.svg') }}"
+                    <a href="#"><img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-facebook.svg')); ?>"
                             alt=""></a>
-                    <a href="#"><img src="{{ asset('frontend-assets/imgs/theme/icons/icon-twitter.svg') }}"
+                    <a href="#"><img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-twitter.svg')); ?>"
                             alt=""></a>
-                    <a href="#"><img src="{{ asset('frontend-assets/imgs/theme/icons/icon-instagram.svg') }}"
+                    <a href="#"><img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-instagram.svg')); ?>"
                             alt=""></a>
-                    <a href="#"><img src="{{ asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg') }}"
+                    <a href="#"><img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg')); ?>"
                             alt=""></a>
-                    <a href="#"><img src="{{ asset('frontend-assets/imgs/theme/icons/icon-youtube.svg') }}"
+                    <a href="#"><img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-youtube.svg')); ?>"
                             alt=""></a>
                 </div>
             </div>
         </div>
     </div>
     <main class="main">
-        {{-- {{ $slot }} --}}
-        @yield('content')
+        
+        <?php echo $__env->yieldContent('content'); ?>
     </main>
 
-    @include('livewire.frontend.footer')
+    <?php echo $__env->make('livewire.frontend.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- Vendor JS-->
-    <script src="{{ asset('frontend-assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/slick.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/jquery.syotimer.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/wow.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/jquery-ui.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/magnific-popup.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/select2.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/waypoints.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/counterup.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/jquery.countdown.min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/images-loaded.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/isotope.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/scrollup.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/jquery.vticker-min.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/jquery.theia.sticky.js') }}"></script>
-    <script src="{{ asset('frontend-assets/js/plugins/jquery.elevatezoom.js') }}"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/vendor/modernizr-3.6.0.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/vendor/jquery-3.6.0.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/vendor/jquery-migrate-3.3.0.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/vendor/bootstrap.bundle.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/slick.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/jquery.syotimer.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/wow.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/jquery-ui.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/perfect-scrollbar.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/magnific-popup.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/select2.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/waypoints.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/counterup.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/jquery.countdown.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/images-loaded.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/isotope.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/scrollup.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/jquery.vticker-min.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/jquery.theia.sticky.js')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/plugins/jquery.elevatezoom.js')); ?>"></script>
     <!-- Template  JS -->
-    <script src="{{ asset('frontend-assets/js/main.js?v=3.3') }}"></script>
-    <script src="{{ asset('frontend-assets/js/shop.js?v=3.3') }}"></script>
-    @livewireScripts
-    @stack('scripts')
+    <script src="<?php echo e(asset('frontend-assets/js/main.js?v=3.3')); ?>"></script>
+    <script src="<?php echo e(asset('frontend-assets/js/shop.js?v=3.3')); ?>"></script>
+    <?php echo \Livewire\Livewire::scripts(); ?>
+
+    <?php echo $__env->yieldPushContent('scripts'); ?>
     <script>
         Livewire.on('added', message => {
             Swal.fire({
@@ -223,3 +225,4 @@
 
 
 </html>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/master.blade.php ENDPATH**/ ?>

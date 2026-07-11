@@ -84,6 +84,25 @@ class Shop extends Component
         endforeach;
     }
 
+    public function addToCompare($productId, $productName, $productPrice, $productImage)
+    {
+        $exists = Cart::instance('compare')->search(function ($cartItem) use ($productId) {
+            return $cartItem->id == $productId;
+        });
+        if ($exists->isNotEmpty()) {
+            $this->emit('added', "Item already in compare list");
+            return;
+        }
+        if (Cart::instance('compare')->count() >= 4) {
+            $this->emit('error', "You can compare up to 4 products");
+            return;
+        }
+        Cart::instance('compare')->add($productId, $productName, 1, $productPrice, ['image' => $productImage])
+            ->associate('\App\Models\Product');
+        $this->emit('added', "Item added to compare");
+        $this->emitTo('frontend.compare-icon-component', 'refreshComponent');
+    }
+
     public function store($id, $name, $price, $size = null, $image)
     {
         // Cart::add('293ad', 'Product 1', 1, 9.99, ['size' => 'large']);

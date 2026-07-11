@@ -18,52 +18,52 @@
                                 <div class="detail-gallery">
                                     <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                     <!-- MAIN SLIDES -->
-                                    @php
+                                    <?php
                                         $images = explode(',', $product->images);
                                         $featureImage = $product->image ?: 'product-image-avatar.png';
-                                    @endphp
+                                    ?>
                                     <div class="product-image-slider">
                                         <!-- MAIN IMAGE VIEW-->
                                         <figure class="border-radius-10">
 
                                             <img style="width:500px; height:700px" class="image-view"
-                                                src="{{ asset('frontend-assets/imgs/products') }}/{{ $featureImage }}"
-                                                alt="Gallery Image {{ $product->name }}">
+                                                src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($featureImage); ?>"
+                                                alt="Gallery Image <?php echo e($product->name); ?>">
                                         </figure>
                                         <!--  SLIDER IMAGE VIEW-->
-                                        @foreach ($images as $image)
-                                            @if ($image)
+                                        <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($image): ?>
                                                 <figure class="border-radius-10">
                                                     <img style="width:80px; height:80px"
-                                                        src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
-                                                        alt="Gallery Image {{ $product->name }}">
+                                                        src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($image); ?>"
+                                                        alt="Gallery Image <?php echo e($product->name); ?>">
                                                 </figure>
-                                            @endif
-                                        @endforeach
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15" wire:ignore>
                                         <!-- MAIN IMAGE THUMBNAIL-->
-                                        <div><img src="{{ asset('frontend-assets/imgs/products') }}/{{ $featureImage }}"
-                                                alt="Gallery Image {{ $product->name }}"></div>
+                                        <div><img src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($featureImage); ?>"
+                                                alt="Gallery Image <?php echo e($product->name); ?>"></div>
                                         <!-- SLIDER IMAGE THUMBNAIL-->
-                                        @foreach ($images as $image)
-                                            @if ($image)
+                                        <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($image): ?>
                                                 <div><img
-                                                        src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
-                                                        alt="Gallery Image {{ $product->name }}"></div>
-                                            @endif
-                                        @endforeach
+                                                        src="<?php echo e(asset('frontend-assets/imgs/products')); ?>/<?php echo e($image); ?>"
+                                                        alt="Gallery Image <?php echo e($product->name); ?>"></div>
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
                                 <!-- End Gallery -->
-                                @php
+                                <?php
                                     $shareUrl = urlencode(url()->current()); // or route('blog.details', $blog->slug)
                                     $shareTitle = urlencode($blog->title ?? config('app.name'));
                                     $shareImage ='';
-                                @endphp
+                                ?>
 
                                 <div class="social-icons single-share">
                                     <ul class="text-grey-5 d-inline-block">
@@ -71,36 +71,36 @@
 
                                         <!-- Facebook -->
                                         <li class="social-facebook">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}"
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo e($shareUrl); ?>"
                                                 target="_blank" rel="noopener noreferrer">
-                                                <img src="{{ asset('frontend-assets/imgs/theme/icons/icon-facebook.svg') }}"
+                                                <img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-facebook.svg')); ?>"
                                                     alt="Facebook">
                                             </a>
                                         </li>
 
                                         <!-- X (Twitter) -->
                                         <li class="social-twitter">
-                                            <a href="https://twitter.com/intent/tweet?url={{ $shareUrl }}&text={{ $shareTitle }}"
+                                            <a href="https://twitter.com/intent/tweet?url=<?php echo e($shareUrl); ?>&text=<?php echo e($shareTitle); ?>"
                                                 target="_blank" rel="noopener noreferrer">
-                                                <img src="{{ asset('frontend-assets/imgs/theme/icons/icon-twitter.svg') }}"
+                                                <img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-twitter.svg')); ?>"
                                                     alt="X (Twitter)">
                                             </a>
                                         </li>
 
                                         <!-- Instagram -->
                                         <li class="social-instagram">
-                                            <a href="https://www.instagram.com/share/?url={{ $shareUrl }}"
+                                            <a href="https://www.instagram.com/share/?url=<?php echo e($shareUrl); ?>"
                                                 target="_blank" rel="noopener noreferrer">
-                                                <img src="{{ asset('frontend-assets/imgs/theme/icons/icon-instagram.svg') }}"
+                                                <img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-instagram.svg')); ?>"
                                                     alt="Instagram">
                                             </a>
                                         </li>
 
                                         <!-- Pinterest -->
                                         <li class="social-pinterest">
-                                            <a href="https://pinterest.com/pin/create/button/?url={{ $shareUrl }}&media={{ $shareImage }}&description={{ $shareTitle }}"
+                                            <a href="https://pinterest.com/pin/create/button/?url=<?php echo e($shareUrl); ?>&media=<?php echo e($shareImage); ?>&description=<?php echo e($shareTitle); ?>"
                                                 target="_blank" rel="noopener noreferrer">
-                                                <img src="{{ asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg') }}"
+                                                <img src="<?php echo e(asset('frontend-assets/imgs/theme/icons/icon-pinterest.svg')); ?>"
                                                     alt="Pinterest">
                                             </a>
                                             </a>
@@ -110,31 +110,32 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <div class="detail-info">
-                                    <h2 class="title-detail">{{ $product->name }}</h2>
+                                    <h2 class="title-detail"><?php echo e($product->name); ?></h2>
                                     <div class="product-detail-rating">
                                         <div class="pro-details-brand">
-                                            <span> Brands: <a href="{{ route('shop') }}">Bootstrap</a></span>
+                                            <span> Brands: <a href="<?php echo e(route('shop')); ?>">Bootstrap</a></span>
                                         </div>
                                 <div class="product-rate-cover text-end">
                                     <div class="product-rate d-inline-block">
-                                        <div class="product-rating" style="width:{{ ($avgRating * 100) / 5 }}%">
+                                        <div class="product-rating" style="width:<?php echo e(($avgRating * 100) / 5); ?>%">
                                         </div>
                                     </div>
-                                    <span class="font-small ml-5 text-muted"> ({{ $totalReviews }}
-                                        review{{ $totalReviews == 1 ? '' : 's' }})</span>
+                                    <span class="font-small ml-5 text-muted"> (<?php echo e($totalReviews); ?>
+
+                                        review<?php echo e($totalReviews == 1 ? '' : 's'); ?>)</span>
                                 </div>
                                     </div>
                                     <div class="clearfix product-price-cover">
                                         <div class="product-price primary-color float-left">
-                                            <ins><span class="text-brand">৳ {{ $product->sale_price }}</span></ins>
+                                            <ins><span class="text-brand">৳ <?php echo e($product->sale_price); ?></span></ins>
                                             <ins><span class="old-price font-md ml-15">৳
-                                                    {{ $product->regular_price }}</span></ins>
+                                                    <?php echo e($product->regular_price); ?></span></ins>
                                             <span class="save-price  font-md color3 ml-15">25% Off</span>
                                         </div>
                                     </div>
                                     <div class="bt-1 border-color-1 mt-15 mb-15"></div>
                                     <div class="short-desc mb-30">
-                                        <p>{{ $product->short_description }}</p>
+                                        <p><?php echo e($product->short_description); ?></p>
                                     </div>
                                     <div class="product_sort_info font-xs mb-30">
                                         <ul>
@@ -146,7 +147,7 @@
                                         </ul>
                                     </div>
                                     <form wire:submit.prevent='store'>
-                                        @csrf
+                                        <?php echo csrf_field(); ?>
                                         <input type="hidden" wire:model='product_id'>
                                         <div class="attr-detail attr-color mb-15">
                                             <strong class="mr-10">Color</strong>
@@ -196,36 +197,36 @@
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart"
-                                                    {{-- wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }},'M','{{ $product->image }}')">Add --}}>Add
+                                                    >Add
                                                     to
                                                     cart</button>
-                                                @php
+                                                <?php
                                                     $wishItems = Cart::instance('wishlist')->content()->pluck('id');
-                                                @endphp
-                                                @if ($wishItems->contains($product->id))
+                                                ?>
+                                                <?php if($wishItems->contains($product->id)): ?>
                                                     <a aria-label="Remove from Wishlist"
                                                         class="action-btn hover-up wishlisted" href="#"
-                                                        wire:click.prevent='removeFromWishList({{ $product->id }})'><i
+                                                        wire:click.prevent='removeFromWishList(<?php echo e($product->id); ?>)'><i
                                                             class="fi-rs-heart"></i></a>
-                                                @else
+                                                <?php else: ?>
                                                     <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                        wire:click.prevent='addToWishList({{ $product->id }},"{{ $product->name }}",{{ $product->sale_price }},"M","{{ $product->image }}")'><i
+                                                        wire:click.prevent='addToWishList(<?php echo e($product->id); ?>,"<?php echo e($product->name); ?>",<?php echo e($product->sale_price); ?>,"M","<?php echo e($product->image); ?>")'><i
                                                             class="fi-rs-heart"></i></a>
-                                                @endif
+                                                <?php endif; ?>
                                                 <a aria-label="Compare" class="action-btn hover-up"
-                                                    wire:click.prevent='addToCompare({{ $product->id }},"{{ $product->name }}",{{ $product->sale_price }},"{{ $product->image }}")'><i
+                                                    wire:click.prevent='addToCompare(<?php echo e($product->id); ?>,"<?php echo e($product->name); ?>",<?php echo e($product->sale_price); ?>,"<?php echo e($product->image); ?>")'><i
                                                         class="fi-rs-shuffle"></i></a>
                                             </div>
 
                                         </div>
                                     </form>
                                     <ul class="product-meta font-xs color-grey mt-50">
-                                        <li class="mb-5">SKU: <a href="#">{{ $product->SKU }}</a></li>
+                                        <li class="mb-5">SKU: <a href="#"><?php echo e($product->SKU); ?></a></li>
                                         <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a
                                                 href="#" rel="tag">Women</a>, <a href="#"
                                                 rel="tag">Dress</a> </li>
                                         <li>Availability:<span
-                                                class="in-stock text-success ml-5">{{ $product->quantity }} Items In
+                                                class="in-stock text-success ml-5"><?php echo e($product->quantity); ?> Items In
                                                 Stock</span></li>
                                     </ul>
                                 </div>
@@ -244,57 +245,101 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab"
-                                        href="#Reviews">Reviews ({{ $totalReviews }})</a>
+                                        href="#Reviews">Reviews (<?php echo e($totalReviews); ?>)</a>
                                 </li>
                             </ul>
                             <div class="tab-content shop_info_tab entry-main-content">
                                 <div class="tab-pane fade show active" id="Description">
                                     <div class="">
-                                        <p>{{ $product->short_description }}</p>
+                                        <p><?php echo e($product->short_description); ?></p>
 
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="Additional-info">
-                                    {{ $product->description }}
+                                    <?php echo e($product->description); ?>
+
                                 </div>
                                 <div class="tab-pane fade" id="Reviews">
-                                    @livewire('frontend.review', ['productId' => $productId])
+                                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.review', ['productId' => $productId])->html();
+} elseif ($_instance->childHasBeenRendered('l4219034183-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l4219034183-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l4219034183-0');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l4219034183-0');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.review', ['productId' => $productId]);
+    $html = $response->html();
+    $_instance->logRenderedChild('l4219034183-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                                 </div>
                             </div>
                         </div>
-                        @livewire('frontend.related-products-component', ['categoryId' => $product->category_id, 'productId' => $product->id])
+                        <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.related-products-component', ['categoryId' => $product->category_id, 'productId' => $product->id])->html();
+} elseif ($_instance->childHasBeenRendered('l4219034183-1')) {
+    $componentId = $_instance->getRenderedChildComponentId('l4219034183-1');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l4219034183-1');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l4219034183-1');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.related-products-component', ['categoryId' => $product->category_id, 'productId' => $product->id]);
+    $html = $response->html();
+    $_instance->logRenderedChild('l4219034183-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                     </div>
                 </div>
                 <div class="col-lg-3 primary-sidebar sticky-sidebar">
-                    {{-- @livewire('frontend.filter-by-category',['route'=>Route::currentRouteName()]) --}}
+                    
                     <!-- Fillter By Price -->
-                    {{-- @livewire('frontend.filter-by-price') --}}
+                    
                     <!-- Product sidebar Widget -->
-                    @livewire('frontend.new-products-component')
+                    <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('frontend.new-products-component')->html();
+} elseif ($_instance->childHasBeenRendered('l4219034183-2')) {
+    $componentId = $_instance->getRenderedChildComponentId('l4219034183-2');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l4219034183-2');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('l4219034183-2');
+} else {
+    $response = \Livewire\Livewire::mount('frontend.new-products-component');
+    $html = $response->html();
+    $_instance->logRenderedChild('l4219034183-2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                 </div>
             </div>
         </div>
     </section>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.color').on('click', function(e) {
                 var colorValue = $(this).attr("data-color");
-                @this.set('color', colorValue);
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('color', colorValue);
                 $('#product_color').val(colorValue);
             });
             $('.size').on('click', function(e) {
                 var sizeValue = $(this).attr("data-size");
-                @this.set('size', sizeValue);
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('size', sizeValue);
                 $('#product_size').val(sizeValue);
             });
             $('.quantity').on('click', function(e) {
                 var qtyValue = $(".qty-val").text();
-                @this.set('quantity', qtyValue);
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('quantity', qtyValue);
                 $('#product_quantity').val(qtyValue);
             });
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/product-details.blade.php ENDPATH**/ ?>
