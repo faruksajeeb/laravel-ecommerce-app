@@ -152,20 +152,14 @@
                                             <strong class="mr-10">Color</strong>
                                             <input type="hidden" name="" id="product_color" wire:model='color'>
                                             <ul class="list-filter color-filter" wire:ignore>
-                                                <li><a href="#" class="color" data-color="red"><span
-                                                            class="product-color-red"></span></a></li>
-                                                <li><a href="#" class="color" data-color="yellow"><span
-                                                            class="product-color-yellow"></span></a></li>
-                                                <li class="active"><a href="#" data-color="white"><span
-                                                            class="product-color-white"></span></a></li>
-                                                <li><a href="#" class="color" data-color="orange"><span
-                                                            class="product-color-orange"></span></a></li>
-                                                <li><a href="#" class="color" data-color="cyan"><span
-                                                            class="product-color-cyan"></span></a></li>
-                                                <li><a href="#" class="color" data-color="green"><span
-                                                            class="product-color-green"></span></a></li>
-                                                <li><a href="#" class="color" data-color="purple"><span
-                                                            class="product-color-purple"></span></a></li>
+                                                @forelse ($availableColors as $c)
+                                                    <li class="{{ strtolower($c) == strtolower($color) ? 'active' : '' }}">
+                                                        <a href="#" class="color" data-color="{{ $c }}"><span
+                                                                    class="product-color-{{ strtolower($c) }}" style="background-color:{{ $c }}; border:1px solid #ddd;"></span></a>
+                                                    </li>
+                                                @empty
+                                                    <li class="text-muted font-sm">No colors available</li>
+                                                @endforelse
                                             </ul>
                                         </div>
                                         <div class="attr-detail attr-size">
@@ -173,15 +167,26 @@
                                             <input type="hidden" name="" id="product_size"
                                                 wire:model='size'>
                                             <ul class="list-filter size-filter font-small" wire:ignore>
-                                                <li><a href="#" class="size" data-size="XS">XS</a></li>
-                                                <li><a href="#" class="size" data-size="S">S</a></li>
-                                                <li class="active"><a href="#" class="size"
-                                                        data-size="M">M</a></li>
-                                                <li><a href="#" class="size" data-size="L">L</a></li>
-                                                <li><a href="#" class="size" data-size="XL">XL</a></li>
-                                                <li><a href="#" class="size" data-size="XXL">XXL</a></li>
+                                                @forelse ($availableSizes as $s)
+                                                    <li><a href="#" class="size" data-size="{{ $s }}">{{ $s }}</a></li>
+                                                @empty
+                                                    <li class="text-muted font-sm">No sizes available</li>
+                                                @endforelse
                                             </ul>
                                         </div>
+                                        @if ($hasVariations)
+                                            @if ($size && $color)
+                                                <p class="mb-15 font-sm fw-bold {{ $variationStock > 0 ? 'text-success' : 'text-danger' }}">
+                                                    @if ($variationStock > 0)
+                                                        <i class="fi-rs-check"></i> {{ $variationStock }} in stock for this combination
+                                                    @else
+                                                        <i class="fi-rs-cross"></i> This size/color combination is out of stock
+                                                    @endif
+                                                </p>
+                                            @else
+                                                <p class="mb-15 text-muted font-sm">Select a size and color to view stock availability.</p>
+                                            @endif
+                                        @endif
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
 
@@ -196,6 +201,7 @@
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart"
+                                                    {{ $hasVariations && $size && $color && $variationStock !== null && $variationStock <= 0 ? 'disabled' : '' }}
                                                     {{-- wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }},'M','{{ $product->image }}')">Add --}}>Add
                                                     to
                                                     cart</button>
@@ -281,11 +287,17 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.color').on('click', function(e) {
+                e.preventDefault();
+                $('.color-filter li').removeClass('active');
+                $(this).closest('li').addClass('active');
                 var colorValue = $(this).attr("data-color");
                 @this.set('color', colorValue);
                 $('#product_color').val(colorValue);
             });
             $('.size').on('click', function(e) {
+                e.preventDefault();
+                $('.size-filter li').removeClass('active');
+                $(this).closest('li').addClass('active');
                 var sizeValue = $(this).attr("data-size");
                 @this.set('size', sizeValue);
                 $('#product_size').val(sizeValue);

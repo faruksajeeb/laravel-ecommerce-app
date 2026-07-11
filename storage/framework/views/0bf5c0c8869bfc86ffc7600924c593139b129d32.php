@@ -181,4 +181,4 @@ unset($__errorArgs, $__bag); ?>
         </div>
     </section>
 </div>
-<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/customer-register.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views\livewire\frontend\customer-register.blade.php ENDPATH**/ ?>

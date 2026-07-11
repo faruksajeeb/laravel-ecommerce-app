@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Frontend;
 use App\Lib\Webspice;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Models\Shipping;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
@@ -150,14 +152,30 @@ class Checkout extends Component
 
         $orderDetailData = array();
         foreach (Cart::instance('cart')->content() as $item) {
+            $size = $item->options->size ?? null;
+            $color = $item->options->has('color') ? $item->options->color : 'white';
+
             $orderDetailData[] = array(
                 'order_id' => $order->id,
                 'product_id' => $item->id,
                 'price' => $item->price,
                 'quantity' => $item->qty,
-                'size' => $item->options->size,
-                'color' => $item->options->has('color') ? $item->options->color : 'white',
+                'size' => $size,
+                'color' => $color,
             );
+
+            # Decrement size/color variation stock
+            $variation = ProductVariation::where('product_id', $item->id)
+                ->whereRaw('LOWER(size) = ?', [strtolower($size ?? '')])
+                ->whereRaw('LOWER(color) = ?', [strtolower($color ?? '')])
+                ->first();
+            if ($variation) {
+                $variation->decrement('quantity', $item->qty);
+            }
+            $product = Product::find($item->id);
+            if ($product) {
+                $product->decrement('quantity', $item->qty);
+            }
         }
         OrderDetail::insert($orderDetailData);
 

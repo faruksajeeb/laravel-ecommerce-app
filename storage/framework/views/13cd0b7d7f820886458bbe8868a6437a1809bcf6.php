@@ -80,7 +80,7 @@
 
 <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editProductModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header px-4 py-3 bg-white border-bottom-0">
                 <div class="d-flex align-items-center">
@@ -107,7 +107,7 @@
                     <?php endif; ?>
 
                     <div class="row g-4">
-                        <div class="col-lg-7">
+                        <div class="col-lg-12">
                             <div class="p-3 border rounded-4 mb-4">
                                 <span class="section-title">General Information</span>
                                 <div class="row g-3">
@@ -187,41 +187,8 @@ unset($__errorArgs, $__bag); ?>">
                             </div>
 
                             <div class="p-3 border rounded-4">
-                                <span class="section-title">Pricing & Inventory</span>
+                                <span class="section-title">Pricing</span>
                                 <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label fw-semibold">SKU <span class="text-danger">*</span></label>
-                                        <input type="text" wire:model="SKU"
-                                            class="form-control <?php $__errorArgs = ['SKU'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>"
-                                            placeholder="e.g. WH-01">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label fw-semibold">Quantity <span class="text-danger">*</span></label>
-                                        <input type="number" wire:model="quantity"
-                                            class="form-control <?php $__errorArgs = ['quantity'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>"
-                                            placeholder="0">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label fw-semibold">Stock Status</label>
-                                        <select wire:model="stock_status" class="form-select">
-                                            <option value="instock">In Stock</option>
-                                            <option value="outofstock">Out of Stock</option>
-                                        </select>
-                                    </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Regular Price ($) <span class="text-danger">*</span></label>
                                         <input type="text" wire:model="regular_price"
@@ -242,10 +209,97 @@ unset($__errorArgs, $__bag); ?>"
                                             placeholder="0.00">
                                     </div>
                                 </div>
+                                <small class="text-muted mt-2 d-block">SKU, quantity and stock status are managed per
+                                    size/color in the Variations &amp; Stock section below.</small>
                             </div>
                         </div>
 
-                        <div class="col-lg-5">
+                        <div class="p-3 border rounded-4 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="section-title mb-0">Variations & Stock</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                    wire:click.prevent="addVariation()">
+                                    <i class="fa-solid fa-plus me-1"></i> Add Variation
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Size</th>
+                                            <th>Color</th>
+                                            <th style="width:110px;">Quantity</th>
+                                            <th style="width:130px;">SKU</th>
+                                            <th style="width:140px;">Stock Status</th>
+                                            <th style="width:40px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $__empty_1 = true; $__currentLoopData = $variations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $variation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                            <tr wire:key="variation-<?php echo e($index); ?>">
+                                                <td>
+                                                    <select class="form-select"
+                                                        wire:model="variations.<?php echo e($index); ?>.size">
+                                                        <option value="">Select Size</option>
+                                                        <?php $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <option value="<?php echo e($sz); ?>"><?php echo e($sz); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        <?php if(!empty($variation['size']) && !in_array($variation['size'], $sizes)): ?>
+                                                            <option value="<?php echo e($variation['size']); ?>"><?php echo e($variation['size']); ?> (custom)</option>
+                                                        <?php endif; ?>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-select"
+                                                        wire:model="variations.<?php echo e($index); ?>.color">
+                                                        <option value="">Select Color</option>
+                                                        <?php $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <option value="<?php echo e($cl); ?>"><?php echo e($cl); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        <?php if(!empty($variation['color']) && !in_array($variation['color'], $colors)): ?>
+                                                            <option value="<?php echo e($variation['color']); ?>"><?php echo e($variation['color']); ?> (custom)</option>
+                                                        <?php endif; ?>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" class="form-control"
+                                                        wire:model="variations.<?php echo e($index); ?>.quantity">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                        wire:model="variations.<?php echo e($index); ?>.sku">
+                                                </td>
+                                                <td>
+                                                    <select class="form-select"
+                                                        wire:model="variations.<?php echo e($index); ?>.stock_status">
+                                                        <option value="instock">In Stock</option>
+                                                        <option value="outofstock">Out of Stock</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-danger"
+                                                        wire:click.prevent="removeVariation(<?php echo e($index); ?>)">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">No variations
+                                                    added. Add a variation (size/color can be left blank for a
+                                                    single-SKU product) to manage stock.</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <small class="text-muted">Each unique size + color combination tracks its own stock.
+                                Product "Quantity" is updated automatically as the total of all
+                                variations.</small>
+                        </div>
+
+                        <div class="col-lg-12">
                             <div class="p-3 border rounded-4 mb-4">
                                 <span class="section-title">Product Media</span>
 

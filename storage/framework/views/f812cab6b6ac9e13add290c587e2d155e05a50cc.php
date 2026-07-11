@@ -2,15 +2,15 @@
     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.news-letter-component')->html();
-} elseif ($_instance->childHasBeenRendered('p8Y6Pfz')) {
-    $componentId = $_instance->getRenderedChildComponentId('p8Y6Pfz');
-    $componentTag = $_instance->getRenderedChildComponentTagName('p8Y6Pfz');
+} elseif ($_instance->childHasBeenRendered('FbwwYjq')) {
+    $componentId = $_instance->getRenderedChildComponentId('FbwwYjq');
+    $componentTag = $_instance->getRenderedChildComponentTagName('FbwwYjq');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('p8Y6Pfz');
+    $_instance->preserveRenderedChild('FbwwYjq');
 } else {
     $response = \Livewire\Livewire::mount('frontend.news-letter-component');
     $html = $response->html();
-    $_instance->logRenderedChild('p8Y6Pfz', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('FbwwYjq', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

@@ -75,4 +75,4 @@
 </div>
 </section>
 </div>
-<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/new-arrivals-component.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views\livewire\frontend\new-arrivals-component.blade.php ENDPATH**/ ?>

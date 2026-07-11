@@ -76,7 +76,7 @@
 
 <div wire:ignore.self class="modal fade" id="addModal" tabindex="-1" aria-labelledby="productModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
 
             <div class="modal-header px-4 py-3 bg-white border-bottom-0">
@@ -105,7 +105,7 @@
 
                     <div class="row g-4">
 
-                        <div class="col-lg-7">
+                        <div class="col-lg-12">
 
                             <div class="p-3 border rounded-4 mb-4">
                                 <span class="section-title">General Information</span>
@@ -168,29 +168,8 @@
                             </div>
 
                             <div class="p-3 border rounded-4">
-                                <span class="section-title">Pricing & Inventory</span>
+                                <span class="section-title">Pricing</span>
                                 <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label fw-semibold">SKU <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" wire:model="SKU"
-                                            class="form-control @error('SKU') is-invalid @enderror"
-                                            placeholder="e.g. WH-01">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label fw-semibold">Quantity <span
-                                                class="text-danger">*</span></label>
-                                        <input type="number" wire:model="quantity"
-                                            class="form-control @error('quantity') is-invalid @enderror"
-                                            placeholder="0">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label fw-semibold">Stock Status</label>
-                                        <select wire:model="stock_status" class="form-select">
-                                            <option value="instock">In Stock</option>
-                                            <option value="outofstock">Out of Stock</option>
-                                        </select>
-                                    </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Regular Price ($) <span
                                                 class="text-danger">*</span></label>
@@ -205,10 +184,97 @@
                                             placeholder="0.00">
                                     </div>
                                 </div>
+                                <small class="text-muted mt-2 d-block">SKU, quantity and stock status are managed per
+                                    size/color in the Variations &amp; Stock section below.</small>
                             </div>
                         </div>
 
-                        <div class="col-lg-5">
+                        <div class="p-3 border rounded-4 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="section-title mb-0">Variations & Stock</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                    wire:click.prevent="addVariation()">
+                                    <i class="fa-solid fa-plus me-1"></i> Add Variation
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Size</th>
+                                            <th>Color</th>
+                                            <th style="width:110px;">Quantity</th>
+                                            <th style="width:130px;">SKU</th>
+                                            <th style="width:140px;">Stock Status</th>
+                                            <th style="width:40px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($variations as $index => $variation)
+                                            <tr wire:key="variation-{{ $index }}">
+                                                <td>
+                                                    <select class="form-select"
+                                                        wire:model="variations.{{ $index }}.size">
+                                                        <option value="">Select Size</option>
+                                                        @foreach ($sizes as $sz)
+                                                            <option value="{{ $sz }}">{{ $sz }}</option>
+                                                        @endforeach
+                                                        @if (!empty($variation['size']) && !in_array($variation['size'], $sizes))
+                                                            <option value="{{ $variation['size'] }}">{{ $variation['size'] }} (custom)</option>
+                                                        @endif
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-select"
+                                                        wire:model="variations.{{ $index }}.color">
+                                                        <option value="">Select Color</option>
+                                                        @foreach ($colors as $cl)
+                                                            <option value="{{ $cl }}">{{ $cl }}</option>
+                                                        @endforeach
+                                                        @if (!empty($variation['color']) && !in_array($variation['color'], $colors))
+                                                            <option value="{{ $variation['color'] }}">{{ $variation['color'] }} (custom)</option>
+                                                        @endif
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" class="form-control"
+                                                        wire:model="variations.{{ $index }}.quantity">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                        wire:model="variations.{{ $index }}.sku">
+                                                </td>
+                                                <td>
+                                                    <select class="form-select"
+                                                        wire:model="variations.{{ $index }}.stock_status">
+                                                        <option value="instock">In Stock</option>
+                                                        <option value="outofstock">Out of Stock</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-danger"
+                                                        wire:click.prevent="removeVariation({{ $index }})">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">No variations
+                                                    added. Add a variation (size/color can be left blank for a
+                                                    single-SKU product) to manage stock.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <small class="text-muted">Each unique size + color combination tracks its own stock.
+                                Product "Quantity" is updated automatically as the total of all
+                                variations.</small>
+                        </div>
+
+                        <div class="col-lg-12">
 
                             <div class="p-3 border rounded-4 mb-4">
                                 <span class="section-title">Product Media</span>

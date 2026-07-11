@@ -21,4 +21,4 @@
         </div>
     </section>
 </div>
-<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/popular-categories-component.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views\livewire\frontend\popular-categories-component.blade.php ENDPATH**/ ?>

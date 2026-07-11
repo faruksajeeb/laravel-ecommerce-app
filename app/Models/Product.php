@@ -25,6 +25,8 @@ class Product extends Model
         'images',
         'category_id',
         'subcategory_id',
+        'size',
+        'color',
         'status',
         'created_by',
         'updated_by'
@@ -36,6 +38,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class, 'product_id', 'id');
     }
    
 }

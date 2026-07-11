@@ -29,4 +29,4 @@
         <div class="slider-arrow hero-slider-1-arrow"></div>
     </section>
 </div>
-<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/slider-component.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views\livewire\frontend\slider-component.blade.php ENDPATH**/ ?>

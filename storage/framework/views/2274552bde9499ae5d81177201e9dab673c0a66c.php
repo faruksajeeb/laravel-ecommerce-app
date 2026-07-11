@@ -21,15 +21,15 @@
     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.slider-component')->html();
-} elseif ($_instance->childHasBeenRendered('l287133153-0')) {
-    $componentId = $_instance->getRenderedChildComponentId('l287133153-0');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l287133153-0');
+} elseif ($_instance->childHasBeenRendered('3b934Eu')) {
+    $componentId = $_instance->getRenderedChildComponentId('3b934Eu');
+    $componentTag = $_instance->getRenderedChildComponentTagName('3b934Eu');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l287133153-0');
+    $_instance->preserveRenderedChild('3b934Eu');
 } else {
     $response = \Livewire\Livewire::mount('frontend.slider-component');
     $html = $response->html();
-    $_instance->logRenderedChild('l287133153-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('3b934Eu', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -291,15 +291,15 @@ echo $html;
     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.popular-categories-component')->html();
-} elseif ($_instance->childHasBeenRendered('l287133153-1')) {
-    $componentId = $_instance->getRenderedChildComponentId('l287133153-1');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l287133153-1');
+} elseif ($_instance->childHasBeenRendered('92lcQAu')) {
+    $componentId = $_instance->getRenderedChildComponentId('92lcQAu');
+    $componentTag = $_instance->getRenderedChildComponentTagName('92lcQAu');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l287133153-1');
+    $_instance->preserveRenderedChild('92lcQAu');
 } else {
     $response = \Livewire\Livewire::mount('frontend.popular-categories-component');
     $html = $response->html();
-    $_instance->logRenderedChild('l287133153-1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('92lcQAu', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -308,19 +308,19 @@ echo $html;
         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('frontend.new-arrivals-component')->html();
-} elseif ($_instance->childHasBeenRendered('l287133153-2')) {
-    $componentId = $_instance->getRenderedChildComponentId('l287133153-2');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l287133153-2');
+} elseif ($_instance->childHasBeenRendered('USvrIcz')) {
+    $componentId = $_instance->getRenderedChildComponentId('USvrIcz');
+    $componentTag = $_instance->getRenderedChildComponentTagName('USvrIcz');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l287133153-2');
+    $_instance->preserveRenderedChild('USvrIcz');
 } else {
     $response = \Livewire\Livewire::mount('frontend.new-arrivals-component');
     $html = $response->html();
-    $_instance->logRenderedChild('l287133153-2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('USvrIcz', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
     </section>
     
 </div>
-<?php /**PATH D:\laragon\www\laravel\ecom\resources\views/livewire/frontend/home.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\laragon\www\laravel\ecom\resources\views\livewire\frontend\home.blade.php ENDPATH**/ ?>

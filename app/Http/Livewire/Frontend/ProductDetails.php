@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Frontend;
 
 use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Models\Review;
 use Livewire\Component;
 use Cart;
@@ -29,7 +30,16 @@ class ProductDetails extends Component
         $this->productPrice = $product->sale_price;
         $this->productImage = $product->image;
 
-        
+        # Default selection to the first available variation (if any)
+        $firstVariation = ProductVariation::where('product_id', $this->productId)->first();
+        if ($firstVariation) {
+            if ($firstVariation->size) {
+                $this->size = $firstVariation->size;
+            }
+            if ($firstVariation->color) {
+                $this->color = $firstVariation->color;
+            }
+        }
 
     }
 
@@ -58,10 +68,40 @@ class ProductDetails extends Component
         $avgRating = $reviews->avg('ratings') ?? 0;
         $totalReviews = $reviews->count();
 
+        $hasVariations = ProductVariation::where('product_id', $this->productId)->exists();
+
+        # Available sizes/colors come from product_variations (preferred) and the
+        # product's own size/color text fields (fallback).
+        $variationSizes = ProductVariation::where('product_id', $this->productId)
+            ->distinct()->pluck('size')->filter()->values();
+        $variationColors = ProductVariation::where('product_id', $this->productId)
+            ->distinct()->pluck('color')->filter()->values();
+
+        $manualSizes = $product->size
+            ? collect(array_filter(array_map('trim', explode(',', $product->size)))) : collect();
+        $manualColors = $product->color
+            ? collect(array_filter(array_map('trim', explode(',', $product->color)))) : collect();
+
+        $availableSizes = $manualSizes->merge($variationSizes)->unique()->values();
+        $availableColors = $manualColors->merge($variationColors)->unique()->values();
+
+        $variationStock = null;
+        if ($hasVariations && $this->size && $this->color) {
+            $variation = ProductVariation::where('product_id', $this->productId)
+                ->whereRaw('LOWER(size) = ?', [strtolower($this->size)])
+                ->whereRaw('LOWER(color) = ?', [strtolower($this->color)])
+                ->first();
+            $variationStock = $variation ? (int) $variation->quantity : 0;
+        }
+
         return view('livewire.frontend.product-details',[
             'product'=>$product,
             'avgRating'=>$avgRating,
-            'totalReviews'=>$totalReviews
+            'totalReviews'=>$totalReviews,
+            'hasVariations'=>$hasVariations,
+            'variationStock'=>$variationStock,
+            'availableSizes'=>$availableSizes,
+            'availableColors'=>$availableColors
             ])->extends('livewire.frontend.master');
     }
 

@@ -153,20 +153,14 @@
                                             <strong class="mr-10">Color</strong>
                                             <input type="hidden" name="" id="product_color" wire:model='color'>
                                             <ul class="list-filter color-filter" wire:ignore>
-                                                <li><a href="#" class="color" data-color="red"><span
-                                                            class="product-color-red"></span></a></li>
-                                                <li><a href="#" class="color" data-color="yellow"><span
-                                                            class="product-color-yellow"></span></a></li>
-                                                <li class="active"><a href="#" data-color="white"><span
-                                                            class="product-color-white"></span></a></li>
-                                                <li><a href="#" class="color" data-color="orange"><span
-                                                            class="product-color-orange"></span></a></li>
-                                                <li><a href="#" class="color" data-color="cyan"><span
-                                                            class="product-color-cyan"></span></a></li>
-                                                <li><a href="#" class="color" data-color="green"><span
-                                                            class="product-color-green"></span></a></li>
-                                                <li><a href="#" class="color" data-color="purple"><span
-                                                            class="product-color-purple"></span></a></li>
+                                                <?php $__empty_1 = true; $__currentLoopData = $availableColors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                                    <li class="<?php echo e(strtolower($c) == strtolower($color) ? 'active' : ''); ?>">
+                                                        <a href="#" class="color" data-color="<?php echo e($c); ?>"><span
+                                                                    class="product-color-<?php echo e(strtolower($c)); ?>" style="background-color:<?php echo e($c); ?>; border:1px solid #ddd;"></span></a>
+                                                    </li>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                                    <li class="text-muted font-sm">No colors available</li>
+                                                <?php endif; ?>
                                             </ul>
                                         </div>
                                         <div class="attr-detail attr-size">
@@ -174,15 +168,26 @@
                                             <input type="hidden" name="" id="product_size"
                                                 wire:model='size'>
                                             <ul class="list-filter size-filter font-small" wire:ignore>
-                                                <li><a href="#" class="size" data-size="XS">XS</a></li>
-                                                <li><a href="#" class="size" data-size="S">S</a></li>
-                                                <li class="active"><a href="#" class="size"
-                                                        data-size="M">M</a></li>
-                                                <li><a href="#" class="size" data-size="L">L</a></li>
-                                                <li><a href="#" class="size" data-size="XL">XL</a></li>
-                                                <li><a href="#" class="size" data-size="XXL">XXL</a></li>
+                                                <?php $__empty_1 = true; $__currentLoopData = $availableSizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                                    <li><a href="#" class="size" data-size="<?php echo e($s); ?>"><?php echo e($s); ?></a></li>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                                    <li class="text-muted font-sm">No sizes available</li>
+                                                <?php endif; ?>
                                             </ul>
                                         </div>
+                                        <?php if($hasVariations): ?>
+                                            <?php if($size && $color): ?>
+                                                <p class="mb-15 font-sm fw-bold <?php echo e($variationStock > 0 ? 'text-success' : 'text-danger'); ?>">
+                                                    <?php if($variationStock > 0): ?>
+                                                        <i class="fi-rs-check"></i> <?php echo e($variationStock); ?> in stock for this combination
+                                                    <?php else: ?>
+                                                        <i class="fi-rs-cross"></i> This size/color combination is out of stock
+                                                    <?php endif; ?>
+                                                </p>
+                                            <?php else: ?>
+                                                <p class="mb-15 text-muted font-sm">Select a size and color to view stock availability.</p>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
 
@@ -197,6 +202,8 @@
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart"
+                                                    <?php echo e($hasVariations && $size && $color && $variationStock !== null && $variationStock <= 0 ? 'disabled' : ''); ?>
+
                                                     >Add
                                                     to
                                                     cart</button>
@@ -325,11 +332,17 @@ echo $html;
     <script type="text/javascript">
         $(document).ready(function() {
             $('.color').on('click', function(e) {
+                e.preventDefault();
+                $('.color-filter li').removeClass('active');
+                $(this).closest('li').addClass('active');
                 var colorValue = $(this).attr("data-color");
                 window.livewire.find('<?php echo e($_instance->id); ?>').set('color', colorValue);
                 $('#product_color').val(colorValue);
             });
             $('.size').on('click', function(e) {
+                e.preventDefault();
+                $('.size-filter li').removeClass('active');
+                $(this).closest('li').addClass('active');
                 var sizeValue = $(this).attr("data-size");
                 window.livewire.find('<?php echo e($_instance->id); ?>').set('size', sizeValue);
                 $('#product_size').val(sizeValue);
