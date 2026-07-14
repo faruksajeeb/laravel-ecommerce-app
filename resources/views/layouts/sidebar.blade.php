@@ -31,13 +31,13 @@
                            data-bs-toggle="collapse"
                            data-bs-target="#master_submenu1"
                            aria-controls="master_submenu1"
-                           aria-expanded="{{ Route::is('option-groups') || Route::is('options') || Route::is('categories') || Route::is('subcategories') || Route::is('coupons') ? 'true' : 'false' }}"
-                           class="nav-link ps-1 align-middle">
+                            aria-expanded="{{ Route::is('option-groups') || Route::is('options') || Route::is('categories') || Route::is('subcategories') || Route::is('coupons') || Route::is('brands') ? 'true' : 'false' }}"
+                            class="nav-link ps-1 align-middle">
                             <span class="icon"><i class="fa-solid fa-list"></i></span>
                             <span class="ms-1 d-sm-inline title ">Master</span>
                             <i class="icon fa-solid fa-angle-right text-right"></i>
                         </a>
-                        <ul class="collapse nav flex-column ms-3 ps-3 {{ Route::is('option-groups') || Route::is('options') || Route::is('categories') || Route::is('subcategories') || Route::is('coupons') ? 'show' : '' }}"
+                        <ul class="collapse nav flex-column ms-3 ps-3 {{ Route::is('option-groups') || Route::is('options') || Route::is('categories') || Route::is('subcategories') || Route::is('coupons') || Route::is('brands') ? 'show' : '' }}"
                             id="master_submenu1" data-bs-parent="#menu">
                             <li class="{{ Route::is('option-groups') ? 'active' : '' }}">
                                 <a href="{{ url('option-groups') }}" class="nav-link px-2"> <span class="d-sm-inline"><i
@@ -54,6 +54,10 @@
                             <li class="{{ Route::is('subcategories') ? 'active' : '' }}">
                                 <a href="{{ route('subcategories') }}" class="nav-link px-2"> <span class="d-sm-inline"><i
                                             class="fa-solid fa-table"></i> Subcategories</span></a>
+                            </li>
+                            <li class="{{ Route::is('brands') ? 'active' : '' }}">
+                                <a href="{{ route('brands') }}" class="nav-link px-2"> <span class="d-sm-inline"><i
+                                            class="fa-solid fa-table"></i> Brands</span></a>
                             </li>
                             <li class="{{ Route::is('coupons') ? 'active' : '' }}">
                                 <a href="{{ route('coupons') }}" class="nav-link px-2"> <span class="d-sm-inline"><i

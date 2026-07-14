@@ -1,1 +1,0 @@
-<?php /**PATH D:\laragon\www\laravel\ecom\resources\views\roles\view.blade.php ENDPATH**/ ?>

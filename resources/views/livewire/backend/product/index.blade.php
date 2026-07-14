@@ -37,12 +37,22 @@
                         <option value="-1">Inactive Only</option>
                     </select>
                 </div>
-                <div class="col-xl-3 col-md-4">
+                <div class="col-xl-2 col-md-4">
                     <div wire:ignore>
                         <select id="search_category_id" wire:model='search_category_id' class="form-select select2">
                             <option value="">All Categories</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6">
+                    <div wire:ignore>
+                        <select id="search_brand_id" wire:model='search_brand_id' class="form-select select2">
+                            <option value="">All Brands</option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -85,6 +95,8 @@
                             <th style="width: 80px;">Preview</th>
                             <th>Product Details</th>
                             <th>Categories Hierarchy</th>
+                            <th style="width: 160px;">Brand</th>
+                            <th style="width: 200px;">Tags</th>
                             <th class="text-center" style="width: 110px;">Status</th>
                             <th>Timestamps</th>
                             <th class="text-end pe-4" style="width: 140px;">Actions</th>
@@ -119,6 +131,25 @@
                                     @if($val->subcategory)
                                         <i class="fa-solid fa-angle-right mx-1 text-muted text-xs"></i>
                                         <small class="text-secondary">{{ $val->subcategory->subcategory_name }}</small>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($val->brand)
+                                        <span class="fw-semibold text-dark d-block">{{ $val->brand->name }}</span>
+                                        <small class="text-muted text-xs">{{ $val->brand->slug }}</small>
+                                    @else
+                                        <span class="text-muted small">—</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($val->tags && $val->tags->isNotEmpty())
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @foreach ($val->tags as $tag)
+                                                <span class="badge bg-info bg-opacity-10 text-info border fw-medium px-2 py-0.5 small">{{ $tag->option_value }}</span>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <span class="text-muted small">—</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -185,6 +216,11 @@
                 var data = $('#search_category_id').select2("val");
                 Livewire.emit('listenerReferenceHere', data);
                 @this.set('search_category_id', data);
+            });
+            $('#search_brand_id').select2();
+            $('#search_brand_id').on('change', function(e) {
+                var data = $('#search_brand_id').select2("val");
+                @this.set('search_brand_id', data);
             });
         });
 

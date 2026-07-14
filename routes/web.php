@@ -17,6 +17,7 @@ use App\Http\Livewire\Backend\CustomerComponent;
 use App\Http\Livewire\Backend\CouponComponent;
 use App\Http\Livewire\Backend\ProductComponent;
 use App\Http\Livewire\Backend\AdminSliderComponent;
+use App\Http\Livewire\Backend\BrandComponent;
 use App\Http\Livewire\Backend\OrderComponent;
 
 use App\Http\Livewire\Frontend\Home;
@@ -106,6 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::get('options',Options::class)->name('options'); 
     Route::get('categories',CategoryComponent::class)->name('categories'); 
     Route::get('subcategories',SubcategoryComponent::class)->name('subcategories'); 
+    Route::get('brands',BrandComponent::class)->name('brands'); 
     Route::get('customers',CustomerComponent::class)->name('customers'); 
     Route::get('coupons',CouponComponent::class)->name('coupons'); 
     Route::get('products',ProductComponent::class)->name('products'); 

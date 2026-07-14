@@ -25,6 +25,7 @@ class Product extends Model
         'images',
         'category_id',
         'subcategory_id',
+        'brand_id',
         'size',
         'color',
         'status',
@@ -38,6 +39,14 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Option::class, 'product_tag', 'product_id', 'tag_id');
     }
     public function variations()
     {

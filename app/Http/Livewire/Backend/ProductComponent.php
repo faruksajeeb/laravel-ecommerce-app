@@ -22,6 +22,7 @@ use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\ValidationException;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Option;
 use App\Models\ProductVariation;
@@ -36,10 +37,15 @@ class ProductComponent extends Component
 
     public $categories;
     public $subcategories;
+    public $brands;
+    public $tags;
+    public $brand_id = null;
+    public $selectedTags = [];
     public $SelectedCategory = NULL;
 
     public $searchTerm;
     public $status;
+    public $search_brand_id;
     public $pazeSize = 7;
     public $orderBy;
     public $sortBy;
@@ -73,6 +79,8 @@ class ProductComponent extends Component
     {
         $this->categories = Category::where('status', 1)->get();
         $this->subcategories = collect();
+        $this->brands = Brand::where('status', 1)->get();
+        $this->tags = Option::where('option_group_name', 'tags')->where('status', 1)->get();
 
         
     }
@@ -93,7 +101,7 @@ class ProductComponent extends Component
 
     public function addVariation()
     {
-        $this->variations[] = ['size' => '', 'color' => '', 'quantity' => 0, 'sku' => '', 'stock_status' => 'instock'];
+        $this->variations[] = ['size' => '', 'color' => '', 'quantity' => 0, 'sku' => '', 'barcode' => ''];
     }
 
     public function removeVariation($index)
@@ -107,28 +115,23 @@ class ProductComponent extends Component
         ProductVariation::where('product_id', $productId)->delete();
 
         $total = 0;
-        $hasInstock = false;
         foreach ($this->variations as $variation) {
             if (empty($variation['size']) && empty($variation['color'])) {
                 continue;
             }
             $quantity = (int) ($variation['quantity'] ?? 0);
             $total += $quantity;
-            $stockStatus = $variation['stock_status'] ?? ($quantity > 0 ? 'instock' : 'outofstock');
-            if ($stockStatus === 'instock') {
-                $hasInstock = true;
-            }
             ProductVariation::create([
                 'product_id' => $productId,
                 'size' => $variation['size'] ?: null,
                 'color' => $variation['color'] ?: null,
                 'quantity' => $quantity,
                 'sku' => $variation['sku'] ?: null,
-                'stock_status' => $stockStatus,
+                'barcode' => $variation['barcode'] ?: null,
             ]);
         }
 
-        return ['total' => $total, 'has_instock' => $hasInstock];
+        return $total;
     }
     public function updatedSearchTerm()
     {
@@ -173,9 +176,13 @@ class ProductComponent extends Component
 
     public function render($export = null)
     {
+        # Reference/lookup data is re-queried on every render so it is not lost
+        # when Livewire dehydrates/rehydrates the component between requests.
+        $this->brands = Brand::where('status', 1)->get();
+        $this->tags = Option::where('option_group_name', 'tags')->where('status', 1)->get();
 
         $searchTerm = '%' . $this->searchTerm . '%';
-        $query = Product::select(
+        $query = Product::with(['brand', 'tags'])->select(
             '*'
         );
         $paze_size = $this->pazeSize;
@@ -196,6 +203,10 @@ class ProductComponent extends Component
         # By Option Group 
         if ($this->search_category_id != null) {
             $query->where('category_id', $this->search_category_id);
+        }
+        # By brand
+        if ($this->search_brand_id != null) {
+            $query->where('brand_id', $this->search_brand_id);
         }
         # By status
         if ($this->status != null) {
@@ -233,6 +244,9 @@ class ProductComponent extends Component
             'products' => $products,
             'sizes' => Option::where('option_group_name', 'Size')->pluck('option_value')->toArray(),
             'colors' => Option::where('option_group_name', 'Color')->pluck('option_value')->toArray(),
+            'brands' => $this->brands,
+            'tags' => Option::where('option_group_name', 'tags')->where('status', 1)->get(),
+            'categories' => $this->categories,
         ]);
     }
     public function store()
@@ -250,6 +264,9 @@ class ProductComponent extends Component
                 'featured' => 'required|in:0,1',
                 'SelectedCategory' => 'required|exists:categories,id',
                 'subcategory_id' => ['nullable', 'exists:subcategories,id'],
+                'brand_id' => ['nullable', 'exists:brands,id'],
+                'selectedTags' => 'nullable|array',
+                'selectedTags.*' => 'nullable|exists:options,id',
                 'images' => 'nullable|array',
                 'images.*' => 'image|mimes:jpeg,png',
                 'variations' => 'nullable|array',
@@ -257,7 +274,7 @@ class ProductComponent extends Component
                 'variations.*.color' => 'nullable|string|max:50',
                 'variations.*.quantity' => 'nullable|integer|min:0',
                 'variations.*.sku' => 'nullable|string|max:100',
-                'variations.*.stock_status' => 'nullable|in:instock,outofstock',
+                'variations.*.barcode' => 'nullable|string|max:100',
             ]);
 
             $this->flag = 1;
@@ -271,6 +288,7 @@ class ProductComponent extends Component
             $product->featured = $this->featured;
             $product->category_id = $this->SelectedCategory;
             $product->subcategory_id = $this->subcategory_id;
+            $product->brand_id = $this->brand_id ?: null;
             $product->created_by = Auth::user()->id;
 
             Storage::disk('local')->makeDirectory('products');
@@ -292,10 +310,14 @@ class ProductComponent extends Component
 
             $product->save();
 
+            if (!empty($this->selectedTags)) {
+                $product->tags()->sync($this->selectedTags);
+            }
+
             if (!empty($this->variations)) {
-                $summary = $this->saveVariations($product->id);
-                $product->quantity = $summary['total'];
-                $product->stock_status = $summary['has_instock'] ? 'instock' : 'outofstock';
+                $total = $this->saveVariations($product->id);
+                $product->quantity = $total;
+                $product->stock_status = $total > 0 ? 'instock' : 'outofstock';
                 $firstSku = collect($this->variations)->firstWhere('sku', '!=', '');
                 if ($firstSku) {
                     $product->SKU = $firstSku['sku'];
@@ -328,13 +350,15 @@ class ProductComponent extends Component
         $this->SelectedCategory = $data->category_id;
         $this->updatedSelectedCategory($data->category_id);
         $this->subcategory_id = $data->subcategory_id;
+        $this->brand_id = $data->brand_id;
+        $this->selectedTags = $data->tags->pluck('id')->toArray();
         $this->variations = $data->variations()->get()->map(function ($v) {
             return [
                 'size' => $v->size,
                 'color' => $v->color,
                 'quantity' => $v->quantity,
                 'sku' => $v->sku,
-                'stock_status' => $v->stock_status,
+                'barcode' => $v->barcode,
             ];
         })->toArray();
         $this->name = $data->name;
@@ -346,6 +370,8 @@ class ProductComponent extends Component
         $this->featured = $data->featured;
         $this->oldImage = $data->image;
         $this->oldImages = explode(",",$data->images);
+
+        $this->dispatchBrowserEvent('tags-loaded', $this->selectedTags);
     }
     public function update()
     {
@@ -366,12 +392,15 @@ class ProductComponent extends Component
                         ->where('name', $this->name);
                 })
             ],
+            'brand_id' => ['nullable', 'exists:brands,id'],
+            'selectedTags' => 'nullable|array',
+            'selectedTags.*' => 'nullable|exists:options,id',
             'variations' => 'nullable|array',
             'variations.*.size' => 'nullable|string|max:50',
             'variations.*.color' => 'nullable|string|max:50',
             'variations.*.quantity' => 'nullable|integer|min:0',
             'variations.*.sku' => 'nullable|string|max:100',
-            'variations.*.stock_status' => 'nullable|in:instock,outofstock',
+            'variations.*.barcode' => 'nullable|string|max:100',
         ]);
         if($this->newImage){
             $this->validate([
@@ -397,13 +426,20 @@ class ProductComponent extends Component
             $product->featured = $this->featured;
             $product->category_id = $this->SelectedCategory;
             $product->subcategory_id = $this->subcategory_id;
+            $product->brand_id = $this->brand_id ?: null;
             $product->updated_by = Auth::user()->id;
             $product->save();
 
+            if (!empty($this->selectedTags)) {
+                $product->tags()->sync($this->selectedTags);
+            } else {
+                $product->tags()->detach();
+            }
+
             if (!empty($this->variations)) {
-                $summary = $this->saveVariations($product->id);
-                $product->quantity = $summary['total'];
-                $product->stock_status = $summary['has_instock'] ? 'instock' : 'outofstock';
+                $total = $this->saveVariations($product->id);
+                $product->quantity = $total;
+                $product->stock_status = $total > 0 ? 'instock' : 'outofstock';
                 $firstSku = collect($this->variations)->firstWhere('sku', '!=', '');
                 if ($firstSku) {
                     $product->SKU = $firstSku['sku'];
@@ -470,6 +506,8 @@ class ProductComponent extends Component
         $this->ids = '';
         $this->SelectedCategory = '';
         $this->subcategory_id = null;
+        $this->brand_id = null;
+        $this->selectedTags = [];
         $this->variations = [];
         $this->name = '';
         $this->slug = '';

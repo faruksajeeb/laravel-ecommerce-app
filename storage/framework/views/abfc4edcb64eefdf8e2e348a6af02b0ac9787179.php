@@ -37,12 +37,22 @@
                         <option value="-1">Inactive Only</option>
                     </select>
                 </div>
-                <div class="col-xl-3 col-md-4">
+                <div class="col-xl-2 col-md-4">
                     <div wire:ignore>
                         <select id="search_category_id" wire:model='search_category_id' class="form-select select2">
                             <option value="">All Categories</option>
                             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6">
+                    <div wire:ignore>
+                        <select id="search_brand_id" wire:model='search_brand_id' class="form-select select2">
+                            <option value="">All Brands</option>
+                            <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($brand->id); ?>"><?php echo e($brand->name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
@@ -85,6 +95,8 @@
                             <th style="width: 80px;">Preview</th>
                             <th>Product Details</th>
                             <th>Categories Hierarchy</th>
+                            <th style="width: 160px;">Brand</th>
+                            <th style="width: 200px;">Tags</th>
                             <th class="text-center" style="width: 110px;">Status</th>
                             <th>Timestamps</th>
                             <th class="text-end pe-4" style="width: 140px;">Actions</th>
@@ -120,6 +132,25 @@
                                     <?php if($val->subcategory): ?>
                                         <i class="fa-solid fa-angle-right mx-1 text-muted text-xs"></i>
                                         <small class="text-secondary"><?php echo e($val->subcategory->subcategory_name); ?></small>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if($val->brand): ?>
+                                        <span class="fw-semibold text-dark d-block"><?php echo e($val->brand->name); ?></span>
+                                        <small class="text-muted text-xs"><?php echo e($val->brand->slug); ?></small>
+                                    <?php else: ?>
+                                        <span class="text-muted small">—</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if($val->tags && $val->tags->isNotEmpty()): ?>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <?php $__currentLoopData = $val->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <span class="badge bg-info bg-opacity-10 text-info border fw-medium px-2 py-0.5 small"><?php echo e($tag->option_value); ?></span>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <span class="text-muted small">—</span>
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
@@ -187,6 +218,11 @@
                 var data = $('#search_category_id').select2("val");
                 Livewire.emit('listenerReferenceHere', data);
                 window.livewire.find('<?php echo e($_instance->id); ?>').set('search_category_id', data);
+            });
+            $('#search_brand_id').select2();
+            $('#search_brand_id').on('change', function(e) {
+                var data = $('#search_brand_id').select2("val");
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('search_brand_id', data);
             });
         });
 

@@ -56,6 +56,13 @@
             z-index: 1060 !important;
         }
 
+        /* Select2 must sit above the Bootstrap modal backdrop */
+        .select2-container--open,
+        .select2-container--open .select2-dropdown {
+            z-index: 1060 !important;
+        }
+
+
         /* Force layout engine to allow vertical page flow when modal is open */
         body.modal-open,
         .modal-open .wrapper,
@@ -76,7 +83,7 @@
 
 <div wire:ignore.self class="modal fade" id="addModal" tabindex="-1" aria-labelledby="productModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
 
             <div class="modal-header px-4 py-3 bg-white border-bottom-0">
@@ -180,11 +187,31 @@ unset($__errorArgs, $__bag); ?>">
                                     </div>
 
                                     <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Brand</label>
+                                        <select wire:model="brand_id" class="form-select">
+                                            <option value="">Choose Brand</option>
+                                            <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($brand->id); ?>"><?php echo e($brand->name); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
                                         <label class="form-label fw-semibold">Featured</label>
                                         <select wire:model="featured" class="form-select">
                                             <option value="0">No, Standard</option>
                                             <option value="1">Yes, Featured</option>
                                         </select>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold">Tags</label>
+                                        <select id="create_product_tags" class="form-select select2" multiple wire:model="selectedTags" style="width:100%" data-placeholder="Select tags">
+                                            <?php $__currentLoopData = $tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($tag->id); ?>"><?php echo e($tag->option_value); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                        <small class="text-muted">Search and select multiple tags.</small>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +261,7 @@ unset($__errorArgs, $__bag); ?>"
                                             <th>Color</th>
                                             <th style="width:110px;">Quantity</th>
                                             <th style="width:130px;">SKU</th>
-                                            <th style="width:140px;">Stock Status</th>
+                                            <th style="width:140px;">Barcode</th>
                                             <th style="width:40px;"></th>
                                         </tr>
                                     </thead>
@@ -274,11 +301,9 @@ unset($__errorArgs, $__bag); ?>"
                                                         wire:model="variations.<?php echo e($index); ?>.sku">
                                                 </td>
                                                 <td>
-                                                    <select class="form-select"
-                                                        wire:model="variations.<?php echo e($index); ?>.stock_status">
-                                                        <option value="instock">In Stock</option>
-                                                        <option value="outofstock">Out of Stock</option>
-                                                    </select>
+                                                    <input type="text" class="form-control"
+                                                        wire:model="variations.<?php echo e($index); ?>.barcode"
+                                                        placeholder="Barcode">
                                                 </td>
                                                 <td class="text-center">
                                                     <button type="button"
@@ -423,8 +448,28 @@ unset($__errorArgs, $__bag); ?>"
         document.addEventListener('shown.bs.modal', function (event) {
             if (event.target.id === 'addModal') {
                 setTimeout(initProductEditor, 200);
+                setTimeout(initProductTagSelect2, 100);
             }
         });
+
+        function initProductTagSelect2() {
+            const $select = $('#create_product_tags');
+            if (!$select.length) return;
+
+            if ($select.data('select2')) {
+                $select.select2('destroy');
+            }
+
+            $select.select2({
+                placeholder: 'Select tags',
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $select.closest('.modal').length ? $select.closest('.modal') : $('body')
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initProductTagSelect2);
+        document.addEventListener('livewire:load', initProductTagSelect2);
 
         document.addEventListener('livewire:initialized', () => {
             Livewire.on('product-saved', (type, message) => {
@@ -446,6 +491,23 @@ unset($__errorArgs, $__bag); ?>"
                     }
                 }
             });
+        });
+
+        /* Keep select2 tag dropdowns in sync with Livewire after updates */
+        window.addEventListener('tags-loaded', function (event) {
+            const vals = event.detail || [];
+            setTimeout(function () {
+                initProductTagSelect2();
+                $('#create_product_tags').val(vals).trigger('change');
+            }, 100);
+        });
+        document.addEventListener('shown.bs.modal', function (event) {
+            if (event.target.id === 'addModal') {
+                setTimeout(function () {
+                    initProductTagSelect2();
+                    $('#create_product_tags').val(null).trigger('change');
+                }, 100);
+            }
         });
     </script>
 <?php $__env->stopPush(); ?>

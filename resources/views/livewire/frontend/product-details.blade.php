@@ -34,7 +34,7 @@
                                         @foreach ($images as $image)
                                             @if ($image)
                                                 <figure class="border-radius-10">
-                                                    <img style="width:80px; height:80px"
+                                                    <img style="width:500px; height:700px"
                                                         src="{{ asset('frontend-assets/imgs/products') }}/{{ $image }}"
                                                         alt="Gallery Image {{ $product->name }}">
                                                 </figure>
@@ -226,7 +226,7 @@
                                         </div>
                                     </form>
                                     <ul class="product-meta font-xs color-grey mt-50">
-                                        <li class="mb-5">SKU: <a href="#">{{ $product->SKU }}</a></li>
+                                        {{-- <li class="mb-5">SKU: <a href="#">{{ $product->SKU }}</a></li> --}}
                                         <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a
                                                 href="#" rel="tag">Women</a>, <a href="#"
                                                 rel="tag">Dress</a> </li>

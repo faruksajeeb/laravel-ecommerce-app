@@ -145,8 +145,35 @@
             // Button: '<button>...</button>'
         });
 
+        function initSelect2Fields() {
+            $('.select2').each(function() {
+                const $select = $(this);
+
+                if ($select.data('select2')) {
+                    $select.select2('destroy');
+                }
+
+                $select.select2({
+                    width: '100%',
+                    dropdownParent: $select.closest('.modal').length ? $select.closest('.modal') : $('body')
+                });
+            });
+        }
+
         $(document).ready(function() {
-            $('.select2').select2();
+            setTimeout(initSelect2Fields, 50);
+        });
+
+        $(document).on('shown.bs.modal', function() {
+            setTimeout(initSelect2Fields, 50);
+        });
+
+        document.addEventListener('livewire:load', function() {
+            setTimeout(initSelect2Fields, 50);
+        });
+
+        document.addEventListener('livewire:update', function() {
+            setTimeout(initSelect2Fields, 50);
         });
 
         function toggleMenu() {
